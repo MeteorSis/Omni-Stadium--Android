@@ -18,6 +18,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SignUpActivity"
+         android:label= "회원가입">
+            </activity>
 
     </application>
 
