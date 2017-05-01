@@ -22,6 +22,13 @@
          android:label= "회원가입">
             </activity>
 
+        <activity android:name=".SidActivity"
+            android:label= "아이디 찾기">
+        </activity>
+
+        <activity android:name=".SpwActivity"
+            android:label= "비밀번호 찾기">
+        </activity>
     </application>
 
 </manifest>

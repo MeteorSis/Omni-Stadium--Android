@@ -18,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView SignUp = (TextView)findViewById(R.id.tvregister);
+        TextView SearchId = (TextView) findViewById(R.id.tvSearchId);
+        TextView SearchPw = (TextView) findViewById(R.id.tvSearchPW);
+        Button Login = (Button)findViewById(R.id.btlogin);
+
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,6 +30,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        SearchId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SidActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        SearchPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SpwActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
