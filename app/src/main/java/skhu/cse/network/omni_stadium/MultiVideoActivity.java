@@ -34,7 +34,7 @@ public class MultiVideoActivity extends AppCompatActivity {
         // Create a progressbar
         pDialog = new ProgressDialog(MultiVideoActivity.this);
         // Set progressbar title
-        pDialog.setTitle("Android Video Streaming Tutorial");
+        pDialog.setTitle("Camera Streaming");
         // Set progressbar message
         pDialog.setMessage("Buffering...");
         pDialog.setIndeterminate(false);
@@ -92,6 +92,7 @@ public class MultiVideoActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
                 intent.putExtra("VideoURL", VideoURL1st);
+                intent.putExtra("camNum", 1);
                 startActivity(intent);
                 return false;
             }
@@ -102,6 +103,7 @@ public class MultiVideoActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
                 intent.putExtra("VideoURL", VideoURL2nd);
+                intent.putExtra("camNum", 2);
                 startActivity(intent);
                 return false;
             }

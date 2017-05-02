@@ -14,6 +14,7 @@ public class FullVideoActivity extends AppCompatActivity {
 
     VideoView videoview;
     String VideoURL;
+    int camNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class FullVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_video);
 
         VideoURL=getIntent().getStringExtra("VideoURL");
+        camNum=getIntent().getIntExtra("camNum", -1);
 
         videoview = (VideoView) findViewById(R.id.FullVideoView);
         // Execute StreamVideo AsyncTask
@@ -28,7 +30,7 @@ public class FullVideoActivity extends AppCompatActivity {
         // Create a progressbar
         pDialog = new ProgressDialog(FullVideoActivity.this);
         // Set progressbar title
-        pDialog.setTitle("Android Video Streaming Tutorial");
+        pDialog.setTitle("Camera "+camNum+" Streaming");
         // Set progressbar message
         pDialog.setMessage("Buffering...");
         pDialog.setIndeterminate(false);
