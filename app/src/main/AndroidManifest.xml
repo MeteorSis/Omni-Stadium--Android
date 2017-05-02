@@ -40,12 +40,41 @@
             android:label="비밀번호 찾기"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".MenuActivity"
             android:label="메인 메뉴"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ReservActivity"
+            android:label="예매 기능"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".NFCActivity"
+            android:label="NFC 기능"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".StreamingActivity"
+            android:label="스트리밍 기능"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
+
+        <activity
+            android:name=".OrderActivity"
+            android:label="식음료 주문 기능"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:screenOrientation="portrait"/>
+
+
+
     </application>
 
 </manifest>
