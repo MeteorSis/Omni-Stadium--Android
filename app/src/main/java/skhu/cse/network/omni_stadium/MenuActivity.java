@@ -44,28 +44,7 @@ public class MenuActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    } */
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -81,10 +60,16 @@ public class MenuActivity extends AppCompatActivity
                 startActivity(myIntent);
                 break;
             case R.id.nav_ticket:
+                Intent tIntent = new Intent(MenuActivity.this, ReservActivity.class);
+                startActivity(tIntent);
                 break;
             case R.id.nav_nfc:
+                Intent nIntent = new Intent(MenuActivity.this, NFCActivity.class);
+                startActivity(nIntent);
                 break;
             case R.id.nav_order:
+                Intent oIntent = new Intent(MenuActivity.this, OrderActivity.class);
+                startActivity(oIntent);
                 break;
 
         }
