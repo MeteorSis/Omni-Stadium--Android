@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context="skhu.cse.network.omni_stadium.NFCActivity">
 
+    <ImageView
+        android:id="@+id/ivNFC"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.084"
+        app:srcCompat="@drawable/nfctag" />
 </android.support.constraint.ConstraintLayout>
