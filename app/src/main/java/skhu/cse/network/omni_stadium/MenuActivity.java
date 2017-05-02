@@ -72,14 +72,18 @@ public class MenuActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_nfc) {
-
-        } else if (id == R.id.nav_streaming) {
-
-        } else if (id == R.id.nav_ticket) {
-
-        } else if (id == R.id.nav_order) {
-
+        switch (id)
+        {
+            case R.id.nav_streaming:
+                Intent myIntent = new Intent(MenuActivity.this, MultiVideoActivity.class);
+                startActivity(myIntent);
+                break;
+            case R.id.nav_ticket:
+                break;
+            case R.id.nav_nfc:
+                break;
+            case R.id.nav_order:
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

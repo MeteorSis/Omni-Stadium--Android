@@ -14,6 +14,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
+
             <!--
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
@@ -27,54 +28,46 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
-            android:label="회원가입"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
+            android:label="회원가입"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SidActivity"
-            android:label="아이디 찾기"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
+            android:label="아이디 찾기"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SpwActivity"
-            android:label="비밀번호 찾기"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
+            android:label="비밀번호 찾기"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MenuActivity"
-            android:label="메인 메뉴"
-            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
+            android:label="메인 메뉴"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ReservActivity"
-            android:label="예매 기능"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
+            android:label="예매 기능"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NFCActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="NFC 기능"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".StreamingActivity"
-            android:label="스트리밍 기능"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".OrderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="식음료 주문 기능"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:screenOrientation="portrait"/>
-
-
-
+            android:screenOrientation="portrait" />
+        <activity android:name=".MultiVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FullVideoActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
     </application>
 
 </manifest>
