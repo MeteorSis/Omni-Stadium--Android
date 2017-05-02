@@ -2,14 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="skhu.cse.network.omni_stadium">
 
-
-
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,18 +14,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".SignUpActivity"
-         android:label= "회원가입">
-            </activity>
-
-        <activity android:name=".SidActivity"
-            android:label= "아이디 찾기">
-        </activity>
-
-        <activity android:name=".SpwActivity"
-            android:label= "비밀번호 찾기">
-        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="회원가입" />
+        <activity
+            android:name=".SidActivity"
+            android:label="아이디 찾기" />
+        <activity
+            android:name=".SpwActivity"
+            android:label="비밀번호 찾기" />
+        <activity
+            android:name=".MenuActivity"
+            android:label="메인 메뉴"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
