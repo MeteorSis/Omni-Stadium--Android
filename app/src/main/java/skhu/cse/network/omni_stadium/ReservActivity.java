@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.zip.Inflater;
+
 import pl.polidea.view.ZoomView;
 
 public class ReservActivity extends Fragment {
@@ -23,17 +25,10 @@ public class ReservActivity extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.reserv_main,container, false);
-    }
 
-/* 레이아웃 확대 축소 이벤트 처리
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         View v = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reserv_main, null, false);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        ZoomView zoomView = new ZoomView(this);
+        ZoomView zoomView = new ZoomView(getContext());
         zoomView.addView(v);
         zoomView.setLayoutParams(layoutParams);
         zoomView.setMiniMapEnabled(true); // 좌측 상단 검은색 미니맵 설정
@@ -41,7 +36,11 @@ public class ReservActivity extends Fragment {
         zoomView.setMiniMapCaption(""); //미니 맵 내용
         zoomView.setMiniMapCaptionSize(20); // 미니 맵 내용 글씨 크기 설정
 
-        ConstraintLayout container = (ConstraintLayout) getView().findViewById(R.id.container);
+
+        ConstraintLayout layout = (ConstraintLayout)getActivity().findViewById(R.id.container);
         container.addView(zoomView);
-    }*/
+
+        return inflater.inflate(R.layout.reserv_main,container, false);
+    }
+
 }
