@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -56,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox)view).isChecked();
+        if(checked){
+            Toast.makeText(getApplicationContext(),"Auto Login", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Auto Login Canceled", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
