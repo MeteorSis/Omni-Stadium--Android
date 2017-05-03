@@ -23,8 +23,20 @@
         app:layout_constraintVertical_bias="0.276"
         app:srcCompat="@drawable/size_nfctag" />
 
-
-
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NFC 태그에 기기를 접근 시켜 주세요."
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        android:layout_marginBottom="168dp" />
 
 
 </android.support.constraint.ConstraintLayout>
