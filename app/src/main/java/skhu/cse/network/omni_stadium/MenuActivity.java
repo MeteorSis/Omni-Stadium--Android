@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static android.R.attr.fragment;
+
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -22,6 +25,8 @@ public class MenuActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,6 +50,39 @@ public class MenuActivity extends AppCompatActivity
         }
     }
 
+    private  void  displaySelectedScreen(int itemid) {
+        Fragment fragment = null;
+
+        switch (itemid)
+        {
+          /*  case R.id.nav_streaming:
+
+                break; */
+
+            case R.id.nav_ticket:
+                fragment = new ReservActivity();
+                break;
+            case R.id.nav_nfc:
+                fragment = new NFCActivity();
+                break;
+
+            case R.id.nav_order:
+                fragment = new OrderActivity();
+                break;
+
+        }
+
+        if(fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_menu, fragment);
+            ft.commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -52,30 +90,19 @@ public class MenuActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-
+/*
         switch (id)
         {
             case R.id.nav_streaming:
                 Intent myIntent = new Intent(MenuActivity.this, MultiVideoActivity.class);
                 startActivity(myIntent);
                 break;
-            case R.id.nav_ticket:
-                Intent tIntent = new Intent(MenuActivity.this, ReservActivity.class);
-                startActivity(tIntent);
-                break;
-            case R.id.nav_nfc:
-                Intent nIntent = new Intent(MenuActivity.this, NFCActivity.class);
-                startActivity(nIntent);
-                break;
-            case R.id.nav_order:
-                Intent oIntent = new Intent(MenuActivity.this, OrderActivity.class);
-                startActivity(oIntent);
-                break;
 
-        }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        } */
+        displaySelectedScreen(item.getItemId());
+
         return true;
+
     }
 }
