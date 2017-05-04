@@ -47,21 +47,7 @@
             android:label="메인 메뉴"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ReservActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="예매 기능"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NFCActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="NFC 기능"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".OrderActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="식음료 주문 기능"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".MultiVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

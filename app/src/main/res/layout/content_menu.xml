@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="skhu.cse.network.omni_stadium.MenuActivity"
+    android:id="@+id/layout"
     tools:showIn="@layout/app_bar_menu">
 
     <FrameLayout
