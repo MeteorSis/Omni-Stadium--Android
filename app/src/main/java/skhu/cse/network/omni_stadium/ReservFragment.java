@@ -43,10 +43,5 @@ public class ReservFragment extends Fragment{
         layout.addView(zoomView); */
 
         return inflater.inflate(R.layout.reserv_main, container, false);
-
     }
-
-
-
-
 }

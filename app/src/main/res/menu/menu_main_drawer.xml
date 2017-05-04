@@ -10,7 +10,7 @@
             android:title="예매 기능" />
         <item
             android:id="@+id/nav_nfc"
-            android:title="NFC기능" />
+            android:title="NFC 기능" />
         <item
             android:id="@+id/nav_order"
             android:title="식음료 주문 기능" />

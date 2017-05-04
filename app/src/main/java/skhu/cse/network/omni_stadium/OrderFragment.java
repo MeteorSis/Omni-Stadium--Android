@@ -19,6 +19,7 @@ public class OrderFragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.order_main,container, false);
+        return inflater.inflate(R.layout.order_main, container, false);
     }
+
 }
