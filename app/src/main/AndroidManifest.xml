@@ -62,12 +62,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="식음료 주문 기능"
             android:screenOrientation="portrait" />
-        <activity android:name=".MultiVideoActivity"
+        <activity
+            android:name=".MultiVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FullVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FullVideoActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>
