@@ -6,21 +6,20 @@
     android:layout_height="match_parent"
     tools:context="skhu.cse.network.omni_stadium.NFCFragment">
 
+
     <ImageView
         android:id="@+id/ivNFC"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:srcCompat="@drawable/size_nfctag"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/nfctag" />
 
     <TextView
         android:id="@+id/tvInfo"
@@ -34,8 +33,9 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        android:layout_marginBottom="168dp" />
+        app:layout_constraintHorizontal_bias="0.412"
+        android:layout_marginBottom="176dp" />
+
 
 
 </android.support.constraint.ConstraintLayout>
