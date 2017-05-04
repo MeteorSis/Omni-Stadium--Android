@@ -54,8 +54,28 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".FullVideoActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+            android:screenOrientation="landscape" />
+
+
+        <activity
+            android:name=".ReservActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="예매 기능"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".NFCActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="NFC 기능"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".OrderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="주문 기능"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

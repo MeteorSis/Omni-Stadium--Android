@@ -4,22 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="skhu.cse.network.omni_stadium.NFCFragment">
+    tools:context="skhu.cse.network.omni_stadium.NFCActivity">
 
-
-    <ImageView
-        android:id="@+id/ivNFC"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/nfctag" />
 
     <TextView
         android:id="@+id/tvInfo"
@@ -33,8 +19,8 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.412"
-        android:layout_marginBottom="176dp" />
+        app:layout_constraintHorizontal_bias="0.502"
+        android:layout_marginBottom="168dp" />
 
 
 
