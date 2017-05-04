@@ -54,7 +54,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".FullVideoActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar.Fullscreen"/>
 
 
         <activity
