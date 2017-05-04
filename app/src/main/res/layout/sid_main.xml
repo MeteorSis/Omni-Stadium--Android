@@ -37,8 +37,8 @@
             <EditText android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="비밀번호"/>
+                android:inputType="phone"
+                android:hint="휴대폰 번호"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Bdate Label -->

@@ -67,8 +67,8 @@
             <EditText android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="휴대폰 번호(- 제외)" />
+                android:inputType="phone"
+                android:hint="휴대폰 번호" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Name Label -->
