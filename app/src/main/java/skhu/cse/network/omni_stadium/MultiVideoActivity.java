@@ -18,11 +18,18 @@ public class MultiVideoActivity extends AppCompatActivity {
     private ImageView imgView_warning1, imgView_warning2;
     private VideoView videoview1st, videoview2nd;
     private ProgressBar spinnerView1, spinnerView2;
+
+    /*******************From DB***************************/
     private boolean isClosed1stServer=false;
     private boolean isClosed2ndServer=false;
 
-    private String VideoURL1st = "rtsp://192.168.63.109:8554/test";
-    private String VideoURL2nd = "rtsp://192.168.63.109:8554/test";
+    private int server1Port=8554;
+    private int server2Port=8554;
+    private String server1Path="test";
+    private String server2Path="test";
+
+    private String VideoURL1st = "rtsp://192.168.63.109:"+server1Port+"/"+server1Path;
+    private String VideoURL2nd = "rtsp://192.168.63.109:"+server2Port+"/"+server2Path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
