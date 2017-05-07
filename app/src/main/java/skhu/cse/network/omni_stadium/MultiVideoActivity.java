@@ -58,26 +58,6 @@ public class MultiVideoActivity extends AppCompatActivity {
             }
         });
 
-        videoview1st.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                intent.putExtra("VideoURL", VideoURL1st);
-                startActivity(intent);
-                return false;
-            }
-        });
-
-        videoview2nd.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                intent.putExtra("VideoURL", VideoURL2nd);
-                startActivity(intent);
-                return false;
-            }
-        });
-
         spinnerView1 = (ProgressBar) findViewById(R.id.spinnerView1);
         spinnerView2 = (ProgressBar) findViewById(R.id.spinnerView2);
 
@@ -94,6 +74,15 @@ public class MultiVideoActivity extends AppCompatActivity {
             {
                 Uri videoUri1st = Uri.parse(VideoURL1st);
                 imgView_warning1.setVisibility(View.GONE);
+                videoview1st.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                        intent.putExtra("VideoURL", VideoURL1st);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
                 videoview1st.setVideoURI(videoUri1st);
             }
             else
@@ -107,6 +96,15 @@ public class MultiVideoActivity extends AppCompatActivity {
             {
                 Uri videoUri2nd = Uri.parse(VideoURL2nd);
                 imgView_warning2.setVisibility(View.GONE);
+                videoview2nd.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                        intent.putExtra("VideoURL", VideoURL2nd);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
                 videoview2nd.setVideoURI(videoUri2nd);
             }
             else

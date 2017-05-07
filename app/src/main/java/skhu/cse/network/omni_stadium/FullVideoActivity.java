@@ -13,7 +13,6 @@ import android.widget.VideoView;
 public class FullVideoActivity extends AppCompatActivity {
 
     ProgressBar spinnerView;
-
     VideoView videoview;
     String VideoURL;
 
