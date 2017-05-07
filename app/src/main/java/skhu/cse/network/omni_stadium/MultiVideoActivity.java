@@ -1,10 +1,8 @@
 package skhu.cse.network.omni_stadium;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +43,6 @@ public class MultiVideoActivity extends AppCompatActivity {
                     Log.v("videoview1st Test", "Media Error, Server Died " + extra);
                 else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
                     Log.v("videoview1st Test", "Media Error, Error Unknown " + extra);
-                isClosed1stServer=true;
                 return false;
             }
         });
@@ -57,7 +54,6 @@ public class MultiVideoActivity extends AppCompatActivity {
                     Log.v("videoview2nd Test", "Media Error, Server Died " + extra);
                 else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
                     Log.v("videoview2nd Test", "Media Error, Error Unknown " + extra);
-                isClosed2ndServer=true;
                 return false;
             }
         });

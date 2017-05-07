@@ -26,6 +26,18 @@ public class FullVideoActivity extends AppCompatActivity {
 
         videoview = (VideoView) findViewById(R.id.FullVideoView);
 
+        videoview.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.v("videoview Test", "onError Called");
+                if(what==MediaPlayer.MEDIA_ERROR_SERVER_DIED)
+                    Log.v("videoview Test", "Media Error, Server Died " + extra);
+                else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
+                    Log.v("videoview Test", "Media Error, Error Unknown " + extra);
+                return false;
+            }
+        });
+
         spinnerView = (ProgressBar) findViewById(R.id.spinnerView);
         spinnerView.setVisibility(View.VISIBLE);
     }
