@@ -22,7 +22,7 @@ public class MultiVideoActivity extends AppCompatActivity {
     private boolean isClosed2ndServer=false;
 
     private String VideoURL1st = "rtsp://192.168.63.109:8554/test";
-    private String VideoURL2nd = "rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_400.mp4";
+    private String VideoURL2nd = "rtsp://192.168.63.109:8554/test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,8 +143,10 @@ public class MultiVideoActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
+        videoview1st.stopPlayback();
+        videoview2nd.stopPlayback();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 }
