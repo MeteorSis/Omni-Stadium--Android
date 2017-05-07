@@ -11,26 +11,28 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 public class MultiVideoActivity extends AppCompatActivity {
 
-    VideoView videoview1st;
-    VideoView videoview2nd;
-    ProgressBar spinnerView1;
-    ProgressBar spinnerView2;
-    boolean isClosed1stServer=true;
-    boolean isClosed2ndServer=false;
+    private ImageView imgView_warning1, imgView_warning2;
+    private VideoView videoview1st, videoview2nd;
+    private ProgressBar spinnerView1, spinnerView2;
+    private boolean isClosed1stServer=false;
+    private boolean isClosed2ndServer=false;
 
-
-    String VideoURL1st = "rtsp://192.168.63.109:8554/test";
-    String VideoURL2nd = "rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_400.mp4";
+    private String VideoURL1st = "rtsp://192.168.63.109:8554/test";
+    private String VideoURL2nd = "rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_400.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_video);
+
+        imgView_warning1=(ImageView)findViewById(R.id.imgView_warning1);
+        imgView_warning2=(ImageView)findViewById(R.id.imgView_warning2);
 
         videoview1st = (VideoView) findViewById(R.id.VideoView1st);
         videoview2nd = (VideoView) findViewById(R.id.VideoView2nd);
@@ -60,6 +62,26 @@ public class MultiVideoActivity extends AppCompatActivity {
             }
         });
 
+        videoview1st.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                intent.putExtra("VideoURL", VideoURL1st);
+                startActivity(intent);
+                return false;
+            }
+        });
+
+        videoview2nd.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                intent.putExtra("VideoURL", VideoURL2nd);
+                startActivity(intent);
+                return false;
+            }
+        });
+
         spinnerView1 = (ProgressBar) findViewById(R.id.spinnerView1);
         spinnerView2 = (ProgressBar) findViewById(R.id.spinnerView2);
 
@@ -75,23 +97,27 @@ public class MultiVideoActivity extends AppCompatActivity {
             if(!isClosed1stServer)
             {
                 Uri videoUri1st = Uri.parse(VideoURL1st);
+                imgView_warning1.setVisibility(View.GONE);
                 videoview1st.setVideoURI(videoUri1st);
             }
             else
             {
                 spinnerView1.setVisibility(View.GONE);
-                videoview1st.setBackgroundResource(R.drawable.warning);
+                imgView_warning1.setVisibility(View.VISIBLE);
+                videoview1st.setOnTouchListener(null);
             }
 
             if(!isClosed2ndServer)
             {
                 Uri videoUri2nd = Uri.parse(VideoURL2nd);
+                imgView_warning2.setVisibility(View.GONE);
                 videoview2nd.setVideoURI(videoUri2nd);
             }
             else
             {
-                spinnerView1.setVisibility(View.GONE);
-                videoview2nd.setBackgroundResource(R.drawable.warning);
+                spinnerView2.setVisibility(View.GONE);
+                imgView_warning2.setVisibility(View.VISIBLE);
+                videoview2nd.setOnTouchListener(null);
             }
 
         }
@@ -118,31 +144,6 @@ public class MultiVideoActivity extends AppCompatActivity {
                 videoview2nd.setAlpha(1.0f);
                 videoview2nd.start();
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            }
-        });
-        videoview1st.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(!isClosed1stServer)
-                {
-                    Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                    intent.putExtra("VideoURL", VideoURL1st);
-                    startActivity(intent);
-                }
-                return false;
-            }
-        });
-
-        videoview2nd.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(!isClosed2ndServer)
-                {
-                    Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                    intent.putExtra("VideoURL", VideoURL2nd);
-                    startActivity(intent);
-                }
-                return false;
             }
         });
     }
