@@ -1,8 +1,10 @@
 package skhu.cse.network.omni_stadium;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,9 @@ public class MultiVideoActivity extends AppCompatActivity {
     VideoView videoview2nd;
     ProgressBar spinnerView1;
     ProgressBar spinnerView2;
+    boolean isClosed1stServer=true;
+    boolean isClosed2ndServer=false;
+
 
     String VideoURL1st = "rtsp://192.168.63.109:8554/test";
     String VideoURL2nd = "rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_400.mp4";
@@ -29,6 +34,31 @@ public class MultiVideoActivity extends AppCompatActivity {
 
         videoview1st = (VideoView) findViewById(R.id.VideoView1st);
         videoview2nd = (VideoView) findViewById(R.id.VideoView2nd);
+
+        videoview1st.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.v("videoview1st Test", "onError Called");
+                if(what==MediaPlayer.MEDIA_ERROR_SERVER_DIED)
+                    Log.v("videoview1st Test", "Media Error, Server Died " + extra);
+                else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
+                    Log.v("videoview1st Test", "Media Error, Error Unknown " + extra);
+                isClosed1stServer=true;
+                return false;
+            }
+        });
+        videoview2nd.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.v("videoview2nd Test", "onError Called");
+                if(what==MediaPlayer.MEDIA_ERROR_SERVER_DIED)
+                    Log.v("videoview2nd Test", "Media Error, Server Died " + extra);
+                else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
+                    Log.v("videoview2nd Test", "Media Error, Error Unknown " + extra);
+                isClosed2ndServer=true;
+                return false;
+            }
+        });
 
         spinnerView1 = (ProgressBar) findViewById(R.id.spinnerView1);
         spinnerView2 = (ProgressBar) findViewById(R.id.spinnerView2);
@@ -42,11 +72,28 @@ public class MultiVideoActivity extends AppCompatActivity {
         super.onStart();
         try
         {
-            // Get the URL from String VideoURL
-            Uri videoUri1st = Uri.parse(VideoURL1st);
-            Uri videoUri2nd = Uri.parse(VideoURL2nd);
-            videoview1st.setVideoURI(videoUri1st);
-            videoview2nd.setVideoURI(videoUri2nd);
+            if(!isClosed1stServer)
+            {
+                Uri videoUri1st = Uri.parse(VideoURL1st);
+                videoview1st.setVideoURI(videoUri1st);
+            }
+            else
+            {
+                spinnerView1.setVisibility(View.GONE);
+                videoview1st.setBackgroundResource(R.drawable.warning);
+            }
+
+            if(!isClosed2ndServer)
+            {
+                Uri videoUri2nd = Uri.parse(VideoURL2nd);
+                videoview2nd.setVideoURI(videoUri2nd);
+            }
+            else
+            {
+                spinnerView1.setVisibility(View.GONE);
+                videoview2nd.setBackgroundResource(R.drawable.warning);
+            }
+
         }
         catch (Exception e)
         {
@@ -76,9 +123,12 @@ public class MultiVideoActivity extends AppCompatActivity {
         videoview1st.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                intent.putExtra("VideoURL", VideoURL1st);
-                startActivity(intent);
+                if(!isClosed1stServer)
+                {
+                    Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                    intent.putExtra("VideoURL", VideoURL1st);
+                    startActivity(intent);
+                }
                 return false;
             }
         });
@@ -86,9 +136,12 @@ public class MultiVideoActivity extends AppCompatActivity {
         videoview2nd.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                intent.putExtra("VideoURL", VideoURL2nd);
-                startActivity(intent);
+                if(!isClosed2ndServer)
+                {
+                    Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                    intent.putExtra("VideoURL", VideoURL2nd);
+                    startActivity(intent);
+                }
                 return false;
             }
         });
