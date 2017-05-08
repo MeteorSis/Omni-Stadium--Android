@@ -12,8 +12,6 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class DetailReservActivity extends AppCompatActivity {
     Button SeatOk;
-    ImageView detail_seat;
-    PhotoViewAttacher mAttacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +19,7 @@ public class DetailReservActivity extends AppCompatActivity {
         setContentView(R.layout.reserv_detail);
         SeatOk = (Button)findViewById(R.id.btSeatOk);
 
-        //이미지 확대 축소
-        detail_seat = (ImageView) findViewById(R.id.ivDetailSeat);
-        mAttacher = new PhotoViewAttacher(detail_seat);
+
 
         SeatOk.setOnClickListener(new View.OnClickListener() {
             @Override
