@@ -9,28 +9,61 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 public class MultiVideoActivity extends AppCompatActivity {
 
-    VideoView videoview1st;
-    VideoView videoview2nd;
-    Boolean video1stLoaded = false;
-    Boolean video2ndLoaded = false;
-    ProgressBar spinnerView1;
-    ProgressBar spinnerView2;
+    private ImageView imgView_warning1, imgView_warning2;
+    private VideoView videoview1st, videoview2nd;
+    private ProgressBar spinnerView1, spinnerView2;
 
-    String VideoURL1st = "rtsp://192.168.63.109:8554/test";
-    String VideoURL2nd = "rtsp://192.168.63.109:8554/test";
+    /*******************From DB***************************/
+    private boolean isClosed1stServer=false;
+    private boolean isClosed2ndServer=false;
+
+    private int server1Port=8554;
+    private int server2Port=8554;
+    private String server1Path="test";
+    private String server2Path="test";
+
+    private String VideoURL1st = "rtsp://192.168.63.109:"+server1Port+"/"+server1Path;
+    private String VideoURL2nd = "rtsp://192.168.63.109:"+server2Port+"/"+server2Path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_video);
 
+        imgView_warning1=(ImageView)findViewById(R.id.imgView_warning1);
+        imgView_warning2=(ImageView)findViewById(R.id.imgView_warning2);
+
         videoview1st = (VideoView) findViewById(R.id.VideoView1st);
         videoview2nd = (VideoView) findViewById(R.id.VideoView2nd);
+
+        videoview1st.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.v("videoview1st Test", "onError Called");
+                if(what==MediaPlayer.MEDIA_ERROR_SERVER_DIED)
+                    Log.v("videoview1st Test", "Media Error, Server Died " + extra);
+                else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
+                    Log.v("videoview1st Test", "Media Error, Error Unknown " + extra);
+                return false;
+            }
+        });
+        videoview2nd.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.v("videoview2nd Test", "onError Called");
+                if(what==MediaPlayer.MEDIA_ERROR_SERVER_DIED)
+                    Log.v("videoview2nd Test", "Media Error, Server Died " + extra);
+                else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
+                    Log.v("videoview2nd Test", "Media Error, Error Unknown " + extra);
+                return false;
+            }
+        });
 
         spinnerView1 = (ProgressBar) findViewById(R.id.spinnerView1);
         spinnerView2 = (ProgressBar) findViewById(R.id.spinnerView2);
@@ -44,11 +77,50 @@ public class MultiVideoActivity extends AppCompatActivity {
         super.onStart();
         try
         {
-            // Get the URL from String VideoURL
-            Uri videoUri1st = Uri.parse(VideoURL1st);
-            Uri videoUri2nd = Uri.parse(VideoURL2nd);
-            videoview1st.setVideoURI(videoUri1st);
-            videoview2nd.setVideoURI(videoUri2nd);
+            if(!isClosed1stServer)
+            {
+                Uri videoUri1st = Uri.parse(VideoURL1st);
+                imgView_warning1.setVisibility(View.GONE);
+                videoview1st.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                        intent.putExtra("VideoURL", VideoURL1st);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
+                videoview1st.setVideoURI(videoUri1st);
+            }
+            else
+            {
+                spinnerView1.setVisibility(View.GONE);
+                imgView_warning1.setVisibility(View.VISIBLE);
+                videoview1st.setOnTouchListener(null);
+            }
+
+            if(!isClosed2ndServer)
+            {
+                Uri videoUri2nd = Uri.parse(VideoURL2nd);
+                imgView_warning2.setVisibility(View.GONE);
+                videoview2nd.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                        intent.putExtra("VideoURL", VideoURL2nd);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
+                videoview2nd.setVideoURI(videoUri2nd);
+            }
+            else
+            {
+                spinnerView2.setVisibility(View.GONE);
+                imgView_warning2.setVisibility(View.VISIBLE);
+                videoview2nd.setOnTouchListener(null);
+            }
+
         }
         catch (Exception e)
         {
@@ -58,61 +130,30 @@ public class MultiVideoActivity extends AppCompatActivity {
         videoview1st.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             // Close the progress bar and play the video
             public void onPrepared(MediaPlayer mp) {
-                video1stLoaded=true;
                 Log.v("Loaded", " video1");
-                if(video2ndLoaded)
-                {
-                    spinnerView1.setVisibility(View.GONE);
-                    spinnerView2.setVisibility(View.GONE);
-                    videoview1st.setAlpha(1.0f);
-                    videoview2nd.setAlpha(1.0f);
-                    videoview1st.start();
-                    videoview2nd.start();
-                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                }
+                spinnerView1.setVisibility(View.GONE);
+                videoview1st.setAlpha(1.0f);
+                videoview1st.start();
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
         });
         videoview2nd.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             // Close the progress bar and play the video
             public void onPrepared(MediaPlayer mp) {
-                video2ndLoaded=true;
                 Log.v("Loaded", " video2");
-                if(video1stLoaded)
-                {
-                    spinnerView1.setVisibility(View.GONE);
-                    spinnerView2.setVisibility(View.GONE);
-                    videoview1st.setAlpha(1.0f);
-                    videoview2nd.setAlpha(1.0f);
-                    videoview1st.start();
-                    videoview2nd.start();
-                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                }
-            }
-        });
-        videoview1st.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                intent.putExtra("VideoURL", VideoURL1st);
-                startActivity(intent);
-                return false;
-            }
-        });
-
-        videoview2nd.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                intent.putExtra("VideoURL", VideoURL2nd);
-                startActivity(intent);
-                return false;
+                spinnerView2.setVisibility(View.GONE);
+                videoview2nd.setAlpha(1.0f);
+                videoview2nd.start();
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
         });
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
+        videoview1st.stopPlayback();
+        videoview2nd.stopPlayback();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 }
