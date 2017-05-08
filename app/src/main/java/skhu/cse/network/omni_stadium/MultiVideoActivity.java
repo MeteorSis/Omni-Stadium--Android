@@ -3,6 +3,7 @@ package skhu.cse.network.omni_stadium;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +14,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
+import org.json.JSONObject;
+
 public class MultiVideoActivity extends AppCompatActivity {
 
     private ImageView imgView_warning1, imgView_warning2;
     private VideoView videoview1st, videoview2nd;
     private ProgressBar spinnerView1, spinnerView2;
 
-    /*******************From DB***************************/
+    /*************************************From DB****************************************/
     private boolean isClosed1stServer=false;
     private boolean isClosed2ndServer=false;
 
@@ -30,6 +33,7 @@ public class MultiVideoActivity extends AppCompatActivity {
 
     private String VideoURL1st = "rtsp://192.168.63.109:"+server1Port+"/"+server1Path;
     private String VideoURL2nd = "rtsp://192.168.63.109:"+server2Port+"/"+server2Path;
+    /***********************************************************************************/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,8 @@ public class MultiVideoActivity extends AppCompatActivity {
 
         spinnerView1.setVisibility(View.VISIBLE);
         spinnerView2.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override
@@ -155,5 +161,18 @@ public class MultiVideoActivity extends AppCompatActivity {
         videoview1st.stopPlayback();
         videoview2nd.stopPlayback();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    private class GetStreamingStatusTask extends AsyncTask<String, Void, JSONObject>
+    {
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+        }
     }
 }
