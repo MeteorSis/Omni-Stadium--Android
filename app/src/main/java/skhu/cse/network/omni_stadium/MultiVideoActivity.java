@@ -26,13 +26,15 @@ public class MultiVideoActivity extends AppCompatActivity {
     private boolean isClosed1stServer=false;
     private boolean isClosed2ndServer=false;
 
+    private String server1IP="192.168.63.109";
+    private String server2IP="192.168.63.109";
     private int server1Port=8554;
     private int server2Port=8554;
     private String server1Path="test";
     private String server2Path="test";
 
-    private String VideoURL1st = "rtsp://192.168.63.109:"+server1Port+"/"+server1Path;
-    private String VideoURL2nd = "rtsp://192.168.63.109:"+server2Port+"/"+server2Path;
+    private String VideoURL1st = "rtsp://"+server1IP+":"+server1Port+"/"+server1Path;
+    private String VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;
     /***********************************************************************************/
 
     @Override
@@ -75,7 +77,9 @@ public class MultiVideoActivity extends AppCompatActivity {
         spinnerView1.setVisibility(View.VISIBLE);
         spinnerView2.setVisibility(View.VISIBLE);
 
+        /**********웹에 요청**********/
 
+        /****************************/
     }
 
     @Override
