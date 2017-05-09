@@ -98,9 +98,12 @@ public class MultiVideoActivity extends AppCompatActivity {
                 videoview1st.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                        intent.putExtra("VideoURL", VideoURL1st);
-                        startActivity(intent);
+                        if(event.getAction()==MotionEvent.ACTION_UP)
+                        {
+                            Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                            intent.putExtra("VideoURL", VideoURL1st);
+                            startActivity(intent);
+                        }
                         return false;
                     }
                 });
@@ -120,9 +123,12 @@ public class MultiVideoActivity extends AppCompatActivity {
                 videoview2nd.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                        intent.putExtra("VideoURL", VideoURL2nd);
-                        startActivity(intent);
+                        if(event.getAction()==MotionEvent.ACTION_UP)
+                        {
+                            Intent intent = new Intent(getApplicationContext(), FullVideoActivity.class);
+                            intent.putExtra("VideoURL", VideoURL2nd);
+                            startActivity(intent);
+                        }
                         return false;
                     }
                 });
