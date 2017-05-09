@@ -2,8 +2,6 @@ package skhu.cse.network.omni_stadium;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +9,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,7 +30,12 @@ public class MenuActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+
         navView.setNavigationItemSelectedListener(this);
+
+        ImageView imgView_Nav_header_menu=(ImageView)getLayoutInflater().inflate(R.layout.nav_header_menu, navView).findViewById(R.id.imgView_Nav_header_menu);
+        Glide.with(this).load(R.drawable.seatimageview).into((ImageView)findViewById(R.id.ivContentSeat));
+        Glide.with(this).load(R.drawable.omni_stadium_logo).into(imgView_Nav_header_menu);
     }
 
     @Override

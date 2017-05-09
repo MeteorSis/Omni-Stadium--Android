@@ -7,8 +7,7 @@
     <ImageView
         android:id="@+id/ivseat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        app:srcCompat="@drawable/seatimageview" />
+        android:layout_height="match_parent"
+        android:alpha="1" />
 
 </RelativeLayout>

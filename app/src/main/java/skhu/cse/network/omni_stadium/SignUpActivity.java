@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +29,8 @@ public class SignUpActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+
+        Glide.with(this).load(R.drawable.omni_stadium_logo).into((ImageView)findViewById(R.id.imgView_SignUp_Logo));
 
         TextView tvLogin = (TextView)findViewById(R.id.link_login);
         Button btAccount = (Button)findViewById(R.id.btn_signup);

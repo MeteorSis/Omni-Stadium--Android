@@ -3,13 +3,14 @@ package skhu.cse.network.omni_stadium;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Glide.with(this).load(R.drawable.omni_stadium_logo).into((ImageView)findViewById(R.id.imgView_Main_Logo));
 
         TextView SignUp = (TextView)findViewById(R.id.tvregister);
         TextView SearchId = (TextView) findViewById(R.id.tvSearchId);

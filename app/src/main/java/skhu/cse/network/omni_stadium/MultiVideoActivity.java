@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,8 +29,8 @@ public class MultiVideoActivity extends AppCompatActivity {
     private ProgressBar spinnerView1, spinnerView2;
 
     /*************************************From DB****************************************/
-    private boolean isClosed1stServer=false;
-    private boolean isClosed2ndServer=false;
+    private boolean isClosed1stServer=true;
+    private boolean isClosed2ndServer=true;
 
     private String server1IP="192.168.63.109";
     private String server2IP="192.168.63.109";
@@ -47,7 +49,9 @@ public class MultiVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_multi_video);
 
         imgView_warning1=(ImageView)findViewById(R.id.imgView_warning1);
+        Glide.with(this).load(R.drawable.warning).into(imgView_warning1);
         imgView_warning2=(ImageView)findViewById(R.id.imgView_warning2);
+        Glide.with(this).load(R.drawable.warning).into(imgView_warning2);
 
         videoview1st = (VideoView) findViewById(R.id.VideoView1st);
         videoview2nd = (VideoView) findViewById(R.id.VideoView2nd);

@@ -13,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.bumptech.glide.Glide;
 
 import pl.polidea.view.ZoomView;
 
@@ -36,6 +39,8 @@ public class ReservActivity extends AppCompatActivity {
 
         ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         container.addView(zoomView);
+
+        Glide.with(this).load(R.drawable.seatimageview).into((ImageView)findViewById(R.id.ivseat));
 
         zoomView.setOnTouchListener(new View.OnTouchListener() {
             @Override
