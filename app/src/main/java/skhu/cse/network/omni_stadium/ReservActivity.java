@@ -5,25 +5,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.provider.ContactsContract;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import pl.polidea.view.ZoomView;
-
-import static skhu.cse.network.omni_stadium.R.drawable.green;
 
 public class ReservActivity extends AppCompatActivity {
 
@@ -54,25 +45,46 @@ public class ReservActivity extends AppCompatActivity {
                     Canvas canvas = new Canvas(bitmap_ZoomView);
                     v.draw(canvas);
                 }
+                int pixel=bitmap_ZoomView.getPixel((int)event.getX(), (int)event.getY());
+                int redPixel=Color.red(pixel);
+                int greenPixel=Color.green(pixel);
+                int bluePixel=Color.blue(pixel);
+
+
+                if(redPixel==0 && greenPixel==94 && bluePixel==221)
+                {
+                    //가운데 연파랑 영역
+                }
+                else if(redPixel==221 && greenPixel==0 && bluePixel==42)
+                {
+                    //아래 왼쪽 빨강 영역
+                }
+                else if(redPixel==221 && greenPixel==1 && bluePixel==42)
+                {
+                    //아래 오른쪽 빨강 영역
+                }
+                else if(redPixel==36 && greenPixel==41 && bluePixel==172)
+                {
+                    //가운데 진파랑 영역
+                }
+                else if(redPixel==36 && greenPixel==40 && bluePixel==83)
+                {
+                    //아래 왼쪽 남색 영역
+                }
+                else if(redPixel==36 && greenPixel==41 && bluePixel==83)
+                {
+                    //아래 오른쪽 남색 영역
+                }
+                else if(redPixel==52 && greenPixel==150 && bluePixel==0)
+                {
+                    //왼쪽 위 그린 영역
+                }
+                else if(redPixel==52 && greenPixel==150 && bluePixel==1)
+                {
+                    //오른쪽 위 그린 영역
+                }
                 return false;
             }
         });
-
-        /*ImageView ivseat=(ImageView)findViewById(R.id.ivseat);
-        final Bitmap bitmap=((BitmapDrawable)ivseat.getDrawable()).getBitmap();
-        ivseat.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.v("pixel test1", event.getX()+", "+event.getY());
-                Log.v("pixel test2", event.getRawX()+", "+event.getRawY());
-                Log.v("screen test", size.x+", "+size.y);
-                //((BitmapDrawable)((ImageView)v).getDrawable()).getBitmap().getPix);
-                //Log.v("test", bitmap.getWidth()+", "+bitmap.getHeight());
-                //Log.v("test", event.get+", "+bitmap.getHeight());
-                int pixel=bitmap.getPixel((int)event.getRawY(), (int)event.getRawY());
-                //Log.v("pixel test", Color.red(pixel)+", "+Color.green(pixel)+", "+Color.blue(pixel));
-                return false;
-            }
-        });*/
     }
 }
