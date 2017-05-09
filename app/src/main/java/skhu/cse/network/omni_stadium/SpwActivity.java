@@ -1,6 +1,7 @@
 package skhu.cse.network.omni_stadium;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -85,6 +92,7 @@ public class SpwActivity extends AppCompatActivity{
                 if(Empty.matches("")){
                     //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
                     //new SignUpActivity.SignUp().execute(SignupData[0], SignupData[1], SignupData[2], SignupData[3], SignupData[4], SignupData[5]);
+                    new SpwActivity.FindPW().execute(SpwData[0], SpwData[1], SpwData[2], SpwData[3]);
                 }
                 else{
                     new AlertDialog.Builder(SpwActivity.this)
@@ -94,6 +102,47 @@ public class SpwActivity extends AppCompatActivity{
                 }
             }
         });
+    }
+    private class FindPW extends AsyncTask<String, Void, JSONObject> {
 
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.109:8080/json/print.jsp");
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                //urlConnection.setRequestProperty("Cache-Control","no-cache");
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                /*urlConnection.addRequestProperty("Accept", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json");*/
+
+                JSONObject putJSON = new JSONObject();
+                putJSON.put("ID", params[0]);
+                putJSON.put("Name", params[1]);
+                putJSON.put("Phone", params[2]);
+                putJSON.put("Bdate", params[3]);
+
+                Log.d("testJSON1", putJSON.toString().getBytes().toString());
+                Log.d("testJSON2", putJSON.toString());
+
+                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+                out.write(putJSON.toString().getBytes());
+                out.flush();
+
+            } catch (Exception e) {
+
+            } finally {
+                urlConnection.disconnect();
+            }
+            return null;
+        }
     }
 }
