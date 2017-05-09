@@ -12,34 +12,36 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class DetailReservActivity extends AppCompatActivity {
-    Button SeatOk;
-    ToggleButton G1;
-    ToggleButton G2;
-    ToggleButton G3;
-    ToggleButton G4;
-    ToggleButton G5;
-    ToggleButton G6;
-    ToggleButton G7;
-
-
-
-
+    private boolean isCheckedInArr=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reserv_detail);
-        SeatOk = (Button)findViewById(R.id.btSeatOk);
-        G1 = (ToggleButton)findViewById(R.id.tbG1);
-        G2 = (ToggleButton)findViewById(R.id.tbG2);
-        G3 = (ToggleButton)findViewById(R.id.tbG3);
-        G4 = (ToggleButton)findViewById(R.id.tbG4);
-        G5 = (ToggleButton)findViewById(R.id.tbG5);
-        G6 = (ToggleButton)findViewById(R.id.tbG6);
-        G7 = (ToggleButton)findViewById(R.id.tbG7);
+        Button SeatOk = (Button)findViewById(R.id.btSeatOk);
+
+        ToggleButton[][] btArray =new ToggleButton[5][10];
+        int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
+                R.id.tbG11, R.id.tbG12, R.id.tbG13, R.id.tbG14, R.id.tbG15, R.id.tbG16,  R.id.tbG17, R.id.tbG18, R.id.tbG19, R.id.tbG20,
+                R.id.tbG21, R.id.tbG22, R.id.tbG23, R.id.tbG24, R.id.tbG25, R.id.tbG26,  R.id.tbG27, R.id.tbG28, R.id.tbG29, R.id.tbG30,
+                R.id.tbG31, R.id.tbG32, R.id.tbG33, R.id.tbG34, R.id.tbG35, R.id.tbG36,  R.id.tbG37, R.id.tbG38, R.id.tbG39, R.id.tbG40,
+                R.id.tbG41, R.id.tbG42, R.id.tbG43, R.id.tbG44, R.id.tbG45, R.id.tbG46,  R.id.tbG47, R.id.tbG48, R.id.tbG49, R.id.tbG50 };
+        int tbGIDArrCnt=0;
+        for(int row= 0; row <btArray.length; row++)
+        {
+            for(int column= 0; column<btArray[row].length; column++)
+            {
+                btArray[row][column] = (ToggleButton)findViewById(tbGIDArr[tbGIDArrCnt++]);
+                btArray[row][column].setOnCheckedChangeListener(new ToggleButtonCheckedListner());
+            }
+        }
+
+
+
+
+
 
 
         SeatOk.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +67,52 @@ public class DetailReservActivity extends AppCompatActivity {
                 });
                 dlg.show();
                 dlg.setCancelable(false); // 백버튼 비활성화
-
             }
         });
+
+
+
+
+
     }
+    /*public void onCheckboxClicked(View v)
+    {
+        ToggleButton tB=(ToggleButton)v;
+       *//* if(tB.isChecked())
+        {
+            tB.setChecked(false);
+            isChecked=false;
+        }
+        else {
+            if(!isChecked)
+            {
+                tB.setChecked(true);
+                isChecked=true;
+            }
+        }*//*
+    }*/
+
+     private class ToggleButtonCheckedListner implements CompoundButton.OnCheckedChangeListener
+     {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked)
+            {
+                buttonView.setChecked(false);
+                buttonView.setBackgroundColor(Color.GREEN);
+                isCheckedInArr=false;
+            }
+            else {
+                if(!isCheckedInArr)
+                {
+                    buttonView.setChecked(true);
+                    buttonView.setBackgroundColor(Color.DKGRAY);
+                    isCheckedInArr=true;
+                }
+            }
+        }
+    }
+
+
+
 }

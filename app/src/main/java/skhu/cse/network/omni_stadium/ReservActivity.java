@@ -85,6 +85,8 @@ public class ReservActivity extends AppCompatActivity {
                 else if(redPixel==52 && greenPixel==150 && bluePixel==0)
                 {
                     //왼쪽 위 그린 영역
+                    Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                    startActivity(intent);
                     Log.v("Event Test", "왼쪽 위 그린 영역");
                 }
                 else if(redPixel==52 && greenPixel==150 && bluePixel==1)
