@@ -67,7 +67,8 @@
             android:label="주문 기능"
             android:screenOrientation="portrait" />
         <activity android:name=".ReservActivity" />
-        <activity android:name=".DetailReservActivity"></activity>
+        <activity android:name=".DetailReservActivity" />
+        <activity android:name=".ChickenActivity"></activity>
     </application>
 
 </manifest>

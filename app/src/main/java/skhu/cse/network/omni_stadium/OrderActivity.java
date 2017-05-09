@@ -23,7 +23,7 @@ public class OrderActivity extends AppCompatActivity{
         Chicken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Cintent = new Intent(getApplicationContext(),MenuActivity.class);
+                Intent Cintent = new Intent(getApplicationContext(),ChickenActivity.class);
                 startActivity(Cintent);
             }
         });
