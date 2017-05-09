@@ -43,7 +43,8 @@ public class ReservActivity extends AppCompatActivity {
             {
                 if(event.getAction()==MotionEvent.ACTION_UP)
                 {
-                    if (bitmap_ZoomView == null) {
+                    if (bitmap_ZoomView == null)
+                    {
                         bitmap_ZoomView = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
                         Canvas canvas = new Canvas(bitmap_ZoomView);
                         v.draw(canvas);
@@ -52,54 +53,49 @@ public class ReservActivity extends AppCompatActivity {
                     int redPixel = Color.red(pixel);
                     int greenPixel = Color.green(pixel);
                     int bluePixel = Color.blue(pixel);
-
-
-
-                if(redPixel==0 && greenPixel==94 && bluePixel==221)
-                {
-                    //가운데 연파랑 영역
-                    Log.v("Event Test", "가운데 연파랑 영역");
+                    if(redPixel==0 && greenPixel==94 && bluePixel==221)
+                    {
+                        //가운데 연파랑 영역
+                        Log.v("Event Test", "가운데 연파랑 영역");
+                    }
+                    else if(redPixel==221 && greenPixel==0 && bluePixel==42)
+                    {
+                        //아래 왼쪽 빨강 영역
+                        Log.v("Event Test", "아래 왼쪽 빨강 영역");
+                    }
+                    else if(redPixel==221 && greenPixel==1 && bluePixel==42)
+                    {
+                        //아래 오른쪽 빨강 영역
+                        Log.v("Event Test", "아래 오른쪽 빨강 영역");
+                    }
+                    else if(redPixel==36 && greenPixel==41 && bluePixel==172)
+                    {
+                        //가운데 진파랑 영역
+                        Log.v("Event Test", "가운데 진파랑 영역");
+                    }
+                    else if(redPixel==36 && greenPixel==40 && bluePixel==83)
+                    {
+                        //아래 왼쪽 남색 영역
+                        Log.v("Event Test", "아래 왼쪽 남색 영역");
+                    }
+                    else if(redPixel==36 && greenPixel==41 && bluePixel==83)
+                    {
+                        //아래 오른쪽 남색 영역
+                        Log.v("Event Test", "아래 오른쪽 남색 영역");
+                    }
+                    else if(redPixel==52 && greenPixel==150 && bluePixel==0)
+                    {
+                        //왼쪽 위 그린 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        startActivity(intent);
+                        Log.v("Event Test", "왼쪽 위 그린 영역");
+                    }
+                    else if(redPixel==52 && greenPixel==150 && bluePixel==1)
+                    {
+                        //오른쪽 위 그린 영역
+                        Log.v("Event Test", "오른쪽 위 그린 영역");
+                    }
                 }
-                else if(redPixel==221 && greenPixel==0 && bluePixel==42)
-                {
-                    //아래 왼쪽 빨강 영역
-                    Log.v("Event Test", "아래 왼쪽 빨강 영역");
-                }
-                else if(redPixel==221 && greenPixel==1 && bluePixel==42)
-                {
-                    //아래 오른쪽 빨강 영역
-                    Log.v("Event Test", "아래 오른쪽 빨강 영역");
-                }
-                else if(redPixel==36 && greenPixel==41 && bluePixel==172)
-                {
-                    //가운데 진파랑 영역
-                    Log.v("Event Test", "가운데 진파랑 영역");
-                }
-                else if(redPixel==36 && greenPixel==40 && bluePixel==83)
-                {
-                    //아래 왼쪽 남색 영역
-                    Log.v("Event Test", "아래 왼쪽 남색 영역");
-                }
-                else if(redPixel==36 && greenPixel==41 && bluePixel==83)
-                {
-                    //아래 오른쪽 남색 영역
-                    Log.v("Event Test", "아래 오른쪽 남색 영역");
-                }
-                else if(redPixel==52 && greenPixel==150 && bluePixel==0)
-                {
-                    //왼쪽 위 그린 영역
-                    Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
-                    startActivity(intent);
-                    Log.v("Event Test", "왼쪽 위 그린 영역");
-                }
-                else if(redPixel==52 && greenPixel==150 && bluePixel==1)
-                {
-                    //오른쪽 위 그린 영역
-                    Log.v("Event Test", "오른쪽 위 그린 영역");
-
-                }
-
-            };
                 return false;
             }
         });
