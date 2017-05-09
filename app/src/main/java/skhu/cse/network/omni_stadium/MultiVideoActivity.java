@@ -14,7 +14,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MultiVideoActivity extends AppCompatActivity {
 
@@ -78,7 +82,7 @@ public class MultiVideoActivity extends AppCompatActivity {
         spinnerView2.setVisibility(View.VISIBLE);
 
         /**********웹에 요청**********/
-
+        //new GetStreamingStatusTask().execute("StreamingStatus");
         /****************************/
     }
 
@@ -167,16 +171,47 @@ public class MultiVideoActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    private class GetStreamingStatusTask extends AsyncTask<String, Void, JSONObject>
+    /*private class GetStreamingStatusTask extends AsyncTask<String, Void, JSONObject>
     {
         @Override
         protected JSONObject doInBackground(String... params) {
-            return null;
+            JSONObject jsonObject;
+
+            URL url=new URL("http://192.168.63.25:23280/app/parkinginfo.jsp")
+            HttpURLConnection httpCon=(HttpURLConnection)url.openConnection();
+
+            jsonObject=new JSONObject();
+            jsonObject.put("")
+            return returnValue;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
+            try
+            {
+                isClosed1stServer=jsonObject.getBoolean("isClosed1stServer");
+                if(!isClosed1stServer)
+                {
+                    server1IP=jsonObject.getString("server1IP");
+                    server1Port=jsonObject.getInt("server1Port");
+                    server1Path=jsonObject.getString("server1Path");
+                    VideoURL1st = "rtsp://"+server1IP+":"+server1Port+"/"+server1Path;
+                }
+
+                isClosed2ndServer=jsonObject.getBoolean("isClosed2ndServer");
+                if(!isClosed2ndServer)
+                {
+                    server2IP=jsonObject.getString("server2IP");
+                    server2Port=jsonObject.getInt("server2Port");
+                    server2Path=jsonObject.getString("server2Path");
+                    VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
         }
-    }
+    }*/
 }
