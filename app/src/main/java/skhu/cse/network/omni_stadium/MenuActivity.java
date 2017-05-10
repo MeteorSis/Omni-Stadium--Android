@@ -9,7 +9,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -33,9 +35,20 @@ public class MenuActivity extends AppCompatActivity
 
         navView.setNavigationItemSelectedListener(this);
 
-        ImageView imgView_Nav_header_menu=(ImageView)getLayoutInflater().inflate(R.layout.nav_header_menu, navView).findViewById(R.id.imgView_Nav_header_menu);
+        View navHeaderView = getLayoutInflater().inflate(R.layout.nav_header_menu, navView);
+
+        ImageView imgView_Nav_header_menu=(ImageView)navHeaderView.findViewById(R.id.imgView_Nav_header_menu);
         Glide.with(this).load(R.drawable.seatimageview).into((ImageView)findViewById(R.id.ivContentSeat));
         Glide.with(this).load(R.drawable.omni_stadium_logo).into(imgView_Nav_header_menu);
+
+/*        TextView tvMid = (TextView) navHeaderView.findViewById(R.id.tvMemuID);
+        tvMid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
+                startActivity(intent);
+            }
+        });*/
     }
 
     @Override
@@ -72,6 +85,11 @@ public class MenuActivity extends AppCompatActivity
             case R.id.nav_order:
                 Intent ointent = new Intent(getApplicationContext(), OrderActivity.class);
                 startActivity(ointent);
+                break;
+
+            case R.id.nav_mypage:
+                Intent mintent = new Intent(getApplicationContext(), MyPageActivity.class);
+                startActivity(mintent);
                 break;
         }
 

@@ -68,7 +68,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ReservActivity" />
         <activity android:name=".DetailReservActivity" />
-        <activity android:name=".ChickenActivity"></activity>
+        <activity android:name=".ChickenActivity" />
+        <activity android:name=".MyPageActivity" />
     </application>
 
 </manifest>
