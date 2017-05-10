@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        backPressCloseHandler = new BackPressCloseHandler(this);
     }
 
     public void onCheckboxClicked(View view) {
@@ -73,5 +75,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed()
+    {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }
