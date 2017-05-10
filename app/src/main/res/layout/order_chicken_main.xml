@@ -1,9 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="skhu.cse.network.omni_stadium.ChickenActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
 
-</android.support.constraint.ConstraintLayout>
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:rowCount="10"
+        android:useDefaultMargins="true">
+
+        <ImageView
+            android:id="@+id/ivfchicken"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvfchick_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:text="후라이드 치킨" />
+
+            <TextView
+                android:id="@+id/tvfchick_cost"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="15000원" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/ivychicken"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvychick_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="양념치킨" />
+
+            <TextView
+                android:id="@+id/tvychick_cost"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="16000원" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivgchicken"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvgchick_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="간장치킨" />
+
+            <TextView
+                android:id="@+id/tvgchick_cost"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="16000원" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivhalfchicken"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvhalfchick_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="반반치킨" />
+
+            <TextView
+                android:id="@+id/tvhalfchick_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="16000원" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivpachicken"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvpachick_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="파닭" />
+
+            <TextView
+                android:id="@+id/tvpachick_cost"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="17000원" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/ivhotchicken"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvhotchick_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="핫치킨" />
+
+            <TextView
+                android:id="@+id/tvhotchick_cost"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="18000원" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivcurrychicken"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvcurry_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="커리치킨" />
+
+        <TextView
+            android:id="@+id/tvcurry_cost"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="18000원" />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/ivgokmul"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvgokmul_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="곡물치킨" />
+
+        <TextView
+            android:id="@+id/tvgokmul_cost"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="18000원" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/ivhoney"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvhoney_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="허니갈릭스 치킨" />
+
+            <TextView
+                android:id="@+id/tvhoney_cost"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="19000원" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivcheeze"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="212dp"
+            android:layout_height="130dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvcheeze_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="치즐링 치킨" />
+
+            <TextView
+                android:id="@+id/tvcheeze_cost"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="19000원" />
+
+        </LinearLayout>
+
+
+    </GridLayout>
+</ScrollView>
