@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
 public class DetailReservActivity extends AppCompatActivity {
+
     private boolean isCheckedInArr=false;
 
     @Override
@@ -21,7 +21,7 @@ public class DetailReservActivity extends AppCompatActivity {
         setContentView(R.layout.reserv_detail);
         Button SeatOk = (Button)findViewById(R.id.btSeatOk);
 
-        ToggleButton[][] btArray =new ToggleButton[5][10];
+        /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
                 R.id.tbG11, R.id.tbG12, R.id.tbG13, R.id.tbG14, R.id.tbG15, R.id.tbG16,  R.id.tbG17, R.id.tbG18, R.id.tbG19, R.id.tbG20,
                 R.id.tbG21, R.id.tbG22, R.id.tbG23, R.id.tbG24, R.id.tbG25, R.id.tbG26,  R.id.tbG27, R.id.tbG28, R.id.tbG29, R.id.tbG30,
@@ -33,15 +33,9 @@ public class DetailReservActivity extends AppCompatActivity {
             for(int column= 0; column<btArray[row].length; column++)
             {
                 btArray[row][column] = (ToggleButton)findViewById(tbGIDArr[tbGIDArrCnt++]);
-                btArray[row][column].setOnCheckedChangeListener(new ToggleButtonCheckedListner());
+                btArray[row][column].setOnClickListener(new ToggleButtonClickedListener());
             }
-        }
-
-
-
-
-
-
+        }*/
 
         SeatOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,30 +62,8 @@ public class DetailReservActivity extends AppCompatActivity {
                 dlg.setCancelable(false); // 백버튼 비활성화
             }
         });
-
-
-
-
-
     }
-    /*public void onCheckboxClicked(View v)
-    {
-        ToggleButton tB=(ToggleButton)v;
-       *//* if(tB.isChecked())
-        {
-            tB.setChecked(false);
-            isChecked=false;
-        }
-        else {
-            if(!isChecked)
-            {
-                tB.setChecked(true);
-                isChecked=true;
-            }
-        }*//*
-    }*/
-
-     private class ToggleButtonCheckedListner implements CompoundButton.OnCheckedChangeListener
+     /*private class ToggleButtonCheckedListener implements CompoundButton.OnCheckedChangeListener
      {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -110,8 +82,20 @@ public class DetailReservActivity extends AppCompatActivity {
                 }
             }
         }
+    }*/
+    public void onToggleClicked(View v)
+    {
+        ToggleButton tB=(ToggleButton)v;
+        boolean on = tB.isChecked();
+
+        if(on)
+        {
+            if(isCheckedInArr)
+                tB.toggle();
+            else
+                isCheckedInArr=true;
+        }
+        else
+            isCheckedInArr=false;
     }
-
-
-
 }
