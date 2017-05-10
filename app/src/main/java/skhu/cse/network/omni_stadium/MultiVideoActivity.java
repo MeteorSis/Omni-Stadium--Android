@@ -19,6 +19,11 @@ import com.bumptech.glide.Glide;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -29,7 +34,7 @@ public class MultiVideoActivity extends AppCompatActivity {
     private ProgressBar spinnerView1, spinnerView2;
 
     /*************************************From DB****************************************/
-    private boolean isClosed1stServer=true;
+    /*private boolean isClosed1stServer=true;
     private boolean isClosed2ndServer=true;
 
     private String server1IP="192.168.63.109";
@@ -40,8 +45,20 @@ public class MultiVideoActivity extends AppCompatActivity {
     private String server2Path="test";
 
     private String VideoURL1st = "rtsp://"+server1IP+":"+server1Port+"/"+server1Path;
-    private String VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;
+    private String VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;*/
     /***********************************************************************************/
+    private boolean isClosed1stServer;
+    private boolean isClosed2ndServer;
+
+    private String server1IP;
+    private String server2IP;
+    private int server1Port;
+    private int server2Port;
+    private String server1Path;
+    private String server2Path;
+
+    private String VideoURL1st;
+    private String VideoURL2nd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,91 +103,8 @@ public class MultiVideoActivity extends AppCompatActivity {
         spinnerView2.setVisibility(View.VISIBLE);
 
         /**********웹에 요청**********/
-        //new GetStreamingStatusTask().execute("StreamingStatus");
+        new GetStreamingStatusTask().execute("StreamingStatus");
         /****************************/
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        try
-        {
-            if(!isClosed1stServer)
-            {
-                Uri videoUri1st = Uri.parse(VideoURL1st);
-                imgView_warning1.setVisibility(View.GONE);
-                videoview1st.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction()==MotionEvent.ACTION_UP)
-                        {
-                            Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
-                            intent.putExtra("VideoURL", VideoURL1st);
-                            startActivity(intent);
-                        }
-                        return false;
-                    }
-                });
-                videoview1st.setVideoURI(videoUri1st);
-            }
-            else
-            {
-                spinnerView1.setVisibility(View.GONE);
-                imgView_warning1.setVisibility(View.VISIBLE);
-                videoview1st.setOnTouchListener(null);
-            }
-
-            if(!isClosed2ndServer)
-            {
-                Uri videoUri2nd = Uri.parse(VideoURL2nd);
-                imgView_warning2.setVisibility(View.GONE);
-                videoview2nd.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if(event.getAction()==MotionEvent.ACTION_UP)
-                        {
-                            Intent intent = new Intent(getApplicationContext(), FullVideoActivity.class);
-                            intent.putExtra("VideoURL", VideoURL2nd);
-                            startActivity(intent);
-                        }
-                        return false;
-                    }
-                });
-                videoview2nd.setVideoURI(videoUri2nd);
-            }
-            else
-            {
-                spinnerView2.setVisibility(View.GONE);
-                imgView_warning2.setVisibility(View.VISIBLE);
-                videoview2nd.setOnTouchListener(null);
-            }
-
-        }
-        catch (Exception e)
-        {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
-        }
-        videoview1st.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            // Close the progress bar and play the video
-            public void onPrepared(MediaPlayer mp) {
-                Log.v("Loaded", " video1");
-                spinnerView1.setVisibility(View.GONE);
-                videoview1st.setAlpha(1.0f);
-                videoview1st.start();
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            }
-        });
-        videoview2nd.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            // Close the progress bar and play the video
-            public void onPrepared(MediaPlayer mp) {
-                Log.v("Loaded", " video2");
-                spinnerView2.setVisibility(View.GONE);
-                videoview2nd.setAlpha(1.0f);
-                videoview2nd.start();
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            }
-        });
     }
 
     @Override
@@ -181,18 +115,65 @@ public class MultiVideoActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    /*private class GetStreamingStatusTask extends AsyncTask<String, Void, JSONObject>
+    private class GetStreamingStatusTask extends AsyncTask<String, Void, JSONObject>
     {
         @Override
         protected JSONObject doInBackground(String... params) {
-            JSONObject jsonObject;
+            InputStream is=null;
+            String result="";
+            try
+            {
+//                URL url=new URL("http://192.168.63.25:23280/app/parkinginfo.jsp");
+                URL url=new URL("http://192.168.63.25:8080/Test/test.jsp");
+                HttpURLConnection httpCon=(HttpURLConnection)url.openConnection();
 
-            URL url=new URL("http://192.168.63.25:23280/app/parkinginfo.jsp")
-            HttpURLConnection httpCon=(HttpURLConnection)url.openConnection();
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put("requestStatus", "streamingStatus");
 
-            jsonObject=new JSONObject();
-            jsonObject.put("")
-            return returnValue;
+                httpCon.setRequestProperty("Accept", "application/json");
+                httpCon.setRequestProperty("Content-type", "application/json");
+
+                httpCon.setDoOutput(true);
+                httpCon.setDoInput(true);
+
+                OutputStream os=httpCon.getOutputStream();
+                os.write(jsonObject.toString().getBytes("UTF-8"));
+                os.flush();
+
+                try
+                {
+                    is=httpCon.getInputStream();
+                    if(is!=null) {
+                        result = convertInputStreamToString(is);
+                    }
+                    else{
+                        result = null;
+                    }
+
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                finally
+                {
+                    httpCon.disconnect();
+                }
+
+                if(result!=null)
+                    return new JSONObject(result);
+                else
+                    return null;
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return null;
         }
 
         @Override
@@ -200,6 +181,7 @@ public class MultiVideoActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try
             {
+                Log.v("PostExecute", "test");
                 isClosed1stServer=jsonObject.getBoolean("isClosed1stServer");
                 if(!isClosed1stServer)
                 {
@@ -217,11 +199,105 @@ public class MultiVideoActivity extends AppCompatActivity {
                     server2Path=jsonObject.getString("server2Path");
                     VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;
                 }
+                Log.v("Test1", isClosed1stServer+", "+server1IP+", "+server1Port+", "+server1Path+", "+VideoURL1st);
+                Log.v("Test2", isClosed2ndServer+", "+server2IP+", "+server2Port+", "+server2Path+", "+VideoURL2nd);
             }
             catch (JSONException e)
             {
                 e.printStackTrace();
             }
+
+
+            try
+            {
+                if(!isClosed1stServer)
+                {
+                    Uri videoUri1st = Uri.parse(VideoURL1st);
+                    imgView_warning1.setVisibility(View.GONE);
+                    videoview1st.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            if(event.getAction()==MotionEvent.ACTION_UP)
+                            {
+                                Intent intent=new Intent(getApplicationContext(), FullVideoActivity.class);
+                                intent.putExtra("VideoURL", VideoURL1st);
+                                startActivity(intent);
+                            }
+                            return true;
+                        }
+                    });
+                    videoview1st.setVideoURI(videoUri1st);
+                }
+                else
+                {
+                    spinnerView1.setVisibility(View.GONE);
+                    imgView_warning1.setVisibility(View.VISIBLE);
+                    videoview1st.setOnTouchListener(null);
+                }
+
+                if(!isClosed2ndServer)
+                {
+                    Uri videoUri2nd = Uri.parse(VideoURL2nd);
+                    imgView_warning2.setVisibility(View.GONE);
+                    videoview2nd.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            if(event.getAction()==MotionEvent.ACTION_UP)
+                            {
+                                Intent intent = new Intent(getApplicationContext(), FullVideoActivity.class);
+                                intent.putExtra("VideoURL", VideoURL2nd);
+                                startActivity(intent);
+                            }
+                            return true;
+                        }
+                    });
+                    videoview2nd.setVideoURI(videoUri2nd);
+                }
+                else
+                {
+                    spinnerView2.setVisibility(View.GONE);
+                    imgView_warning2.setVisibility(View.VISIBLE);
+                    videoview2nd.setOnTouchListener(null);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            videoview1st.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                // Close the progress bar and play the video
+                public void onPrepared(MediaPlayer mp) {
+                    Log.v("Loaded", " video1");
+                    spinnerView1.setVisibility(View.GONE);
+                    videoview1st.setAlpha(1.0f);
+                    videoview1st.start();
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                }
+            });
+            videoview2nd.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                // Close the progress bar and play the video
+                public void onPrepared(MediaPlayer mp) {
+                    Log.v("Loaded", " video2");
+                    spinnerView2.setVisibility(View.GONE);
+                    videoview2nd.setAlpha(1.0f);
+                    videoview2nd.start();
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                }
+            });
         }
-    }*/
+
+        private String convertInputStreamToString(InputStream inputStream) throws IOException
+        {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String line = "";
+            String result = "";
+            while((line = bufferedReader.readLine()) != null)
+                result += line;
+
+            inputStream.close();
+            return result;
+        }
+    }
 }
