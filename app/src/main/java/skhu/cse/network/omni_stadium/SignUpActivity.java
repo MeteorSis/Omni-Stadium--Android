@@ -66,9 +66,10 @@ public class SignUpActivity extends AppCompatActivity{
                         Empty = Empty + "아이디";
                     }
                 }
-                if(SignupData[1].matches("") && Empty.matches("")){
+                if((SignupData[1].matches("") || (SignupData[1].length()<6)) && Empty.matches("")){
                     Empty = Empty + "비밀번호";
                 }
+
                 if(SignupData[2].matches("") && Empty.matches("")){
                     Empty = Empty + "Email";
                 }
@@ -172,6 +173,8 @@ public class SignUpActivity extends AppCompatActivity{
 
                 Log.d("testJSON1", putJSON.toString().getBytes().toString());
                 Log.d("testJSON2", putJSON.toString());
+                Log.d("testJSON3", new String(putJSON.toString().getBytes(), 0, putJSON.toString().getBytes().length));
+
                 Log.d("test5", "test5");
 
                 OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
