@@ -91,7 +91,10 @@ public class DetailReservActivity extends AppCompatActivity {
         if(on)
         {
             if(isCheckedInArr)
+            {
                 tB.toggle();
+                Toast.makeText(this, "이미 선택된 좌석이 있습니다.", Toast.LENGTH_SHORT).show();
+            }
             else
                 isCheckedInArr=true;
         }
