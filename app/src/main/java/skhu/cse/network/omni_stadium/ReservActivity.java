@@ -61,43 +61,65 @@ public class ReservActivity extends AppCompatActivity {
                     if(redPixel==0 && greenPixel==94 && bluePixel==221)
                     {
                         //가운데 연파랑 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "중앙 블루석A");
+                        startActivity(intent);
                         Log.v("Event Test", "가운데 연파랑 영역");
                     }
                     else if(redPixel==221 && greenPixel==0 && bluePixel==42)
                     {
                         //아래 왼쪽 빨강 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "3루 레드석");
+                        startActivity(intent);
                         Log.v("Event Test", "아래 왼쪽 빨강 영역");
                     }
                     else if(redPixel==221 && greenPixel==1 && bluePixel==42)
                     {
                         //아래 오른쪽 빨강 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "1루 레드석");
+                        startActivity(intent);
                         Log.v("Event Test", "아래 오른쪽 빨강 영역");
                     }
                     else if(redPixel==36 && greenPixel==41 && bluePixel==172)
                     {
                         //가운데 진파랑 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "중앙 블루석B");
+                        startActivity(intent);
                         Log.v("Event Test", "가운데 진파랑 영역");
                     }
                     else if(redPixel==36 && greenPixel==40 && bluePixel==83)
                     {
                         //아래 왼쪽 남색 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "3루 네이비석");
+                        startActivity(intent);
                         Log.v("Event Test", "아래 왼쪽 남색 영역");
                     }
                     else if(redPixel==36 && greenPixel==41 && bluePixel==83)
                     {
                         //아래 오른쪽 남색 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "1루 네이비석");
+                        startActivity(intent);
                         Log.v("Event Test", "아래 오른쪽 남색 영역");
                     }
                     else if(redPixel==52 && greenPixel==150 && bluePixel==0)
                     {
                         //왼쪽 위 그린 영역
                         Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "3루 외야그린석");
                         startActivity(intent);
                         Log.v("Event Test", "왼쪽 위 그린 영역");
                     }
                     else if(redPixel==52 && greenPixel==150 && bluePixel==1)
                     {
                         //오른쪽 위 그린 영역
+                        Intent intent = new Intent(getApplicationContext(),DetailReservActivity.class);
+                        intent.putExtra("Sector", "1루 외야그린석");
+                        startActivity(intent);
                         Log.v("Event Test", "오른쪽 위 그린 영역");
                     }
                 }

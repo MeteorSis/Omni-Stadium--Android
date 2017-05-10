@@ -1,18 +1,22 @@
 package skhu.cse.network.omni_stadium;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
 public class DetailReservActivity extends AppCompatActivity {
-
+    String value;
     private boolean isCheckedInArr=false;
 
     @Override
@@ -20,6 +24,13 @@ public class DetailReservActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reserv_detail);
         Button SeatOk = (Button)findViewById(R.id.btSeatOk);
+        EditText seatInfo = (EditText)findViewById(R.id.etSeatInfo);
+        seatInfo.setFocusableInTouchMode(false); // EditText를 읽기전용으로 만듦
+        Intent intent = getIntent();
+        value  =  intent.getStringExtra("Sector");
+        seatInfo.setText(value);
+
+
 
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
@@ -101,4 +112,5 @@ public class DetailReservActivity extends AppCompatActivity {
         else
             isCheckedInArr=false;
     }
+
 }
