@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 
@@ -15,49 +18,26 @@ public class OrderActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_main);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ImageView Chicken = (ImageView)findViewById(R.id.ivChicken);
-        Glide.with(this).load(R.drawable.chicken).into(Chicken);
-        ImageView Pizza = (ImageView)findViewById(R.id.ivPizza);
-        Glide.with(this).load(R.drawable.pizza).into(Pizza);
-        ImageView Beer = (ImageView)findViewById(R.id.ivBeer);
-        Glide.with(this).load(R.drawable.beer).into(Beer);
-        ImageView Hamburger = (ImageView)findViewById(R.id.ivHamburger);
-        Glide.with(this).load(R.drawable.burger).into(Hamburger);
+       String[] menu = {"치킨","피자", "햄버거","맥주"};
+        ListView order = (ListView)findViewById(R.id.lvorder);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menu);
+        order.setAdapter(adapter);
 
-        Chicken.setOnClickListener(new View.OnClickListener() {
+
+        order.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent Cintent = new Intent(getApplicationContext(),ChickenActivity.class);
-                startActivity(Cintent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+              /*  int mid = view.getId();
+
+                switch(mid){
+
+                }*/
             }
         });
 
-       Pizza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Pintent = new Intent(getApplicationContext(),MenuActivity.class);
-                startActivity(Pintent);
-            }
-        });
-
-       Beer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Bintent = new Intent(getApplicationContext(),MenuActivity.class);
-                startActivity(Bintent);
-            }
-        });
-
-       Hamburger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Hintent = new Intent(getApplicationContext(),MenuActivity.class);
-                startActivity(Hintent);
-            }
-        });
 
     }
 
