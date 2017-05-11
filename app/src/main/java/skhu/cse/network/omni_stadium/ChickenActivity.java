@@ -21,7 +21,7 @@ public class ChickenActivity extends AppCompatActivity {
         ImageView currychick = (ImageView)findViewById(R.id.ivcurrychicken);
         ImageView gokmul = (ImageView)findViewById(R.id.ivgokmul);
         ImageView honey = (ImageView)findViewById(R.id.ivhoney);
-        ImageView cheeze = (ImageView)findViewById(R.id.ivcheeze);
+        ImageView cheese = (ImageView)findViewById(R.id.ivcheese);
 
 
         Glide.with(this).load(R.drawable.fchicken).into(fchick);
@@ -33,7 +33,7 @@ public class ChickenActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.size_currychicken).into(currychick);
         Glide.with(this).load(R.drawable.size_gokmul).into(gokmul);
         Glide.with(this).load(R.drawable.size_honeychicken).into(honey);
-        Glide.with(this).load(R.drawable.size_cheeze).into(cheeze);
+        Glide.with(this).load(R.drawable.size_cheese).into(cheese);
 
 
     }
