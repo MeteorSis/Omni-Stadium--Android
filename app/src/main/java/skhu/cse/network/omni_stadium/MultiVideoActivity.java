@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -66,9 +67,7 @@ public class MultiVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_multi_video);
 
         imgView_warning1=(ImageView)findViewById(R.id.imgView_warning1);
-        Glide.with(this).load(R.drawable.warning).into(imgView_warning1);
         imgView_warning2=(ImageView)findViewById(R.id.imgView_warning2);
-        Glide.with(this).load(R.drawable.warning).into(imgView_warning2);
 
         videoview1st = (VideoView) findViewById(R.id.VideoView1st);
         videoview2nd = (VideoView) findViewById(R.id.VideoView2nd);
@@ -81,6 +80,8 @@ public class MultiVideoActivity extends AppCompatActivity {
                     Log.v("videoview1st Test", "Media Error, Server Died " + extra);
                 else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
                     Log.v("videoview1st Test", "Media Error, Error Unknown " + extra);
+                Toast.makeText(MultiVideoActivity.this, "서버가 불안정합니다. 스트리밍 기능을 종료합니다.", Toast.LENGTH_SHORT).show();
+                MultiVideoActivity.this.finish();
                 return false;
             }
         });
@@ -92,6 +93,8 @@ public class MultiVideoActivity extends AppCompatActivity {
                     Log.v("videoview2nd Test", "Media Error, Server Died " + extra);
                 else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
                     Log.v("videoview2nd Test", "Media Error, Error Unknown " + extra);
+                Toast.makeText(MultiVideoActivity.this, "서버가 불안정합니다. 스트리밍 기능을 종료합니다.", Toast.LENGTH_SHORT).show();
+                MultiVideoActivity.this.finish();
                 return false;
             }
         });
@@ -102,9 +105,8 @@ public class MultiVideoActivity extends AppCompatActivity {
         spinnerView1.setVisibility(View.VISIBLE);
         spinnerView2.setVisibility(View.VISIBLE);
 
-        /**********웹에 요청**********/
+        //AsyncTask Start
         new GetStreamingStatusTask().execute("StreamingStatus");
-        /****************************/
     }
 
     @Override
@@ -130,7 +132,9 @@ public class MultiVideoActivity extends AppCompatActivity {
                 JSONObject jsonObject=new JSONObject();
                 jsonObject.put("requestStatus", "streamingStatus");
 
+                //서버에 요청할 Response Data Type
                 httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
                 httpCon.setRequestProperty("Content-type", "application/json");
 
                 httpCon.setDoOutput(true);
@@ -157,6 +161,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                 }
                 finally
                 {
+                    Log.v("disconnect", "test");
                     httpCon.disconnect();
                 }
 
@@ -179,34 +184,35 @@ public class MultiVideoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
-            try
+            if(jsonObject!=null)
             {
-                Log.v("PostExecute", "test");
-                isClosed1stServer=jsonObject.getBoolean("isClosed1stServer");
-                if(!isClosed1stServer)
-                {
-                    server1IP=jsonObject.getString("server1IP");
-                    server1Port=jsonObject.getInt("server1Port");
-                    server1Path=jsonObject.getString("server1Path");
-                    VideoURL1st = "rtsp://"+server1IP+":"+server1Port+"/"+server1Path;
-                }
+                try {
+                    isClosed1stServer = jsonObject.getBoolean("isClosed1stServer");
+                    if (!isClosed1stServer) {
+                        server1IP = jsonObject.getString("server1IP");
+                        server1Port = jsonObject.getInt("server1Port");
+                        server1Path = jsonObject.getString("server1Path");
+                        VideoURL1st = "rtsp://" + server1IP + ":" + server1Port + "/" + server1Path;
+                    }
 
-                isClosed2ndServer=jsonObject.getBoolean("isClosed2ndServer");
-                if(!isClosed2ndServer)
-                {
-                    server2IP=jsonObject.getString("server2IP");
-                    server2Port=jsonObject.getInt("server2Port");
-                    server2Path=jsonObject.getString("server2Path");
-                    VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;
+                    isClosed2ndServer = jsonObject.getBoolean("isClosed2ndServer");
+                    if (!isClosed2ndServer) {
+                        server2IP = jsonObject.getString("server2IP");
+                        server2Port = jsonObject.getInt("server2Port");
+                        server2Path = jsonObject.getString("server2Path");
+                        VideoURL2nd = "rtsp://" + server2IP + ":" + server2Port + "/" + server2Path;
+                    }
+                    Log.v("Test1", isClosed1stServer + ", " + server1IP + ", " + server1Port + ", " + server1Path + ", " + VideoURL1st);
+                    Log.v("Test2", isClosed2ndServer + ", " + server2IP + ", " + server2Port + ", " + server2Path + ", " + VideoURL2nd);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                Log.v("Test1", isClosed1stServer+", "+server1IP+", "+server1Port+", "+server1Path+", "+VideoURL1st);
-                Log.v("Test2", isClosed2ndServer+", "+server2IP+", "+server2Port+", "+server2Path+", "+VideoURL2nd);
             }
-            catch (JSONException e)
+            else
             {
-                e.printStackTrace();
+                isClosed1stServer=true;
+                isClosed2ndServer=true;
             }
-
 
             try
             {
@@ -231,6 +237,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                 else
                 {
                     spinnerView1.setVisibility(View.GONE);
+                    Glide.with(MultiVideoActivity.this).load(R.drawable.warning).into(imgView_warning1);
                     imgView_warning1.setVisibility(View.VISIBLE);
                     videoview1st.setOnTouchListener(null);
                 }
@@ -256,10 +263,10 @@ public class MultiVideoActivity extends AppCompatActivity {
                 else
                 {
                     spinnerView2.setVisibility(View.GONE);
+                    Glide.with(MultiVideoActivity.this).load(R.drawable.warning).into(imgView_warning2);
                     imgView_warning2.setVisibility(View.VISIBLE);
                     videoview2nd.setOnTouchListener(null);
                 }
-
             }
             catch (Exception e)
             {
