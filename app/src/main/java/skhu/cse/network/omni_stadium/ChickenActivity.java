@@ -2,6 +2,7 @@ package skhu.cse.network.omni_stadium;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -12,6 +13,9 @@ public class ChickenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_chicken_main);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ImageView fchick = (ImageView)findViewById(R.id.ivfchicken);
         ImageView ychick = (ImageView)findViewById(R.id.ivychicken);
         ImageView gchick = (ImageView)findViewById(R.id.ivgchicken);
@@ -36,5 +40,15 @@ public class ChickenActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.size_cheese).into(cheese);
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -65,6 +66,8 @@ public class MultiVideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_video);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         imgView_warning1=(ImageView)findViewById(R.id.imgView_warning1);
         imgView_warning2=(ImageView)findViewById(R.id.imgView_warning2);
@@ -306,5 +309,14 @@ public class MultiVideoActivity extends AppCompatActivity {
             inputStream.close();
             return result;
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
