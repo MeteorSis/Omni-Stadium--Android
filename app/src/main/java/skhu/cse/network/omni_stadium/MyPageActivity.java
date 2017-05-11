@@ -37,9 +37,6 @@ public class MyPageActivity extends AppCompatActivity {
         arrayChild.put(arrayGroup.get(2), arrayManage);
 
         lvMyPage.setAdapter(new ExplvAdapter(this, arrayGroup, arrayChild));
-
-
-
     }
 
 }

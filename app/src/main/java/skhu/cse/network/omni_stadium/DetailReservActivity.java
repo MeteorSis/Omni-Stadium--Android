@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,8 +30,7 @@ public class DetailReservActivity extends AppCompatActivity {
         Intent intent = getIntent();
         value  =  intent.getStringExtra("Sector");
         seatInfo.setText(value);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
@@ -113,4 +113,13 @@ public class DetailReservActivity extends AppCompatActivity {
             isCheckedInArr=false;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

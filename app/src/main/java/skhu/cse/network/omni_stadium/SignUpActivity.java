@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Glide.with(this).load(R.drawable.omni_stadium_logo).into((ImageView)findViewById(R.id.imgView_SignUp_Logo));
 
         TextView tvLogin = (TextView)findViewById(R.id.link_login);
@@ -200,5 +201,15 @@ public class SignUpActivity extends AppCompatActivity{
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

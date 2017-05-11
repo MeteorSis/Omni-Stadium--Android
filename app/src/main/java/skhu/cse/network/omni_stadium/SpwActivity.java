@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,7 @@ public class SpwActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spw_main);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button btOK = (Button)findViewById(R.id.btSpwOK);
 
         btOK.setOnClickListener(new View.OnClickListener() {
@@ -144,5 +145,14 @@ public class SpwActivity extends AppCompatActivity{
             }
             return null;
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
