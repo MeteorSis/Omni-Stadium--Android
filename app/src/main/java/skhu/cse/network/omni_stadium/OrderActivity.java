@@ -115,8 +115,7 @@ public class OrderActivity extends AppCompatActivity{
         beer.add("라임 맥주");
         beer.add("청포도 맥주");
         beer.add("병맥주");
-
-        beer_cost.contains("3000원");
+        
         beer_cost.add("3000원");
         beer_cost.add("3500원");
         beer_cost.add("4500원");

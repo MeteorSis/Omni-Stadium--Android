@@ -72,35 +72,28 @@
             android:label="주문 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="좌석예매 기능"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
+        
         <activity
             android:name=".DetailReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="좌석 예매 상세정보"
-<<<<<<< HEAD
-            android:screenOrientation="portrait"/>
 
-        <activity android:name=".ExpandableListviewAdapter"
-=======
-            android:parentActivityName=".ReservActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ChickenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
->>>>>>> 25e2679a8bb7854b2decea10b938cae2808855a0
-            android:parentActivityName=".OrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        
         <activity
             android:name=".MyPageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SignChangeActivity"></activity>
+        <activity android:name=".SignChangeActivity">
+        </activity>
     </application>
 
 </manifest>
