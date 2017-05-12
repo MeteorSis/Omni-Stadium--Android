@@ -132,6 +132,16 @@ public class SignChangeActivity extends AppCompatActivity{
                     Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
       /*  btAccount.setOnClickListener(new View.OnClickListener() {
@@ -297,14 +307,6 @@ public class SignChangeActivity extends AppCompatActivity{
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+
     }*/
-    }
 }
