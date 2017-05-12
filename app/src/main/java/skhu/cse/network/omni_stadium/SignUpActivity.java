@@ -156,10 +156,7 @@ public class SignUpActivity extends AppCompatActivity{
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
-                //urlConnection.setRequestProperty("Cache-Control","no-cache");
                 urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                /*urlConnection.addRequestProperty("Accept", "application/json");
-                urlConnection.setRequestProperty("Content-Type", "application/json");*/
 
                 Log.d("test3", "test3");
 
