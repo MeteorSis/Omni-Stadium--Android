@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -25,26 +26,119 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignUpActivity extends AppCompatActivity{
+public class SignChangeActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
+        setContentView(R.layout.activity_sign_change);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Glide.with(this).load(R.drawable.omni_stadium_logo).into((ImageView)findViewById(R.id.imgView_SignUp_Logo));
 
-        TextView tvLogin = (TextView)findViewById(R.id.link_login);
-        Button btAccount = (Button)findViewById(R.id.btn_signup);
+        final EditText etPW = (EditText)findViewById(R.id.etPW);
+        final EditText etMail = (EditText)findViewById(R.id.etMail);
+        final EditText etPhone = (EditText)findViewById(R.id.etPhone);
+        final EditText etName = (EditText)findViewById(R.id.etName);
+        final EditText etBdate = (EditText)findViewById(R.id.etBdate);
 
-        btAccount.setOnClickListener(new View.OnClickListener() {
+        Button btCPW = (Button)findViewById(R.id.btChangePW);
+        Button btCMail = (Button)findViewById(R.id.btChangeEmail);
+        Button btCPhone = (Button)findViewById(R.id.btChangePhone);
+        Button btCName = (Button)findViewById(R.id.btChangeName);
+        Button btCBdate = (Button)findViewById(R.id.btChangeBirth);
+
+        btCPW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cPwData = etPW.getText().toString();
+                if((cPwData.matches("") || (cPwData.length()<6))){
+                    new AlertDialog.Builder(SignChangeActivity.this)
+                            .setMessage("비밀번호를 다시 확인해주세요.")
+                            .setPositiveButton("OK",null)
+                            .show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        btCMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cMailData = etMail.getText().toString();
+                String Mailregex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+";
+                Pattern Mailpattern = Pattern.compile(Mailregex);
+                Matcher Mailmatcher = Mailpattern.matcher(cMailData);
+
+                if(cMailData.matches("") || !Mailmatcher.find()){
+                    new AlertDialog.Builder(SignChangeActivity.this)
+                            .setMessage("이메일을 다시 확인해주세요.")
+                            .setPositiveButton("OK",null)
+                            .show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btCPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cPhoneData = etPhone.getText().toString();
+                String Phoneregex = "010([0-9]{4})([0-9]{4})$";
+                Pattern Phonepattern = Pattern.compile(Phoneregex);
+                Matcher Phonematcher = Phonepattern.matcher(cPhoneData);
+
+                if(cPhoneData.matches("") || !Phonematcher.find())
+                    new AlertDialog.Builder(SignChangeActivity.this)
+                            .setMessage("핸드폰 번호를 다시 확인해주세요.")
+                            .setPositiveButton("OK",null)
+                            .show();
+                else
+                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btCName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cNameData = etName.getText().toString();
+                String Nameregex = "^[가-힣]{2,4}$";
+                Pattern Namepattern = Pattern.compile(Nameregex);
+                Matcher Namematcher = Namepattern.matcher(cNameData);
+
+                if(cNameData.matches("") || !Namematcher.find())
+                    new AlertDialog.Builder(SignChangeActivity.this)
+                            .setMessage("이름을 다시 확인해주세요.")
+                            .setPositiveButton("OK",null)
+                            .show();
+                else
+                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btCBdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cBdateData = etBdate.getText().toString();
+                String Bdateregex = "(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$";
+                Pattern Bdatepattern = Pattern.compile(Bdateregex);
+                Matcher Bdatematcher = Bdatepattern.matcher(cBdateData);
+                if(cBdateData.matches("") || !Bdatematcher.find())
+                    new AlertDialog.Builder(SignChangeActivity.this)
+                            .setMessage("생년월일을 다시 확인해주세요.")
+                            .setPositiveButton("OK",null)
+                            .show();
+                else
+                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+      /*  btAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText etID = (EditText)findViewById(R.id.etID);
-                EditText etPW = (EditText)findViewById(R.id.etPW);
-                EditText etMail = (EditText)findViewById(R.id.etMail);
-                EditText etPhone = (EditText)findViewById(R.id.etPhone);
-                EditText etName = (EditText)findViewById(R.id.etName);
-                EditText etBdate = (EditText)findViewById(R.id.etBdate);
+
 
                 String IdData = etID.getText().toString();
                 String PwData = etPW.getText().toString();
@@ -87,7 +181,7 @@ public class SignUpActivity extends AppCompatActivity{
                     Empty = Empty + "핸드폰 번호";
                 }
                 else{
-                    String Phoneregex = "010([0-9]{4})([0-9]{4})$";
+                    String Phoneregex = "010([0-9]{3,4})([0-9]{4})";
                     Pattern Phonepattern = Pattern.compile(Phoneregex);
                     Matcher Phonematcher = Phonepattern.matcher(PhoneData);
                     if (!Phonematcher.find()&& Empty.matches("")){
@@ -123,7 +217,7 @@ public class SignUpActivity extends AppCompatActivity{
                     new SignUp().execute(SignupData[0], SignupData[1], SignupData[2], SignupData[3], SignupData[4], SignupData[5]);
                 }
                 else{
-                    new AlertDialog.Builder(SignUpActivity.this)
+                    new AlertDialog.Builder(SignChangeActivity.this)
                             .setMessage(Empty+"을(를) 다시 확인해주세요.")
                             .setPositiveButton("OK",null)
                             .show();
@@ -158,8 +252,8 @@ public class SignUpActivity extends AppCompatActivity{
                 urlConnection.setDoOutput(true);
                 //urlConnection.setRequestProperty("Cache-Control","no-cache");
                 urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                /*urlConnection.addRequestProperty("Accept", "application/json");
-                urlConnection.setRequestProperty("Content-Type", "application/json");*/
+                *//*urlConnection.addRequestProperty("Accept", "application/json");
+                urlConnection.setRequestProperty("Content-Type", "application/json");*//*
 
                 Log.d("test3", "test3");
 
@@ -211,5 +305,6 @@ public class SignUpActivity extends AppCompatActivity{
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }*/
     }
 }
