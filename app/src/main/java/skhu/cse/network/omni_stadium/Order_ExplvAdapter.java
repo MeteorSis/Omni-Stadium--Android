@@ -20,12 +20,12 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
 
     public Order_ExplvAdapter(Context context, ArrayList<String> group_menu , HashMap<String, ArrayList<String>> item_menu)
     {
+        super();
         this.mContext = context;
         this.group_menu = group_menu;
         this.item_menu = item_menu;
 
     }
-
 
     @Override
     public int getGroupCount() {
@@ -35,7 +35,6 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) { // ChildList의 크기를 int 형으로 반환
         return item_menu.get(group_menu.get(groupPosition)).size();
-
     }
 
 
@@ -46,7 +45,7 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object  getChild(int groupPosition, int childPosition) { // groupPostion과 childPosition을 통해 childList의 원소를 얻어옴
-        return this.item_menu.get(group_menu.get(groupPosition)).get(childPosition);
+        return item_menu.get(group_menu.get(groupPosition)).get(childPosition);
 
     }
 
@@ -61,7 +60,7 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public boolean hasStableIds() { return true; } // stable ID인지 boolean 값으로 반환
+    public boolean hasStableIds() { return false; } // stable ID인지 boolean 값으로 반환
 
 
     @Override
@@ -69,7 +68,7 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
         String groupName = group_menu.get(groupPosition);
 
         if(convertView == null){
-            LayoutInflater groupInfla = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater groupInfla = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // ParentList의 layout 연결.
             convertView = groupInfla.inflate(R.layout.order_group, null);
         }
@@ -85,7 +84,8 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         // ChildList의 View. 위 ParentList의 View를 얻을 때와 비슷하게 Layout 연결 후, layout 내 TextView 2개를 연결
-        String childName = (String)getChild(groupPosition,childPosition);
+        String childName = (String)getChild(groupPosition, childPosition);
+        String childCost = (String)getChild(groupPosition, childPosition);
         if(convertView == null){
 
             LayoutInflater childInfla = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -95,8 +95,7 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
         TextView name = (TextView)convertView.findViewById(R.id.tvLitem);
         TextView cost = (TextView)convertView.findViewById(R.id.tvRitem);
         name.setText(childName);
-        cost.setText(childName);
-
+        cost.setText(childCost);
         return convertView;
     }
 
