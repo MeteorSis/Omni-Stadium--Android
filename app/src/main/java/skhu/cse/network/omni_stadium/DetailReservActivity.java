@@ -132,7 +132,7 @@ public class DetailReservActivity extends AppCompatActivity {
             charRow=chSq_seat_no.charAt(0);
             if(chSq_seat_no.charAt(1)!='0')
                 charRow++;
-            seatInfo.setText(value+" : "+charRow+"행 "+chSq_seat_no+"석");
+            seatInfo.setText(value+" : "+charRow+"열 "+chSq_seat_no+"석");
         }
         else
         {
