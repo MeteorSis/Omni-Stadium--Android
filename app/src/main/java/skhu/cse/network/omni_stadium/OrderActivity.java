@@ -63,7 +63,7 @@ public class OrderActivity extends AppCompatActivity{
 
         ArrayList<String> pizza = new ArrayList<String>();
         ArrayList<String> pizza_cost = new ArrayList<String>();
-        pizza.add(" 콤비네이션피자");
+        pizza.add("콤비네이션피자");
         pizza.add("페퍼로니피자");
         pizza.add("치즈피자");
         pizza.add("불고기피자");
