@@ -42,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="01"
-                android:textOn="01" />
+                android:textOn="01"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG2"
@@ -50,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="02"
-                android:textOn="02" />
+                android:textOn="02"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG3"
@@ -58,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="03"
-                android:textOn="03" />
+                android:textOn="03"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG4"
@@ -66,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="04"
-                android:textOn="04" />
+                android:textOn="04"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG5"
@@ -74,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="05"
-                android:textOn="05" />
+                android:textOn="05"
+                android:background="@drawable/togglebutton_selector"/>
 
 
             <ToggleButton
@@ -83,7 +88,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="06"
-                android:textOn="06" />
+                android:textOn="06"
+                android:background="@drawable/togglebutton_selector"/>
 
 
             <ToggleButton
@@ -92,7 +98,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="07"
-                android:textOn="07" />
+                android:textOn="07"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG8"
@@ -100,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="08"
-                android:textOn="08" />
+                android:textOn="08"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG9"
@@ -108,7 +116,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="09"
-                android:textOn="09" />
+                android:textOn="09"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG10"
@@ -116,7 +125,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="10"
-                android:textOn="" />
+                android:textOn="10"
+                android:background="@drawable/togglebutton_selector"/>
 
         </TableRow>
 
@@ -130,7 +140,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="11"
-                android:textOn="11" />
+                android:textOn="11"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG12"
@@ -138,7 +149,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="12"
-                android:textOn="12" />
+                android:textOn="12"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG13"
@@ -146,7 +158,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="13"
-                android:textOn="13" />
+                android:textOn="13"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG14"
@@ -154,7 +167,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="14"
-                android:textOn="14" />
+                android:textOn="14"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG15"
@@ -162,7 +176,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="15"
-                android:textOn="15" />
+                android:textOn="15"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG16"
@@ -170,7 +185,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="16"
-                android:textOn="16" />
+                android:textOn="16"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG17"
@@ -178,7 +194,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="17"
-                android:textOn="17" />
+                android:textOn="17"
+                android:background="@drawable/togglebutton_selector" />
 
             <ToggleButton
                 android:id="@+id/tbG18"
@@ -186,7 +203,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="18"
-                android:textOn="18" />
+                android:textOn="18"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG19"
@@ -194,7 +212,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="19"
-                android:textOn="19" />
+                android:textOn="19"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG20"
@@ -202,7 +221,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="20"
-                android:textOn="20" />
+                android:textOn="20"
+                android:background="@drawable/togglebutton_selector"/>
 
         </TableRow>
 
@@ -216,7 +236,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="21"
-                android:textOn="21" />
+                android:textOn="21"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG22"
@@ -224,7 +245,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="22"
-                android:textOn="22" />
+                android:textOn="22"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG23"
@@ -232,7 +254,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="23"
-                android:textOn="23" />
+                android:textOn="23"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG24"
@@ -240,15 +263,16 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="24"
-                android:textOn="24" />
+                android:textOn="24"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onToggleClicked"
                 android:textOff="25"
-                android:textOn="25" />
+                android:textOn="25"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG26"
@@ -256,7 +280,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="26"
-                android:textOn="26" />
+                android:textOn="26"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG27"
@@ -264,7 +289,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="27"
-                android:textOn="" />
+                android:textOn="27"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG28"
@@ -272,7 +298,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="28"
-                android:textOn="28" />
+                android:textOn="28"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG29"
@@ -280,7 +307,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="29"
-                android:textOn="29" />
+                android:textOn="29"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG30"
@@ -288,7 +316,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="30"
-                android:textOn="30" />
+                android:textOn="30"
+                android:background="@drawable/togglebutton_selector"/>
 
         </TableRow>
 
@@ -303,7 +332,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="31"
-                android:textOn="31" />
+                android:textOn="31"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG32"
@@ -311,7 +341,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="32"
-                android:textOn="32" />
+                android:textOn="32"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG33"
@@ -319,7 +350,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="33"
-                android:textOn="33" />
+                android:textOn="33"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG34"
@@ -327,7 +359,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="34"
-                android:textOn="34" />
+                android:textOn="34"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG35"
@@ -335,7 +368,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="35"
-                android:textOn="35" />
+                android:textOn="35"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG36"
@@ -343,7 +377,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="36"
-                android:textOn="36" />
+                android:textOn="36"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG37"
@@ -351,7 +386,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="37"
-                android:textOn="37" />
+                android:textOn="37"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG38"
@@ -359,7 +395,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="38"
-                android:textOn="38" />
+                android:textOn="38"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG39"
@@ -367,7 +404,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="39"
-                android:textOn="39" />
+                android:textOn="39"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG40"
@@ -375,7 +413,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="40"
-                android:textOn="40" />
+                android:textOn="40"
+                android:background="@drawable/togglebutton_selector"/>
 
         </TableRow>
 
@@ -391,7 +430,8 @@
                 android:checked="false"
                 android:onClick="onToggleClicked"
                 android:textOff="41"
-                android:textOn="41" />
+                android:textOn="41"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG42"
@@ -399,7 +439,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="42"
-                android:textOn="42" />
+                android:textOn="42"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG43"
@@ -407,7 +448,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="43"
-                android:textOn="43" />
+                android:textOn="43"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG44"
@@ -415,7 +457,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="44"
-                android:textOn="44" />
+                android:textOn="44"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG45"
@@ -423,7 +466,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="45"
-                android:textOn="45" />
+                android:textOn="45"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG46"
@@ -431,7 +475,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="46"
-                android:textOn="46" />
+                android:textOn="46"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG47"
@@ -439,7 +484,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="47"
-                android:textOn="47" />
+                android:textOn="47"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG48"
@@ -447,7 +493,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="48"
-                android:textOn="48" />
+                android:textOn="48"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG49"
@@ -455,7 +502,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="49"
-                android:textOn="49" />
+                android:textOn="49"
+                android:background="@drawable/togglebutton_selector"/>
 
             <ToggleButton
                 android:id="@+id/tbG50"
@@ -463,7 +511,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
                 android:textOff="50"
-                android:textOn="50" />
+                android:textOn="50"
+                android:background="@drawable/togglebutton_selector"/>
 
         </TableRow>
 
