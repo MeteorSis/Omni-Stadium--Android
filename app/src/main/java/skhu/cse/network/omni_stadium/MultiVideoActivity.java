@@ -131,6 +131,8 @@ public class MultiVideoActivity extends AppCompatActivity {
 //                URL url=new URL("http://192.168.63.25:23280/app/parkinginfo.jsp");
                 URL url=new URL("http://192.168.63.25:8080/Test/test.jsp");
                 HttpURLConnection httpCon=(HttpURLConnection)url.openConnection();
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
 
                 JSONObject jsonObject=new JSONObject();
                 jsonObject.put("requestStatus", "streamingStatus");
