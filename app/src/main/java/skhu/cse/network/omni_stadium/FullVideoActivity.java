@@ -62,12 +62,19 @@ public class FullVideoActivity extends AppCompatActivity {
             // Close the progress bar and play the video
             public void onPrepared(MediaPlayer mp) {
                 Log.v("Loaded", " Full Video");
-                spinnerView.setVisibility(View.GONE);
+                spinnerView.setVisibility(View.INVISIBLE);
                 videoview.setAlpha(1.0f);
                 videoview.start();
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        spinnerView.setVisibility(View.VISIBLE);
+        videoview.setAlpha(0);
     }
 
     @Override
