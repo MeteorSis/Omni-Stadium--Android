@@ -102,11 +102,14 @@ public class DetailReservActivity extends AppCompatActivity {
         if(on)
         {
             if(isCheckedInArr)
+            {
                 tempTB.toggle();
+                tempTB=tB;
+            }
             else
             {
                 isCheckedInArr = true;
-                tempTB = tB;
+                tempTB=tB;
             }
         }
         else
@@ -114,6 +117,5 @@ public class DetailReservActivity extends AppCompatActivity {
             isCheckedInArr=false;
             tempTB=null;
         }
-
     }
 }
