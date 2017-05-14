@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         DrawerLayout drawer;
+
+    static final int REQ_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +94,7 @@ public class MenuActivity extends AppCompatActivity
 
             case R.id.nav_mypage:
                 Intent mintent = new Intent(getApplicationContext(), MyPageActivity.class);
-                startActivity(mintent);
+                startActivityForResult(mintent, REQ_CODE);
                 break;
         }
 
@@ -102,4 +104,12 @@ public class MenuActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CODE){
+            if(resultCode == RESULT_OK){
+                finish();
+            }
+        }
+    }
 }

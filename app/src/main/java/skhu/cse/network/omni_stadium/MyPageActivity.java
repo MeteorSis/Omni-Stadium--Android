@@ -1,5 +1,6 @@
 package skhu.cse.network.omni_stadium;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -50,8 +51,15 @@ public class MyPageActivity extends AppCompatActivity {
                 if(groupPosition == 0){
                     new AlertDialog.Builder(MyPageActivity.this)
                             .setMessage("로그아웃 하시겠습니까?")
-                            .setPositiveButton("NO",null)
-                            .setNegativeButton("OK",null)
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Intent intent = new Intent();
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("NO",null)
                             .show();
                 }
                 return false;
@@ -65,14 +73,14 @@ public class MyPageActivity extends AppCompatActivity {
                     if (childPosition == 0) {
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setMessage("자유석을 해제하시겠습니까?")
-                                .setPositiveButton("NO", null)
-                                .setNegativeButton("OK", null)
+                                .setPositiveButton("YES", null)
+                                .setNegativeButton("NO", null)
                                 .show();
                     } else {
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setMessage("티켓을 환불하시겠습니까?")
-                                .setPositiveButton("NO", null)
-                                .setNegativeButton("OK", null)
+                                .setPositiveButton("YES", null)
+                                .setNegativeButton("NO", null)
                                 .show();
                     }
                 } else {
@@ -82,7 +90,14 @@ public class MyPageActivity extends AppCompatActivity {
                     } else {
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setMessage("회원을 탈퇴하시겠습니까?")
-                                .setPositiveButton("OK", null)
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent();
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    }
+                                })
                                 .setNegativeButton("NO", null)
                                 .show();
                     }
