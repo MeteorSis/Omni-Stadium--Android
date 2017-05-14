@@ -113,6 +113,15 @@ public class MultiVideoActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        spinnerView1.setVisibility(View.VISIBLE);
+        spinnerView2.setVisibility(View.VISIBLE);
+        videoview1st.setAlpha(0);
+        videoview2nd.setAlpha(0);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         videoview1st.stopPlayback();
@@ -241,7 +250,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    spinnerView1.setVisibility(View.GONE);
+                    spinnerView1.setVisibility(View.INVISIBLE);
                     Glide.with(MultiVideoActivity.this).load(R.drawable.warning).into(imgView_warning1);
                     imgView_warning1.setVisibility(View.VISIBLE);
                     videoview1st.setOnTouchListener(null);
@@ -267,7 +276,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    spinnerView2.setVisibility(View.GONE);
+                    spinnerView2.setVisibility(View.INVISIBLE);
                     Glide.with(MultiVideoActivity.this).load(R.drawable.warning).into(imgView_warning2);
                     imgView_warning2.setVisibility(View.VISIBLE);
                     videoview2nd.setOnTouchListener(null);
