@@ -108,19 +108,9 @@ public class DetailReservActivity extends AppCompatActivity {
             }
             else
                 isCheckedInArr=true;
-                tB.setBackgroundColor(Color.GREEN);
+
         }
         else
             isCheckedInArr=false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
