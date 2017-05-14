@@ -12,13 +12,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Order_ExpLvAdapter extends BaseExpandableListAdapter {
+public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private ArrayList<String> group_menu;
     private HashMap<String, ArrayList<String>> item_menu;
    /* private ViewHolder viewHolder = null;*/
 
-    public Order_ExpLvAdapter(Context context, ArrayList<String> group_menu , HashMap<String, ArrayList<String>> item_menu)
+    public Order_ExplvAdapter(Context context, ArrayList<String> group_menu , HashMap<String, ArrayList<String>> item_menu)
     {
         this.mContext = context;
         this.group_menu = group_menu;

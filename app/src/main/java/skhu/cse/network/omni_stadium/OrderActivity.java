@@ -144,6 +144,11 @@ public class OrderActivity extends AppCompatActivity{
              /*   ExpandableListAdapter adapter = parent.getExpandableListAdapter();
                 Map<String, Object> childMap = (Map<String, Object>) adapter.getChild(groupPosition, childPosition);*/
                 Toast.makeText(getApplicationContext(),"메뉴 클릭",Toast.LENGTH_SHORT).show();
+                if(groupPosition == 0)
+                {
+
+                }
+
 
                 return false;
                 }
