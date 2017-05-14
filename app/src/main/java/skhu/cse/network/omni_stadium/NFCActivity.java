@@ -17,16 +17,6 @@ public class NFCActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.nfctag).into((ImageView)findViewById(R.id.ivNFC));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
 
 
