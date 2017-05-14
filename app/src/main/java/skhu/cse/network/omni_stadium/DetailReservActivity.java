@@ -72,7 +72,7 @@ public class DetailReservActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();
                             finish();
                         }
-                    });
+                    });  dlg.setCancelable(false);
                     dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
