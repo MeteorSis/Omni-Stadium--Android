@@ -41,40 +41,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="01"
+                android:textOn="01" />
 
             <ToggleButton
                 android:id="@+id/tbG2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="02"
+                android:textOn="02" />
 
             <ToggleButton
                 android:id="@+id/tbG3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="03"
+                android:textOn="03" />
 
             <ToggleButton
                 android:id="@+id/tbG4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="04"
+                android:textOn="04" />
 
             <ToggleButton
                 android:id="@+id/tbG5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="05"
+                android:textOn="05" />
 
 
             <ToggleButton
@@ -82,8 +82,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="06"
+                android:textOn="06" />
 
 
             <ToggleButton
@@ -91,31 +91,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="07"
+                android:textOn="07" />
 
             <ToggleButton
                 android:id="@+id/tbG8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="08"
+                android:textOn="08" />
 
             <ToggleButton
                 android:id="@+id/tbG9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="09"
+                android:textOn="09" />
 
             <ToggleButton
                 android:id="@+id/tbG10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
+                android:textOff="10"
                 android:textOn="" />
 
         </TableRow>
@@ -129,80 +129,80 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="11"
+                android:textOn="11" />
 
             <ToggleButton
                 android:id="@+id/tbG12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="12"
+                android:textOn="12" />
 
             <ToggleButton
                 android:id="@+id/tbG13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="13"
+                android:textOn="13" />
 
             <ToggleButton
                 android:id="@+id/tbG14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="14"
+                android:textOn="14" />
 
             <ToggleButton
                 android:id="@+id/tbG15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="15"
+                android:textOn="15" />
 
             <ToggleButton
                 android:id="@+id/tbG16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="16"
+                android:textOn="16" />
 
             <ToggleButton
                 android:id="@+id/tbG17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="17"
+                android:textOn="17" />
 
             <ToggleButton
                 android:id="@+id/tbG18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="18"
+                android:textOn="18" />
 
             <ToggleButton
                 android:id="@+id/tbG19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="19"
+                android:textOn="19" />
 
             <ToggleButton
                 android:id="@+id/tbG20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="20"
+                android:textOn="20" />
 
         </TableRow>
 
@@ -215,55 +215,55 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="21"
+                android:textOn="21" />
 
             <ToggleButton
                 android:id="@+id/tbG22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="22"
+                android:textOn="22" />
 
             <ToggleButton
                 android:id="@+id/tbG23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="23"
+                android:textOn="23" />
 
             <ToggleButton
                 android:id="@+id/tbG24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="24"
+                android:textOn="24" />
 
             <ToggleButton
                 android:id="@+id/tbG25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="25"
+                android:textOn="25" />
 
             <ToggleButton
                 android:id="@+id/tbG26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="26"
+                android:textOn="26" />
 
             <ToggleButton
                 android:id="@+id/tbG27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
+                android:textOff="27"
                 android:textOn="" />
 
             <ToggleButton
@@ -271,24 +271,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="28"
+                android:textOn="28" />
 
             <ToggleButton
                 android:id="@+id/tbG29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="29"
+                android:textOn="29" />
 
             <ToggleButton
                 android:id="@+id/tbG30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="30"
+                android:textOn="30" />
 
         </TableRow>
 
@@ -302,80 +302,80 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="31"
+                android:textOn="31" />
 
             <ToggleButton
                 android:id="@+id/tbG32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="32"
+                android:textOn="32" />
 
             <ToggleButton
                 android:id="@+id/tbG33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="33"
+                android:textOn="33" />
 
             <ToggleButton
                 android:id="@+id/tbG34"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="34"
+                android:textOn="34" />
 
             <ToggleButton
                 android:id="@+id/tbG35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="35"
+                android:textOn="35" />
 
             <ToggleButton
                 android:id="@+id/tbG36"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="36"
+                android:textOn="36" />
 
             <ToggleButton
                 android:id="@+id/tbG37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="37"
+                android:textOn="37" />
 
             <ToggleButton
                 android:id="@+id/tbG38"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="38"
+                android:textOn="38" />
 
             <ToggleButton
                 android:id="@+id/tbG39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="39"
+                android:textOn="39" />
 
             <ToggleButton
                 android:id="@+id/tbG40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="40"
+                android:textOn="40" />
 
         </TableRow>
 
@@ -390,80 +390,80 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="41"
+                android:textOn="41" />
 
             <ToggleButton
                 android:id="@+id/tbG42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="42"
+                android:textOn="42" />
 
             <ToggleButton
                 android:id="@+id/tbG43"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="43"
+                android:textOn="43" />
 
             <ToggleButton
                 android:id="@+id/tbG44"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="44"
+                android:textOn="44" />
 
             <ToggleButton
                 android:id="@+id/tbG45"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="45"
+                android:textOn="45" />
 
             <ToggleButton
                 android:id="@+id/tbG46"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="46"
+                android:textOn="46" />
 
             <ToggleButton
                 android:id="@+id/tbG47"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="47"
+                android:textOn="47" />
 
             <ToggleButton
                 android:id="@+id/tbG48"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="48"
+                android:textOn="48" />
 
             <ToggleButton
                 android:id="@+id/tbG49"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="49"
+                android:textOn="49" />
 
             <ToggleButton
                 android:id="@+id/tbG50"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onToggleClicked"
-                android:textOff=""
-                android:textOn="" />
+                android:textOff="50"
+                android:textOn="50" />
 
         </TableRow>
 

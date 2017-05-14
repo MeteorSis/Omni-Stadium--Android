@@ -108,6 +108,7 @@ public class DetailReservActivity extends AppCompatActivity {
             }
             else
                 isCheckedInArr=true;
+                tB.setBackgroundColor(Color.GREEN);
         }
         else
             isCheckedInArr=false;

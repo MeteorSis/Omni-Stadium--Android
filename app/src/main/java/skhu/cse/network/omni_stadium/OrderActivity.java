@@ -5,30 +5,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.SimpleExpandableListAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
 
 public class OrderActivity extends AppCompatActivity{
 
     private ArrayList<String> parent_menu = new ArrayList<String>();
     private HashMap<String, ArrayList<String>> child_menu = new HashMap<String, ArrayList<String>>();
-    private HashMap<String, ArrayList<String>> child_menu2 = new HashMap<String, ArrayList<String>>();
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView name = (TextView)findViewById(R.id.tvLitem);
+        TextView cost = (TextView)findViewById(R.id.tvRitem);
+
         ExpandableListView lvorder = (ExpandableListView)findViewById(R.id.explv_order);
 
         parent_menu.add("치킨");
         parent_menu.add("피자");
         parent_menu.add("햄버거");
         parent_menu.add("맥주");
+
 
 
         ArrayList<String> chicken = new ArrayList<String>();
@@ -115,7 +120,7 @@ public class OrderActivity extends AppCompatActivity{
         beer.add("라임 맥주");
         beer.add("청포도 맥주");
         beer.add("병맥주");
-        
+
         beer_cost.add("3000원");
         beer_cost.add("3500원");
         beer_cost.add("4500원");
@@ -130,14 +135,14 @@ public class OrderActivity extends AppCompatActivity{
         child_menu.put(parent_menu.get(3),  beer);
 
 
-
-        lvorder.setAdapter(new ExplvAdapter(this, parent_menu, child_menu));
+        lvorder.setAdapter(new ExplvAdapter(this,parent_menu, child_menu));
 
         lvorder.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                ExpandableListAdapter adapter = parent.getExpandableListAdapter();
-                Map<String, Object> childMap = (Map<String, Object>) adapter.getChild(groupPosition, childPosition);
+             /*   ExpandableListAdapter adapter = parent.getExpandableListAdapter();
+                Map<String, Object> childMap = (Map<String, Object>) adapter.getChild(groupPosition, childPosition);*/
+                Toast.makeText(getApplicationContext(),"메뉴 클릭",Toast.LENGTH_SHORT).show();
 
                 return false;
                 }
