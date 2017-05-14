@@ -19,7 +19,7 @@ import android.widget.ToggleButton;
 public class DetailReservActivity extends AppCompatActivity {
     String value;
     private boolean isCheckedInArr=false;
-
+    private ToggleButton tempTB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,15 +102,18 @@ public class DetailReservActivity extends AppCompatActivity {
         if(on)
         {
             if(isCheckedInArr)
-            {
-                tB.toggle();
-                Toast.makeText(this, "이미 선택된 좌석이 있습니다.", Toast.LENGTH_SHORT).show();
-            }
+                tempTB.toggle();
             else
-                isCheckedInArr=true;
-
+            {
+                isCheckedInArr = true;
+                tempTB = tB;
+            }
         }
         else
+        {
             isCheckedInArr=false;
+            tempTB=null;
+        }
+
     }
 }
