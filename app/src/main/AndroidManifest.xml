@@ -82,6 +82,7 @@
         
         <activity
             android:name=".DetailReservActivity"
+            android:parentActivityName=".ReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="좌석 예매 상세정보"
 
