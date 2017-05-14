@@ -16,8 +16,8 @@ import java.util.HashMap;
 
 public class OrderActivity extends AppCompatActivity{
 
-    private ArrayList<String> parent_menu = new ArrayList<String>();
-    private HashMap<String, ArrayList<String>> child_menu = new HashMap<String, ArrayList<String>>();
+    private ArrayList<String> group_menu = new ArrayList<String>();
+    private HashMap<String, ArrayList<String>> item_menu = new HashMap<String, ArrayList<String>>();
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +29,15 @@ public class OrderActivity extends AppCompatActivity{
 
         ExpandableListView lvorder = (ExpandableListView)findViewById(R.id.explv_order);
 
-        parent_menu.add("치킨");
-        parent_menu.add("피자");
-        parent_menu.add("햄버거");
-        parent_menu.add("맥주");
+        group_menu.add("치킨");
+        group_menu.add("피자");
+        group_menu.add("햄버거");
+        group_menu.add("맥주");
 
 
 
         ArrayList<String> chicken = new ArrayList<String>();
-        ArrayList<String> chicken_cost = new ArrayList<String>();
+        /*ArrayList<String> chicken_cost = new ArrayList<String>();*/
 
         chicken.add("후라이드치킨");
         chicken.add("양념치킨");
@@ -50,7 +50,7 @@ public class OrderActivity extends AppCompatActivity{
         chicken.add("허니갈릭스치킨");
         chicken.add("치즐링치킨");
 
-        chicken_cost.add("15000원");
+     /*   chicken_cost.add("15000원");
         chicken_cost.add("16000원");
         chicken_cost.add("16000원");
         chicken_cost.add("16000원");
@@ -59,7 +59,7 @@ public class OrderActivity extends AppCompatActivity{
         chicken_cost.add("18000원");
         chicken_cost.add("18000원");
         chicken_cost.add("19000원");
-        chicken_cost.add("19000원");
+        chicken_cost.add("19000원");*/
 
         ArrayList<String> pizza = new ArrayList<String>();
         ArrayList<String> pizza_cost = new ArrayList<String>();
@@ -129,13 +129,14 @@ public class OrderActivity extends AppCompatActivity{
         beer_cost.add("4500원");
         beer_cost.add("5000원");
 
-        child_menu.put(parent_menu.get(0), chicken);
-        child_menu.put(parent_menu.get(1), pizza);
-        child_menu.put(parent_menu.get(2),  hamburger);
-        child_menu.put(parent_menu.get(3),  beer);
+        item_menu.put(group_menu.get(0), chicken);
+        item_menu.put(group_menu.get(1), pizza);
+        item_menu.put(group_menu.get(2),  hamburger);
+        item_menu.put(group_menu.get(3),  beer);
 
 
-        lvorder.setAdapter(new ExplvAdapter(this,parent_menu, child_menu));
+        lvorder.setAdapter(new ExplvAdapter(this,group_menu,item_menu));
+
 
         lvorder.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
