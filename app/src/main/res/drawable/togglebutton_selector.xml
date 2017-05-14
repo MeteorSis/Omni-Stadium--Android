@@ -3,10 +3,7 @@
     <item
         android:drawable="@drawable/togglebutton_checked"
         android:state_checked="true"/>
-
     <item
         android:drawable="@drawable/togglebutton_unchecked"
         android:state_checked="false"/>
-
-
 </selector>

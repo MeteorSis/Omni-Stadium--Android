@@ -17,15 +17,16 @@ import android.widget.ToggleButton;
 
 
 public class DetailReservActivity extends AppCompatActivity {
-    String value;
+    private String value;
     private boolean isCheckedInArr=false;
     private ToggleButton tempTB;
+    private EditText seatInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reserv_detail);
         Button SeatOk = (Button)findViewById(R.id.btSeatOk);
-        EditText seatInfo = (EditText)findViewById(R.id.etSeatInfo);
+        seatInfo = (EditText)findViewById(R.id.etSeatInfo);
         seatInfo.setFocusableInTouchMode(false); // EditText를 읽기전용으로 만듦
         Intent intent = getIntent();
         value  =  intent.getStringExtra("Sector");
@@ -104,6 +105,7 @@ public class DetailReservActivity extends AppCompatActivity {
             if(isCheckedInArr)
             {
                 tempTB.toggle();
+                tempTB.setTextColor(Color.parseColor("#5FBEAA"));
                 tempTB=tB;
             }
             else
@@ -111,11 +113,19 @@ public class DetailReservActivity extends AppCompatActivity {
                 isCheckedInArr = true;
                 tempTB=tB;
             }
+            tB.setTextColor(Color.parseColor("#FFFFFF"));
+            CharSequence tBText=tB.getText();
+            char row=tBText.charAt(0);
+            if(tBText.charAt(1)!='0')
+                row++;
+            seatInfo.setText(value+" : "+row+"행 "+tBText+"석");
         }
         else
         {
+            tB.setTextColor(Color.parseColor("#5FBEAA"));
             isCheckedInArr=false;
             tempTB=null;
+            seatInfo.setText(value);
         }
     }
 }
