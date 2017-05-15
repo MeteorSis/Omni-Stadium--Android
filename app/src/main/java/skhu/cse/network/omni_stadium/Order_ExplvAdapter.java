@@ -1,8 +1,6 @@
 package skhu.cse.network.omni_stadium;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +13,9 @@ import java.util.HashMap;
 public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private ArrayList<String> group_menu;
-    private HashMap<String, ArrayList<String>> item_menu;
-   /* private ViewHolder viewHolder = null;*/
+    private HashMap<String, ArrayList<Itemlist>> item_menu;
 
-    public Order_ExplvAdapter(Context context, ArrayList<String> group_menu , HashMap<String, ArrayList<String>> item_menu)
+    public Order_ExplvAdapter(Context context, ArrayList<String> group_menu , HashMap<String, ArrayList<Itemlist>> item_menu)
     {
         super();
         this.mContext = context;
@@ -44,7 +41,7 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public Object  getChild(int groupPosition, int childPosition) { // groupPostion과 childPosition을 통해 childList의 원소를 얻어옴
+    public Object getChild(int groupPosition, int childPosition) { // groupPostion과 childPosition을 통해 childList의 원소를 얻어옴
         return item_menu.get(group_menu.get(groupPosition)).get(childPosition);
 
     }
@@ -62,7 +59,6 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean hasStableIds() { return false; } // stable ID인지 boolean 값으로 반환
 
-
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) { // ParentList의 View
         String groupName = group_menu.get(groupPosition);
@@ -72,30 +68,25 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
             // ParentList의 layout 연결.
             convertView = groupInfla.inflate(R.layout.order_group, null);
         }
-
         // ParentList의 Layout 연결 후, 해당 layout 내 TextView를 연결
         TextView parentText = (TextView)convertView.findViewById(R.id.tvgroup);
         parentText.setText(groupName);
         return convertView;
     }
 
-
-
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         // ChildList의 View. 위 ParentList의 View를 얻을 때와 비슷하게 Layout 연결 후, layout 내 TextView 2개를 연결
-        String childName = (String)getChild(groupPosition, childPosition);
-        String childCost = (String)getChild(groupPosition, childPosition);
+        Itemlist child = (Itemlist)getChild(groupPosition, childPosition);
         if(convertView == null){
 
             LayoutInflater childInfla = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = childInfla.inflate(R.layout.order_item, null);
         }
-
         TextView name = (TextView)convertView.findViewById(R.id.tvLitem);
         TextView cost = (TextView)convertView.findViewById(R.id.tvRitem);
-        name.setText(childName);
-        cost.setText(childCost);
+        name.setText(child.getName());
+        cost.setText(child.getCost());
         return convertView;
     }
 
