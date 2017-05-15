@@ -14,12 +14,12 @@ public class Itemlist {
         this.cost = cost;
     }
 
-    String getName()
+    public String getName()
     {
         return name;
     }
 
-    String getCost()
+    public String getCost()
     {
         return cost;
     }
