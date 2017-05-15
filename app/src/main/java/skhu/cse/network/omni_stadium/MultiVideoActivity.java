@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -133,7 +132,7 @@ public class MultiVideoActivity extends AppCompatActivity {
     {
         @Override
         protected JSONObject doInBackground(String... params) {
-            InputStream is=null;
+            /*InputStream is=null;
             String result="";
             try
             {
@@ -191,14 +190,14 @@ public class MultiVideoActivity extends AppCompatActivity {
             catch (Exception e)
             {
                 e.printStackTrace();
-            }
+            }*/
             return null;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
-            if(jsonObject!=null)
+            /*if(jsonObject!=null)
             {
                 try {
                     isClosed1stServer = jsonObject.getBoolean("isClosed1stServer");
@@ -226,7 +225,20 @@ public class MultiVideoActivity extends AppCompatActivity {
             {
                 isClosed1stServer=true;
                 isClosed2ndServer=true;
-            }
+            }*/
+
+            isClosed1stServer=false;
+            isClosed2ndServer=false;
+
+            server1IP="192.168.63.25";
+            server2IP="192.168.63.25";
+            server1Port=52221;
+            server2Port=52231;
+            server1Path="test";
+            server2Path="test";
+
+            VideoURL1st = "rtsp://"+server1IP+":"+server1Port+"/"+server1Path;
+            VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;
 
             try
             {
@@ -309,7 +321,7 @@ public class MultiVideoActivity extends AppCompatActivity {
             });
         }
 
-        private String convertInputStreamToString(InputStream inputStream) throws IOException
+       /* private String convertInputStreamToString(InputStream inputStream) throws IOException
         {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
@@ -319,6 +331,6 @@ public class MultiVideoActivity extends AppCompatActivity {
 
             inputStream.close();
             return result;
-        }
+        }*/
     }
 }
