@@ -96,7 +96,6 @@ public class ExplvAdapterSign extends BaseExpandableListAdapter {
         }
 
         TextView expListChild = (TextView) convertView.findViewById(R.id.textChild);
-        expListChild.setTypeface(null, Typeface.BOLD);
         expListChild.setText(childName);
 
         return convertView;

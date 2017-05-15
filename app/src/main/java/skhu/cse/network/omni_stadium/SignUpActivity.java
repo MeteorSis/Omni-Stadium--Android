@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -121,6 +122,8 @@ public class SignUpActivity extends AppCompatActivity{
                     //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
                     Log.d("test1", "test1");
                     new SignUp().execute(SignupData[0], SignupData[1], SignupData[2], SignupData[3], SignupData[4], SignupData[5]);
+                    Toast.makeText(getApplicationContext(), "회원가입 완료", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 else{
                     new AlertDialog.Builder(SignUpActivity.this)

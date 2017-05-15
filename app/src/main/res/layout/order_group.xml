@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textSize="17dp"
+        android:textStyle="bold"
         android:layout_margin="10dp"
         android:fadeScrollbars="true"/>
 
