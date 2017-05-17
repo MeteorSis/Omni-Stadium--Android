@@ -72,29 +72,25 @@
             android:label="주문 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="좌석예매 기능"
             android:parentActivityName=".MenuActivity"
-            android:screenOrientation="portrait"/>
-        
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DetailReservActivity"
-            android:parentActivityName=".ReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="좌석 예매 상세정보"
-
-            android:screenOrientation="portrait"/>
-        
+            android:parentActivityName=".ReservActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MyPageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SignChangeActivity">
-        </activity>
+        <activity android:name=".SignChangeActivity"></activity>
+        <activity android:name=".FriedChicken"></activity>
     </application>
 
 </manifest>

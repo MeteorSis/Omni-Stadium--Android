@@ -1,5 +1,6 @@
 package skhu.cse.network.omni_stadium;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -86,27 +87,33 @@ public class OrderActivity extends AppCompatActivity{
         lvorder.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                switch (groupPosition) {
+                    case 0:
+                        if (childPosition == 0) {
+                            Intent intent = new Intent(getApplicationContext(),FriedChicken.class);
+                            startActivity(intent);
+                        } else if (childPosition == 1) {
+                            Toast.makeText(getApplicationContext(), "양념 치킨 ", Toast.LENGTH_SHORT).show();
+                        } else if (childPosition == 2) {
+                            Toast.makeText(getApplicationContext(), "간장 치킨 ", Toast.LENGTH_SHORT).show();
+                        } else if (childPosition == 3) {
+                            Toast.makeText(getApplicationContext(), "반반 치킨 ", Toast.LENGTH_SHORT).show();
+                        } else if (childPosition == 3) {
+                            Toast.makeText(getApplicationContext(), "반반 치킨 ", Toast.LENGTH_SHORT).show();
+                        }
 
-                if(groupPosition == 0)
-                {
-                    Toast.makeText(getApplicationContext(),"치킨 메뉴",Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "피자 메뉴", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "햄버거 메뉴", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getApplicationContext(), "맥주 메뉴", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-
-                else if(groupPosition == 1)
-                {
-                    Toast.makeText(getApplicationContext(),"피자 메뉴",Toast.LENGTH_SHORT).show();
-                }
-
-                else  if(groupPosition == 2)
-                {
-                    Toast.makeText(getApplicationContext(),"햄버거 메뉴",Toast.LENGTH_SHORT).show();
-                }
-
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"맥주 메뉴",Toast.LENGTH_SHORT).show();
-                }
-
                 return false;
             }
         });
