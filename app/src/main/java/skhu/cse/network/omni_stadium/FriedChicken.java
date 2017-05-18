@@ -19,7 +19,7 @@ public class FriedChicken extends AppCompatActivity {
         final TextView count = (TextView)findViewById(R.id.tvCountinfo);
         final TextView allprice = (TextView)findViewById(R.id.tvall_price);
         final Button basket = (Button)findViewById(R.id.btbasket);
-
+        final String menu_name[] = {"후라이드 치킨","양념치킨"};
         Button plus = (Button)findViewById(R.id.btplus);
         count.setText(""+fcount);
         allprice.setText(fprice+"원");
@@ -49,9 +49,12 @@ public class FriedChicken extends AppCompatActivity {
         basket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), OrderActivity.class);
-                intent.putExtra("가격",fprice);
-                startActivity(intent);
+            Intent intent = new Intent();
+             intent.putExtra("chicken_name",menu_name);
+             intent.putExtra("chicken_count",fcount);
+             intent.putExtra("chicken_price",fcount*fprice);
+             setResult(RESULT_OK, intent);
+             finish();
             }
         });
     }

@@ -89,16 +89,20 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".SignChangeActivity"
+        <activity
+            android:name=".SignChangeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".FriedChicken"
+        <activity
+            android:name=".FriedChicken"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".OrderActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".OrderListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:parentActivityName=".OrderActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

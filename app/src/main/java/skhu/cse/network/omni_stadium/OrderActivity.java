@@ -18,7 +18,10 @@ public class OrderActivity extends AppCompatActivity{
     private ArrayList<String> group_list = new ArrayList<String>();
     private HashMap<String, ArrayList<Itemlist>> item_list = new HashMap<String, ArrayList<Itemlist>>();
     private  ExpandableListAdapter listAdapter;
-    private int count;
+    private String name[];                        //전달받은 이름 데이터를 저장하는 배열
+    private int count[];                        // 전달받은 수량 데이터를 저장하는 배열
+    private int price[];                       // 전달받은 가격 데이터를 저장하는 배열
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_main);
@@ -119,6 +122,17 @@ public class OrderActivity extends AppCompatActivity{
                         break;
                 }
                 return false;
+            }
+        });
+        Intent gtintent =  getIntent();
+        name = gtintent.getStringArrayExtra("chicken_name");
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                startActivity(intent);
+
             }
         });
     }
