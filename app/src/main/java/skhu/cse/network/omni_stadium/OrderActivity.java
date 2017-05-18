@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -17,10 +18,13 @@ public class OrderActivity extends AppCompatActivity{
     private ArrayList<String> group_list = new ArrayList<String>();
     private HashMap<String, ArrayList<Itemlist>> item_list = new HashMap<String, ArrayList<Itemlist>>();
     private  ExpandableListAdapter listAdapter;
+    private int count;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Button order_basket = (Button)findViewById(R.id.btbasket);
+        Button order = (Button)findViewById(R.id.btorder);
         ExpandableListView lvorder = (ExpandableListView)findViewById(R.id.explv_order);
         group_list.add("치킨");
         group_list.add("피자");
