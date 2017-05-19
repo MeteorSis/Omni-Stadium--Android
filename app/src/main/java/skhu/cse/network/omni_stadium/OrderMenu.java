@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class OrderMenu extends AppCompatActivity {
-    private  int fcount=1; //후라이드 치킨 수량을 저장하는 변수
+    private  int mcount=1; //후라이드 치킨 수량을 저장하는 변수
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,28 +32,28 @@ public class OrderMenu extends AppCompatActivity {
         price.setText(cprice+"원");
         name.setText(cname);
         info.setText(cinfo);
-        count.setText(""+fcount);
-        all_price.setText(fcount*cprice+"원");
+        count.setText(""+mcount);
+        all_price.setText(mcount*cprice+"원");
 
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(--fcount<0)
+                if(--mcount<0)
                 {
-                    fcount=0;
+                    mcount=0;
                     return;
                 }
-                count.setText(""+fcount);
-                all_price.setText(fcount*cprice+"원");
+                count.setText(""+mcount);
+                all_price.setText(mcount*cprice+"원");
             }
         });
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ++fcount;
-                count.setText(""+fcount);
-                all_price.setText(fcount*cprice+"원");
+                ++mcount;
+                count.setText(""+mcount);
+                all_price.setText(mcount*cprice+"원");
             }
         });
 
