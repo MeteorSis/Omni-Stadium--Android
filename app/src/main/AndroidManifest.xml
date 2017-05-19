@@ -94,7 +94,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FriedChicken"
+            android:name=".OrderMenu"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".OrderActivity"
             android:screenOrientation="portrait" />

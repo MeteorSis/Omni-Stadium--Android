@@ -7,22 +7,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class FriedChicken extends AppCompatActivity {
-    private  int fcount=1; //치킨 수량을 저장하는 변수
-    private  int fprice = 15000; // 치킨 가격을 저장하는 변수
+public class OrderMenu extends AppCompatActivity {
+    private  int fcount=1; //후라이드 치킨 수량을 저장하는 변수
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.order_fried_chicken);
+        setContentView(R.layout.order_menu_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Button minus = (Button)findViewById(R.id.btminus);
         final TextView count = (TextView)findViewById(R.id.tvCountinfo);
-        final TextView allprice = (TextView)findViewById(R.id.tvall_price);
         final Button basket = (Button)findViewById(R.id.btbasket);
-        final String menu_name[] = {"후라이드 치킨","양념치킨"};
+        final TextView name = (TextView) findViewById(R.id.tvmenu_name);
+        final TextView info = (TextView)findViewById(R.id.tvmenu_info);
+        final TextView price = (TextView)findViewById(R.id.tvmenu_price);
+        final TextView all_price = (TextView)findViewById(R.id.tvall_price);
         Button plus = (Button)findViewById(R.id.btplus);
+
+
+        Intent intent = getIntent();
+        String cname = intent.getStringExtra("menu_name");
+        String cinfo = intent.getStringExtra("menu_info");
+        final int cprice = intent.getIntExtra("menu_price",16000);
+        final int call_price = intent.getIntExtra("menu_allprice",16000);
+        price.setText(cprice+"원");
+        name.setText(cname);
+        info.setText(cinfo);
         count.setText(""+fcount);
-        allprice.setText(fprice+"원");
+        all_price.setText(fcount*cprice+"원");
 
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +44,7 @@ public class FriedChicken extends AppCompatActivity {
                     return;
                 }
                 count.setText(""+fcount);
-                allprice.setText(fprice*fcount+"원");
+                all_price.setText(fcount*cprice+"원");
             }
         });
 
@@ -42,18 +53,13 @@ public class FriedChicken extends AppCompatActivity {
             public void onClick(View v) {
                 ++fcount;
                 count.setText(""+fcount);
-                allprice.setText(fprice*fcount+"원");
+                all_price.setText(fcount*cprice+"원");
             }
         });
 
         basket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent = new Intent();
-             intent.putExtra("chicken_name",menu_name);
-             intent.putExtra("chicken_count",fcount);
-             intent.putExtra("chicken_price",fcount*fprice);
-             setResult(RESULT_OK, intent);
              finish();
             }
         });
