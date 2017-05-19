@@ -64,9 +64,7 @@ public class MyPageActivity extends AppCompatActivity {
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent intent = new Intent();
-                                    setResult(RESULT_OK, intent);
-                                    finish();
+                                    new LogoutTask().execute(((OmniApplication)getApplicationContext()).getId());
                                 }
                             })
                             .setNegativeButton("NO",null)
@@ -118,7 +116,7 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
-    /*private class LogoutTask extends AsyncTask<String, Void, JSONObject>
+    private class LogoutTask extends AsyncTask<String, Void, JSONObject>
     {
         @Override
         protected JSONObject doInBackground(String... params) {
@@ -127,7 +125,7 @@ public class MyPageActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.123.167:51223/AndroidClientLogInRequestPost");
+                url = new URL("http://192.168.63.25:51223/AndroidClientLogOutRequestPost");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -145,7 +143,6 @@ public class MyPageActivity extends AppCompatActivity {
 
                 JSONObject outJson = new JSONObject();
                 outJson.put("아이디", params[0]);
-                outJson.put("비밀번호", params[1]);
 
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
@@ -176,16 +173,16 @@ public class MyPageActivity extends AppCompatActivity {
                 int result=jsonObject.getInt("결과");
                 if(result==0)
                 {
-                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                    startActivity(intent);
+                    ((OmniApplication)getApplicationContext()).setId(null);
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
-                else if(result==1)
-                    Toast.makeText(MainActivity.this, "접속 중인 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(MainActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPageActivity.this, "로그아웃이 실패하였습니다.", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
 
             }
         }
-    }*/
+    }
 }

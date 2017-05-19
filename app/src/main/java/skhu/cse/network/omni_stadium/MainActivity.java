@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
     private BackPressCloseHandler backPressCloseHandler;
     private EditText etID, etPW;
+    private String strID, strPW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    String ID = etID.getText().toString();
-                    String PW = etPW.getText().toString();
+                    strID = etID.getText().toString();
+                    strPW = etPW.getText().toString();
 
-                    editor.putString("ID", ID);
-                    editor.putString("PW", PW);
+                    editor.putString("ID", strID);
+                    editor.putString("PW", strPW);
                     editor.putBoolean("Auto_Login_enabled",true);
                     editor.commit();
                 }
@@ -129,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void loginFunc()
     {
-        String strID=etID.getText().toString();
-        String strPW=etPW.getText().toString();
+        strID=etID.getText().toString();
+        strPW=etPW.getText().toString();
         String IDregex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
         Pattern IDpattern = Pattern.compile(IDregex);
         Matcher IDmatcher = IDpattern.matcher(strID);
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         if(strID.matches("") || strPW.matches("") || !IDmatcher.find() || strPW.length()<6)
             Toast.makeText(MainActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
         else
-            new LoginTask().execute(etID.getText().toString(), etPW.getText().toString());
+            new LoginTask().execute(strID, strPW);
     }
 
     private class LoginTask extends AsyncTask<String, Void, JSONObject>
@@ -197,19 +198,29 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try {
                 int result=jsonObject.getInt("결과");
-                if(result==0)
+                if(result==0||result==1)
                 {
+                    OmniApplication omniApplication=(OmniApplication)getApplicationContext();
+                    omniApplication.setId(strID);
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivity(intent);
-                }
+                }/*
                 else if(result==1)
                     Toast.makeText(MainActivity.this, "접속 중인 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
-                else
+                */else
                     Toast.makeText(MainActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
 
             }
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        etID.setText("");
+        etPW.setText("");
+        etID.requestFocus();
     }
 
     @Override
