@@ -19,15 +19,6 @@ public class OrderActivity extends AppCompatActivity{
     private HashMap<String, ArrayList<Itemlist>> item_list = new HashMap<String, ArrayList<Itemlist>>();
     private  ExpandableListAdapter listAdapter;
     static final int REQ_CODE_CHICKEN_0 =0;
-    static final int REQ_CODE_CHICKEN_1=1;
-    static final int REQ_CODE_CHICKEN_2=2;
-    static final int REQ_CODE_CHICKEN_3=3;
-    static final int REQ_CODE_CHICKEN_4=4;
-    static final int REQ_CODE_CHICKEN_5=5;
-    static final int REQ_CODE_CHICKEN_6=6;
-    static final int REQ_CODE_CHICKEN_7=7;
-    static final int REQ_CODE_CHICKEN_8=8;
-    static final int REQ_CODE_CHICKEN_9=9;
     static final int REQ_CODE_PIZZA_1 = 1;
     static final int REQ_CODE_HAMBURGER_2 = 2;
     static final int REQ_CODE_BEER_3 = 3;
@@ -120,7 +111,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","새콤달콤한 과실의 산뜻함으로 시작하여 부드러움으로\n"+ "마무리 되는 클래스가 다른 양념 치킨");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",16000);
-                            startActivityForResult(intent,REQ_CODE_CHICKEN_1);
+                            startActivityForResult(intent,REQ_CODE_CHICKEN_0);
                         } else if (childPosition == 2) {
                             Intent intent = new Intent(getApplicationContext(),OrderMenu.class);
                             intent.putExtra("menu_name", "간장치킨");
@@ -128,7 +119,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","진한 마늘소스와 간장소스로 맛을 낸 쫄깃한 치킨");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",16000);
-                            startActivityForResult(intent,REQ_CODE_CHICKEN_2);
+                            startActivityForResult(intent,REQ_CODE_CHICKEN_0);
                         } else if (childPosition == 3) {
                             Intent intent = new Intent(getApplicationContext(),OrderMenu.class);
                             intent.putExtra("menu_name", "반반치킨");
@@ -136,7 +127,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","한입 바삭하게 베어물면 느껴지는 고소한 육즙의 후라이드치킨,"+"입안에 퍼지는 부드러운 매콤한 맛의 양념치킨을 반반으로\n"+"한번에 즐겨보세요!");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",16000);
-                            startActivityForResult(intent,REQ_CODE_CHICKEN_3);
+                            startActivityForResult(intent,REQ_CODE_CHICKEN_0);
                         } else if (childPosition == 4) {
                             Intent intent = new Intent(getApplicationContext(), OrderMenu.class);
                             intent.putExtra("menu_name", "파닭");
@@ -144,7 +135,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","상큼한 파와 치킨의 환상적인 만남~ 신선하고 상큼한 파와\n"+"치킨이 어우러져 입맛을 살려주는 매력적인 파닭치킨");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",17000);
-                            startActivityForResult(intent, REQ_CODE_CHICKEN_4);
+                            startActivityForResult(intent, REQ_CODE_CHICKEN_0);
                         } else if (childPosition == 5) {
                             Intent intent = new Intent(getApplicationContext(), OrderMenu.class);
                             intent.putExtra("menu_name", "핫치킨");
@@ -152,7 +143,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","바삭하게 튀겨낸 치킨을 레드핫 칠리페퍼소스로\n"+"버무린 맛있게 더 매운 치킨 ");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",18000);
-                            startActivityForResult(intent, REQ_CODE_CHICKEN_5);
+                            startActivityForResult(intent, REQ_CODE_CHICKEN_0);
                         }
                          else if (childPosition == 6) {
                             Intent intent = new Intent(getApplicationContext(), OrderMenu.class);
@@ -161,7 +152,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","정통인도커리와 로스팅한 갈릭시즈닝으로\n"+"입안 가득 진한 커리맛과 향이 더해지는 커리맛 치킨");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",18000);
-                            startActivityForResult(intent, REQ_CODE_CHICKEN_6);
+                            startActivityForResult(intent, REQ_CODE_CHICKEN_0);
                         }
                         else if (childPosition == 7) {
                             Intent intent = new Intent(getApplicationContext(), OrderMenu.class);
@@ -171,7 +162,7 @@ public class OrderActivity extends AppCompatActivity{
                                     "검은콩, 현미, 아몬드, 옥수수 등을 갈아넣은 비스킷 같이 크런키한 식감의\n"+ "고소한 치킨 치킨이 이렇게 바삭하고 고소 할 수가~");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",18000);
-                            startActivityForResult(intent, REQ_CODE_CHICKEN_7);
+                            startActivityForResult(intent, REQ_CODE_CHICKEN_0);
                         }
                         else if (childPosition == 8) {
                             Intent intent = new Intent(getApplicationContext(), OrderMenu.class);
@@ -180,7 +171,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","달콤~한 꿀마늘향 허니갈릭스! 향긋하고 달콤한 아카시아 꿀,\n"+ "알싸한 마늘향이 듬뿍 들어있는 갈릭 간장 소스가 만났다!");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",19000);
-                            startActivityForResult(intent, REQ_CODE_CHICKEN_8);
+                            startActivityForResult(intent, REQ_CODE_CHICKEN_0);
                         }
                         else if (childPosition == 9) {
                             Intent intent = new Intent(getApplicationContext(), OrderMenu.class);
@@ -189,7 +180,7 @@ public class OrderActivity extends AppCompatActivity{
                             intent.putExtra("menu_info","마스카포네치즈와 체다치즈가 잘 조화된 풍부한 맛의\n"+"치즈 파우더로 듬뿍듬뿍 버무린 치킨으로 입 안 깊숙히\n"+ "풍성하게 스며드는 치즈맛이 특제 파우더로 조리된 치킨과 잘 어우러진 환상의 맛!");
                             intent.putExtra("menu_count",1);
                             intent.putExtra("menu_allprice",19000);
-                            startActivityForResult(intent, REQ_CODE_CHICKEN_9);
+                            startActivityForResult(intent, REQ_CODE_CHICKEN_0);
                         }
                         break;
 
@@ -475,6 +466,7 @@ public class OrderActivity extends AppCompatActivity{
                 return false;
             }
         });
+
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -516,7 +508,16 @@ public class OrderActivity extends AppCompatActivity{
     {
         switch (requestCode){
             case REQ_CODE_CHICKEN_0:
+                break;
 
+            case REQ_CODE_PIZZA_1:
+                break;
+
+            case REQ_CODE_HAMBURGER_2:
+                break;
+
+            case REQ_CODE_BEER_3:
+                break;
         }
 
 
