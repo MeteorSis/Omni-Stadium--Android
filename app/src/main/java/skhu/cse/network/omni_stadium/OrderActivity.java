@@ -479,8 +479,8 @@ public class OrderActivity extends AppCompatActivity{
 
     private class IntentData
     {
-        private String name;                        //전달받은 이름 데이터를 저장하는 배열
-        private int count,price;                  // 전달받은 수량과 가격 데이터를 저장하는 배열
+        private String name;                        //전달받은 이름 데이터를 저장
+        private int count,price;                  // 전달받은 수량과 가격 데이터를 저장
         IntentData(String name, int count, int price)
         {
             this.name = name;
