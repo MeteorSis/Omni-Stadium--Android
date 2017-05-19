@@ -2,6 +2,7 @@ package skhu.cse.network.omni_stadium;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,15 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -95,6 +105,7 @@ public class MyPageActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         Intent intent = new Intent();
                                         setResult(RESULT_OK, intent);
+
                                         finish();
                                     }
                                 })
@@ -105,7 +116,76 @@ public class MyPageActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
+    /*private class LogoutTask extends AsyncTask<String, Void, JSONObject>
+    {
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.123.167:51223/AndroidClientLogInRequestPost");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("비밀번호", params[1]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream=httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result=jsonObject.getInt("결과");
+                if(result==0)
+                {
+                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(intent);
+                }
+                else if(result==1)
+                    Toast.makeText(MainActivity.this, "접속 중인 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(MainActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
+        }
+    }*/
 }

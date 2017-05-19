@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.123.167:51223/AndroidClientLogInRequestPost");
+                url = new URL("http://192.168.63.25:51223/AndroidClientLogInRequestPost");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
