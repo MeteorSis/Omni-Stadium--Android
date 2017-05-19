@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity{
+    private EditText etID, etPW, etMail, etMailDomain, etPhoneFront, etPhoneMiddle, etPhoneBack, etName, etBirthYYYY, etBirthMM, etBirthDD;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,92 +38,196 @@ public class SignUpActivity extends AppCompatActivity{
         TextView tvLogin = (TextView)findViewById(R.id.link_login);
         Button btAccount = (Button)findViewById(R.id.btn_signup);
 
+        etID=(EditText)findViewById(R.id.etID);
+        etID.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etPW.requestFocus();
+                return true;
+            }
+        });
+        etPW=(EditText)findViewById(R.id.etPW);
+        etPW.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etMail.requestFocus();
+                return true;
+            }
+        });
+        etMail=(EditText)findViewById(R.id.etMail);
+        etMail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etMailDomain.requestFocus();
+                return true;
+            }
+        });
+        etMailDomain=(EditText)findViewById(R.id.etMailDomain);
+        etMailDomain.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etPhoneFront.requestFocus();
+                return true;
+            }
+        });
+        etPhoneFront=(EditText)findViewById(R.id.etPhoneFront);
+        etPhoneFront.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etPhoneMiddle.requestFocus();
+                return true;
+            }
+        });
+        etPhoneMiddle=(EditText)findViewById(R.id.etPhoneMiddle);
+        etPhoneMiddle.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etPhoneBack.requestFocus();
+                return true;
+            }
+        });
+        etPhoneBack=(EditText)findViewById(R.id.etPhoneBack);
+        etPhoneBack.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etName.requestFocus();
+                return true;
+            }
+        });
+        etName=(EditText)findViewById(R.id.etName);
+        etName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etBirthYYYY.requestFocus();
+                return true;
+            }
+        });
+        etBirthYYYY=(EditText)findViewById(R.id.etBirthYYYY);
+        etBirthYYYY.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etBirthMM.requestFocus();
+                return true;
+            }
+        });
+        etBirthMM=(EditText)findViewById(R.id.etBirthMM);
+        etBirthMM.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                etBirthDD.requestFocus();
+                return true;
+            }
+        });
+        etBirthDD=(EditText)findViewById(R.id.etBirthDD);
+        etBirthDD.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return false;
+            }
+        });
+
+
         btAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText etID = (EditText)findViewById(R.id.etID);
-                EditText etPW = (EditText)findViewById(R.id.etPW);
-                EditText etMail = (EditText)findViewById(R.id.etMail);
-                EditText etPhone = (EditText)findViewById(R.id.etPhone);
-                EditText etName = (EditText)findViewById(R.id.etName);
-                EditText etBdate = (EditText)findViewById(R.id.etBdate);
-
                 String IdData = etID.getText().toString();
                 String PwData = etPW.getText().toString();
                 String MailData = etMail.getText().toString();
-                String PhoneData = etPhone.getText().toString();
+                String MailDomainData=etMailDomain.getText().toString();
+                String PhoneFrontData = etPhoneFront.getText().toString();
+                String PhoneMiddleData = etPhoneMiddle.getText().toString();
+                String PhoneBackData = etPhoneBack.getText().toString();
                 String NameData = etName.getText().toString();
-                String BdateData = etBdate.getText().toString();
+                String BirthYYYYData = etBirthYYYY.getText().toString();
+                String BirthMMData = etBirthMM.getText().toString();
+                String BirthDDData = etBirthDD.getText().toString();
 
-                String[] SignupData = {IdData, PwData, MailData, PhoneData, NameData, BdateData};
                 String Empty = "";
 
-                if(SignupData[0].matches("")){
-                    Empty = Empty + "아이디";
+                if(IdData.matches("")){
+                    Empty = Empty + "아이디 ";
                 }
                 else{
                     String Idregex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
                     Pattern IDpattern = Pattern.compile(Idregex);
                     Matcher IDmatcher = IDpattern.matcher(IdData);
                     if(!IDmatcher.find()) {
-                        Empty = Empty + "아이디";
+                        Empty = Empty + "아이디 ";
                     }
                 }
-                if((SignupData[1].matches("") || (SignupData[1].length()<6)) && Empty.matches("")){
-                    Empty = Empty + "비밀번호";
+                if((PwData.matches("") || (PwData.length()<6)) && Empty.matches("")){
+                    Empty = Empty + "비밀번호 ";
                 }
 
-                if(SignupData[2].matches("") && Empty.matches("")){
-                    Empty = Empty + "Email";
+                if((MailData.matches("") || MailDomainData.matches("")) && Empty.matches("")){
+                    Empty = Empty + "이메일 ";
                 }
                 else {
-                    String Mailregex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+";
+                    String Mailregex = "^[_a-zA-Z0-9-\\.]+$";
+                    String MailDomainregex="^[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
                     Pattern Mailpattern = Pattern.compile(Mailregex);
+                    Pattern MailDomainpattern=Pattern.compile(MailDomainregex);
                     Matcher Mailmatcher = Mailpattern.matcher(MailData);
-                    if (!Mailmatcher.find() && Empty.matches("")){
-                        Empty = Empty + "Email";
+                    Matcher MailDomainmatcher = MailDomainpattern.matcher(MailDomainData);
+                    if (!Mailmatcher.find() || !MailDomainmatcher.find() && Empty.matches("")){
+                        Empty = Empty + "이메일 ";
                     }
                 }
 
-                if(SignupData[3].matches("")&& Empty.matches("")){
-                    Empty = Empty + "핸드폰 번호";
+                if((PhoneFrontData.matches("") || PhoneMiddleData.matches("") || PhoneBackData.matches("")) && Empty.matches("")){
+                    Empty = Empty + "핸드폰 번호 ";
                 }
                 else{
-                    String Phoneregex = "010([0-9]{4})([0-9]{4})$";
-                    Pattern Phonepattern = Pattern.compile(Phoneregex);
-                    Matcher Phonematcher = Phonepattern.matcher(PhoneData);
-                    if (!Phonematcher.find()&& Empty.matches("")){
-                        Empty = Empty + "핸드폰 번호";
+                    String PhoneFrontregex = "^01[016789]$";
+                    String PhoneMiddleregex="^[0-9]{3,4}$";
+                    String PhoneBackregex="^[0-9]{3,4}$";
+                    Pattern PhoneFrontpattern = Pattern.compile(PhoneFrontregex);
+                    Pattern PhoneMiddlepattern = Pattern.compile(PhoneMiddleregex);
+                    Pattern PhoneBackpattern = Pattern.compile(PhoneBackregex);
+                    Matcher PhoneFrontmatcher = PhoneFrontpattern.matcher(PhoneFrontData);
+                    Matcher PhoneMiddlematcher = PhoneMiddlepattern.matcher(PhoneMiddleData);
+                    Matcher PhoneBackmatcher = PhoneBackpattern.matcher(PhoneBackData);
+                    if (!PhoneFrontmatcher.find() || !PhoneMiddlematcher.find() || !PhoneBackmatcher.find() && Empty.matches("")){
+                        Empty = Empty + "핸드폰 번호 ";
                     }
                 }
-                if(SignupData[4].matches("")&& Empty.matches("")){
-                    Empty = Empty + "이름";
+                if(NameData.matches("") && Empty.matches("")){
+                    Empty = Empty + "이름 ";
                 }
                 else{
                     String Nameregex = "^[가-힣]{2,4}$";
                     Pattern Namepattern = Pattern.compile(Nameregex);
                     Matcher Namematcher = Namepattern.matcher(NameData);
                     if (!Namematcher.find()&& Empty.matches("")){
-                        Empty = Empty + "이름";
+                        Empty = Empty + "이름 ";
                     }
                 }
-                if(SignupData[5].matches("")&& Empty.matches("")){
-                    Empty = Empty + "생년월일";
+                if((BirthYYYYData.matches("") || BirthMMData.matches("") || BirthDDData.matches("")) && Empty.matches("")){
+                    Empty = Empty + "생년월일 ";
                 }
                 else{
-                    String Bdateregex = "(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$";
-                    Pattern Bdatepattern = Pattern.compile(Bdateregex);
-                    Matcher Bdatematcher = Bdatepattern.matcher(BdateData);
-                    if (!Bdatematcher.find()&& Empty.matches("")){
-                        Empty = Empty + "생년월일";
+                    String BYYYYregex="^(19|20)[0-9]{2}$";
+                    String BMMregex="^0[1-9]|1[012]|[1-9]$";
+                    String BDDregex="^[0-2][1-9]|[1-9]|3[01]$";
+                    Pattern BYYYYpattern = Pattern.compile(BYYYYregex);
+                    Pattern BMMpattern = Pattern.compile(BMMregex);
+                    Pattern BDDpattern = Pattern.compile(BDDregex);
+                    Matcher BYYYYmatcher = BYYYYpattern.matcher(BirthYYYYData);
+                    Matcher BMMmatcher = BMMpattern.matcher(BirthMMData);
+                    Matcher BDDmatcher = BDDpattern.matcher(BirthDDData);
+                    if (!BYYYYmatcher.find() || !BMMmatcher.find() || !BDDmatcher.find()&& Empty.matches("")){
+                        Empty = Empty + "생년월일 ";
                     }
                 }
 
                 if(Empty.matches("")){
                     //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
                     Log.d("test1", "test1");
-                    new SignUp().execute(SignupData[0], SignupData[1], SignupData[2], SignupData[3], SignupData[4], SignupData[5]);
-                    Toast.makeText(getApplicationContext(), "회원가입 완료", Toast.LENGTH_SHORT).show();
+                    new SignUp().execute(IdData, PwData,
+                            MailData, MailDomainData,
+                            PhoneFrontData, PhoneMiddleData, PhoneBackData,
+                            NameData, BirthYYYYData, BirthMMData, BirthDDData);
+                    Toast.makeText(getApplicationContext(), "회원가입 완료 ", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else{
