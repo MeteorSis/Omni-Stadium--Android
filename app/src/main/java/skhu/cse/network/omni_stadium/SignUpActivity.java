@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity{
     private EditText etID, etPW, etMail, etMailDomain, etPhoneFront, etPhoneMiddle, etPhoneBack, etName, etBirthYYYY, etBirthMM, etBirthDD;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,90 +40,22 @@ public class SignUpActivity extends AppCompatActivity{
         Button btAccount = (Button)findViewById(R.id.btn_signup);
 
         etID=(EditText)findViewById(R.id.etID);
-        etID.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etPW.requestFocus();
-                return true;
-            }
-        });
         etPW=(EditText)findViewById(R.id.etPW);
-        etPW.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etMail.requestFocus();
-                return true;
-            }
-        });
         etMail=(EditText)findViewById(R.id.etMail);
-        etMail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etMailDomain.requestFocus();
-                return true;
-            }
-        });
         etMailDomain=(EditText)findViewById(R.id.etMailDomain);
-        etMailDomain.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etPhoneFront.requestFocus();
-                return true;
-            }
-        });
         etPhoneFront=(EditText)findViewById(R.id.etPhoneFront);
-        etPhoneFront.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etPhoneMiddle.requestFocus();
-                return true;
-            }
-        });
         etPhoneMiddle=(EditText)findViewById(R.id.etPhoneMiddle);
-        etPhoneMiddle.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etPhoneBack.requestFocus();
-                return true;
-            }
-        });
         etPhoneBack=(EditText)findViewById(R.id.etPhoneBack);
-        etPhoneBack.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etName.requestFocus();
-                return true;
-            }
-        });
         etName=(EditText)findViewById(R.id.etName);
-        etName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etBirthYYYY.requestFocus();
-                return true;
-            }
-        });
         etBirthYYYY=(EditText)findViewById(R.id.etBirthYYYY);
-        etBirthYYYY.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etBirthMM.requestFocus();
-                return true;
-            }
-        });
         etBirthMM=(EditText)findViewById(R.id.etBirthMM);
-        etBirthMM.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                etBirthDD.requestFocus();
-                return true;
-            }
-        });
         etBirthDD=(EditText)findViewById(R.id.etBirthDD);
+
         etBirthDD.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                return false;
+                patternCheck();
+                return true;
             }
         });
 
@@ -130,112 +63,7 @@ public class SignUpActivity extends AppCompatActivity{
         btAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String IdData = etID.getText().toString();
-                String PwData = etPW.getText().toString();
-                String MailData = etMail.getText().toString();
-                String MailDomainData=etMailDomain.getText().toString();
-                String PhoneFrontData = etPhoneFront.getText().toString();
-                String PhoneMiddleData = etPhoneMiddle.getText().toString();
-                String PhoneBackData = etPhoneBack.getText().toString();
-                String NameData = etName.getText().toString();
-                String BirthYYYYData = etBirthYYYY.getText().toString();
-                String BirthMMData = etBirthMM.getText().toString();
-                String BirthDDData = etBirthDD.getText().toString();
-
-                String Empty = "";
-
-                if(IdData.matches("")){
-                    Empty = Empty + "아이디 ";
-                }
-                else{
-                    String Idregex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
-                    Pattern IDpattern = Pattern.compile(Idregex);
-                    Matcher IDmatcher = IDpattern.matcher(IdData);
-                    if(!IDmatcher.find()) {
-                        Empty = Empty + "아이디 ";
-                    }
-                }
-                if((PwData.matches("") || (PwData.length()<6)) && Empty.matches("")){
-                    Empty = Empty + "비밀번호 ";
-                }
-
-                if((MailData.matches("") || MailDomainData.matches("")) && Empty.matches("")){
-                    Empty = Empty + "이메일 ";
-                }
-                else {
-                    String Mailregex = "^[_a-zA-Z0-9-\\.]+$";
-                    String MailDomainregex="^[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-                    Pattern Mailpattern = Pattern.compile(Mailregex);
-                    Pattern MailDomainpattern=Pattern.compile(MailDomainregex);
-                    Matcher Mailmatcher = Mailpattern.matcher(MailData);
-                    Matcher MailDomainmatcher = MailDomainpattern.matcher(MailDomainData);
-                    if (!Mailmatcher.find() || !MailDomainmatcher.find() && Empty.matches("")){
-                        Empty = Empty + "이메일 ";
-                    }
-                }
-
-                if((PhoneFrontData.matches("") || PhoneMiddleData.matches("") || PhoneBackData.matches("")) && Empty.matches("")){
-                    Empty = Empty + "핸드폰 번호 ";
-                }
-                else{
-                    String PhoneFrontregex = "^01[016789]$";
-                    String PhoneMiddleregex="^[0-9]{3,4}$";
-                    String PhoneBackregex="^[0-9]{3,4}$";
-                    Pattern PhoneFrontpattern = Pattern.compile(PhoneFrontregex);
-                    Pattern PhoneMiddlepattern = Pattern.compile(PhoneMiddleregex);
-                    Pattern PhoneBackpattern = Pattern.compile(PhoneBackregex);
-                    Matcher PhoneFrontmatcher = PhoneFrontpattern.matcher(PhoneFrontData);
-                    Matcher PhoneMiddlematcher = PhoneMiddlepattern.matcher(PhoneMiddleData);
-                    Matcher PhoneBackmatcher = PhoneBackpattern.matcher(PhoneBackData);
-                    if (!PhoneFrontmatcher.find() || !PhoneMiddlematcher.find() || !PhoneBackmatcher.find() && Empty.matches("")){
-                        Empty = Empty + "핸드폰 번호 ";
-                    }
-                }
-                if(NameData.matches("") && Empty.matches("")){
-                    Empty = Empty + "이름 ";
-                }
-                else{
-                    String Nameregex = "^[가-힣]{2,4}$";
-                    Pattern Namepattern = Pattern.compile(Nameregex);
-                    Matcher Namematcher = Namepattern.matcher(NameData);
-                    if (!Namematcher.find()&& Empty.matches("")){
-                        Empty = Empty + "이름 ";
-                    }
-                }
-                if((BirthYYYYData.matches("") || BirthMMData.matches("") || BirthDDData.matches("")) && Empty.matches("")){
-                    Empty = Empty + "생년월일 ";
-                }
-                else{
-                    String BYYYYregex="^(19|20)[0-9]{2}$";
-                    String BMMregex="^0[1-9]|1[012]|[1-9]$";
-                    String BDDregex="^[0-2][1-9]|[1-9]|3[01]$";
-                    Pattern BYYYYpattern = Pattern.compile(BYYYYregex);
-                    Pattern BMMpattern = Pattern.compile(BMMregex);
-                    Pattern BDDpattern = Pattern.compile(BDDregex);
-                    Matcher BYYYYmatcher = BYYYYpattern.matcher(BirthYYYYData);
-                    Matcher BMMmatcher = BMMpattern.matcher(BirthMMData);
-                    Matcher BDDmatcher = BDDpattern.matcher(BirthDDData);
-                    if (!BYYYYmatcher.find() || !BMMmatcher.find() || !BDDmatcher.find()&& Empty.matches("")){
-                        Empty = Empty + "생년월일 ";
-                    }
-                }
-
-                if(Empty.matches("")){
-                    //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
-                    Log.d("test1", "test1");
-                    new SignUp().execute(IdData, PwData,
-                            MailData, MailDomainData,
-                            PhoneFrontData, PhoneMiddleData, PhoneBackData,
-                            NameData, BirthYYYYData, BirthMMData, BirthDDData);
-                    Toast.makeText(getApplicationContext(), "회원가입 완료 ", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-                else{
-                    new AlertDialog.Builder(SignUpActivity.this)
-                            .setMessage(Empty+"을(를) 다시 확인해주세요.")
-                            .setPositiveButton("OK",null)
-                            .show();
-                }
+                patternCheck();
             }
         });
 
@@ -245,6 +73,114 @@ public class SignUpActivity extends AppCompatActivity{
                 finish();
             }
         });
+    }
+    private void patternCheck()
+    {
+        String IdData = etID.getText().toString();
+        String PwData = etPW.getText().toString();
+        String MailData = etMail.getText().toString();
+        String MailDomainData=etMailDomain.getText().toString();
+        String PhoneFrontData = etPhoneFront.getText().toString();
+        String PhoneMiddleData = etPhoneMiddle.getText().toString();
+        String PhoneBackData = etPhoneBack.getText().toString();
+        String NameData = etName.getText().toString();
+        String BirthYYYYData = etBirthYYYY.getText().toString();
+        String BirthMMData = etBirthMM.getText().toString();
+        String BirthDDData = etBirthDD.getText().toString();
+        String Empty = "";
+
+        if(IdData.matches("")){
+            Empty = Empty + "아이디 ";
+        }
+        else{
+            String Idregex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
+            Pattern IDpattern = Pattern.compile(Idregex);
+            Matcher IDmatcher = IDpattern.matcher(IdData);
+            if(!IDmatcher.find()) {
+                Empty = Empty + "아이디 ";
+            }
+        }
+        if(PwData.matches("") || (PwData.length()<6)){
+            Empty = Empty + "비밀번호 ";
+        }
+
+        if(MailData.matches("") || MailDomainData.matches("")){
+            Empty = Empty + "이메일 ";
+        }
+        else {
+            String Mailregex = "^[_a-zA-Z0-9-\\.]+$";
+            String MailDomainregex="^[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+            Pattern Mailpattern = Pattern.compile(Mailregex);
+            Pattern MailDomainpattern=Pattern.compile(MailDomainregex);
+            Matcher Mailmatcher = Mailpattern.matcher(MailData);
+            Matcher MailDomainmatcher = MailDomainpattern.matcher(MailDomainData);
+            if (!Mailmatcher.find() || !MailDomainmatcher.find() && Empty.matches("")){
+                Empty = Empty + "이메일 ";
+            }
+        }
+
+        if(PhoneFrontData.matches("") || PhoneMiddleData.matches("") || PhoneBackData.matches("")){
+            Empty = Empty + "핸드폰 번호 ";
+        }
+        else{
+            String PhoneFrontregex = "^01[016789]$";
+            String PhoneMiddleregex="^[0-9]{3,4}$";
+            String PhoneBackregex="^[0-9]{3,4}$";
+            Pattern PhoneFrontpattern = Pattern.compile(PhoneFrontregex);
+            Pattern PhoneMiddlepattern = Pattern.compile(PhoneMiddleregex);
+            Pattern PhoneBackpattern = Pattern.compile(PhoneBackregex);
+            Matcher PhoneFrontmatcher = PhoneFrontpattern.matcher(PhoneFrontData);
+            Matcher PhoneMiddlematcher = PhoneMiddlepattern.matcher(PhoneMiddleData);
+            Matcher PhoneBackmatcher = PhoneBackpattern.matcher(PhoneBackData);
+            if (!PhoneFrontmatcher.find() || !PhoneMiddlematcher.find() || !PhoneBackmatcher.find()){
+                Empty = Empty + "핸드폰 번호 ";
+            }
+        }
+        if(NameData.matches("")){
+            Empty = Empty + "이름 ";
+        }
+        else{
+            String Nameregex = "^[가-힣]{2,4}$";
+            Pattern Namepattern = Pattern.compile(Nameregex);
+            Matcher Namematcher = Namepattern.matcher(NameData);
+            if (!Namematcher.find()){
+                Empty = Empty + "이름 ";
+            }
+        }
+        if(BirthYYYYData.matches("") || BirthMMData.matches("") || BirthDDData.matches("")){
+            Empty = Empty + "생년월일 ";
+        }
+        else{
+            String BYYYYregex="^(19|20)[0-9]{2}$";
+            String BMMregex="^(0[1-9]|1[012]|[1-9])$";
+            String BDDregex="^([1-9]|0[1-9]|[12][0-9]|3[01])$";
+
+            Pattern BYYYYpattern = Pattern.compile(BYYYYregex);
+            Pattern BMMpattern = Pattern.compile(BMMregex);
+            Pattern BDDpattern = Pattern.compile(BDDregex);
+            Matcher BYYYYmatcher = BYYYYpattern.matcher(BirthYYYYData);
+            Matcher BMMmatcher = BMMpattern.matcher(BirthMMData);
+            Matcher BDDmatcher = BDDpattern.matcher(BirthDDData);
+            if (!BYYYYmatcher.find() || !BMMmatcher.find() || !BDDmatcher.find()){
+                Empty = Empty + "생년월일 ";
+            }
+        }
+        if(Empty.matches("")){
+            //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
+            Log.d("test1", "test1");
+            new SignUp().execute(IdData, PwData,
+                    MailData+"@"+MailDomainData,
+                    PhoneFrontData+"-"+PhoneMiddleData+"-"+PhoneBackData,
+                    NameData, BirthYYYYData+"-"+BirthMMData+"-"+BirthDDData);
+            Toast.makeText(getApplicationContext(), "회원가입 완료 ", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else{
+            new AlertDialog.Builder(SignUpActivity.this)
+                    .setMessage(Empty+"을(를) 다시 확인해주세요.")
+                    .setPositiveButton("OK",null)
+                    .show();
+        }
     }
     private class SignUp extends AsyncTask<String, Void, JSONObject>{
 
@@ -290,8 +226,6 @@ public class SignUpActivity extends AppCompatActivity{
                 out.flush();
 
                 Log.d("test8", "test8");
-
-
             }
             catch (Exception e) {
 
