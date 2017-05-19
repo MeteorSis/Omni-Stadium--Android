@@ -17,9 +17,11 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -108,7 +110,7 @@ public class MultiVideoActivity extends AppCompatActivity {
         spinnerView2.setVisibility(View.VISIBLE);
 
         //AsyncTask Start
-        new GetStreamingStatusTask().execute("StreamingStatus");
+        new GetStreamingStatusTask().execute("영상요청");
     }
 
     @Override
@@ -128,91 +130,75 @@ public class MultiVideoActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    private class GetStreamingStatusTask extends AsyncTask<String, Void, JSONObject>
+    private class GetStreamingStatusTask extends AsyncTask<String, Void, JSONArray>
     {
         @Override
-        protected JSONObject doInBackground(String... params) {
-            /*InputStream is=null;
-            String result="";
-            try
-            {
-//                URL url=new URL("http://192.168.63.25:23280/app/parkinginfo.jsp");
-                URL url=new URL("http://192.168.63.25:8080/Test/test.jsp");
-                HttpURLConnection httpCon=(HttpURLConnection)url.openConnection();
+        protected JSONArray doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONArray getJSONArr = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientStreamingRequestPost");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
                 httpCon.setConnectTimeout(2000);
                 httpCon.setReadTimeout(2000);
 
-                JSONObject jsonObject=new JSONObject();
-                jsonObject.put("requestStatus", "streamingStatus");
-
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
                 //서버에 요청할 Response Data Type
                 httpCon.setRequestProperty("Accept", "application/json");
                 //서버에 전송할 Data Type
-                httpCon.setRequestProperty("Content-type", "application/json");
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
 
-                httpCon.setDoOutput(true);
-                httpCon.setDoInput(true);
+                JSONObject outJson = new JSONObject();
+                outJson.put(params[0], params[0]);
 
-                OutputStream os=httpCon.getOutputStream();
-                os.write(jsonObject.toString().getBytes("UTF-8"));
-                os.flush();
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
 
-                try
-                {
-                    is=httpCon.getInputStream();
-                    if(is!=null) {
-                        result = convertInputStreamToString(is);
-                    }
-                    else{
-                        result = null;
-                    }
-
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream=httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSONArr = new JSONArray(result.toString());
                 }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-                finally
-                {
-                    Log.v("disconnect", "test");
-                    httpCon.disconnect();
-                }
-
-                if(result!=null)
-                    return new JSONObject(result);
-                else
-                    return null;
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
             }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }*/
-            return null;
+            return getJSONArr;
         }
 
         @Override
-        protected void onPostExecute(JSONObject jsonObject) {
-            super.onPostExecute(jsonObject);
-            /*if(jsonObject!=null)
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
+            if(jsonArray!=null)
             {
                 try {
-                    isClosed1stServer = jsonObject.getBoolean("isClosed1stServer");
+                    isClosed1stServer = jsonArray.getJSONObject(0).getBoolean("상태");
                     if (!isClosed1stServer) {
-                        server1IP = jsonObject.getString("server1IP");
-                        server1Port = jsonObject.getInt("server1Port");
-                        server1Path = jsonObject.getString("server1Path");
+                        server1IP = jsonArray.getJSONObject(0).getString("서버");
+                        server1Port = jsonArray.getJSONObject(0).getInt("포트");
+                        server1Path = jsonArray.getJSONObject(0).getString("경로");
                         VideoURL1st = "rtsp://" + server1IP + ":" + server1Port + "/" + server1Path;
                     }
 
-                    isClosed2ndServer = jsonObject.getBoolean("isClosed2ndServer");
+                    isClosed2ndServer = jsonArray.getJSONObject(1).getBoolean("상태");
                     if (!isClosed2ndServer) {
-                        server2IP = jsonObject.getString("server2IP");
-                        server2Port = jsonObject.getInt("server2Port");
-                        server2Path = jsonObject.getString("server2Path");
+                        server2IP = jsonArray.getJSONObject(1).getString("서버");
+                        server2Port = jsonArray.getJSONObject(1).getInt("포트");
+                        server2Path = jsonArray.getJSONObject(1).getString("경로");
                         VideoURL2nd = "rtsp://" + server2IP + ":" + server2Port + "/" + server2Path;
                     }
                     Log.v("Test1", isClosed1stServer + ", " + server1IP + ", " + server1Port + ", " + server1Path + ", " + VideoURL1st);
@@ -225,20 +211,7 @@ public class MultiVideoActivity extends AppCompatActivity {
             {
                 isClosed1stServer=true;
                 isClosed2ndServer=true;
-            }*/
-
-            isClosed1stServer=false;
-            isClosed2ndServer=false;
-
-            server1IP="192.168.63.25";
-            server2IP="192.168.63.25";
-            server1Port=52221;
-            server2Port=52231;
-            server1Path="test";
-            server2Path="test";
-
-            VideoURL1st = "rtsp://"+server1IP+":"+server1Port+"/"+server1Path;
-            VideoURL2nd = "rtsp://"+server2IP+":"+server2Port+"/"+server2Path;
+            }
 
             try
             {
@@ -320,17 +293,5 @@ public class MultiVideoActivity extends AppCompatActivity {
                 }
             });
         }
-
-       /* private String convertInputStreamToString(InputStream inputStream) throws IOException
-        {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
-            String result = "";
-            while((line = bufferedReader.readLine()) != null)
-                result += line;
-
-            inputStream.close();
-            return result;
-        }*/
     }
 }
