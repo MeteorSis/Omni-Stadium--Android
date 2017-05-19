@@ -15,11 +15,45 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tvInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NFC 태그를 기기에 접근 시켜 주세요."
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        android:layout_marginBottom="168dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+        <ImageView
+        android:layout_width="186dp"
+        android:layout_height="237dp"
+        android:id="@+id/ivNFC"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />-->
+    <EditText
+        android:id="@+id/note"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NFC 태그를 기기에 접근 시켜 주세요."
+        android:focusableInTouchMode="false"
+        android:clickable="false"
         android:textAlignment="center"
         android:textSize="20dp"
         android:layout_marginRight="8dp"
@@ -39,7 +73,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
+        app:layout_constraintBottom_toTopOf="@+id/note"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
