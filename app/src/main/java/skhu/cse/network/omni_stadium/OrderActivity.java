@@ -1,9 +1,11 @@
 package skhu.cse.network.omni_stadium;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -16,10 +18,16 @@ public class OrderActivity extends AppCompatActivity{
     private ArrayList<String> group_list = new ArrayList<String>();
     private HashMap<String, ArrayList<Itemlist>> item_list = new HashMap<String, ArrayList<Itemlist>>();
     private  ExpandableListAdapter listAdapter;
+    private String name[];                        //전달받은 이름 데이터를 저장하는 배열
+    private int count[];                        // 전달받은 수량 데이터를 저장하는 배열
+    private int price[];                       // 전달받은 가격 데이터를 저장하는 배열
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Button order_basket = (Button)findViewById(R.id.btbasket);
+        Button order = (Button)findViewById(R.id.btorder);
         ExpandableListView lvorder = (ExpandableListView)findViewById(R.id.explv_order);
         group_list.add("치킨");
         group_list.add("피자");
@@ -86,28 +94,45 @@ public class OrderActivity extends AppCompatActivity{
         lvorder.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                switch (groupPosition) {
+                    case 0:
+                        if (childPosition == 0) {
+                            Intent intent = new Intent(getApplicationContext(),FriedChicken.class);
+                            startActivity(intent);
+                        } else if (childPosition == 1) {
+                            Toast.makeText(getApplicationContext(), "양념 치킨 ", Toast.LENGTH_SHORT).show();
+                        } else if (childPosition == 2) {
+                            Toast.makeText(getApplicationContext(), "간장 치킨 ", Toast.LENGTH_SHORT).show();
+                        } else if (childPosition == 3) {
+                            Toast.makeText(getApplicationContext(), "반반 치킨 ", Toast.LENGTH_SHORT).show();
+                        } else if (childPosition == 3) {
+                            Toast.makeText(getApplicationContext(), "반반 치킨 ", Toast.LENGTH_SHORT).show();
+                        }
 
-                if(groupPosition == 0)
-                {
-                    Toast.makeText(getApplicationContext(),"치킨 메뉴",Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "피자 메뉴", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "햄버거 메뉴", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getApplicationContext(), "맥주 메뉴", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-
-                else if(groupPosition == 1)
-                {
-                    Toast.makeText(getApplicationContext(),"피자 메뉴",Toast.LENGTH_SHORT).show();
-                }
-
-                else  if(groupPosition == 2)
-                {
-                    Toast.makeText(getApplicationContext(),"햄버거 메뉴",Toast.LENGTH_SHORT).show();
-                }
-
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"맥주 메뉴",Toast.LENGTH_SHORT).show();
-                }
-
                 return false;
+            }
+        });
+        Intent gtintent =  getIntent();
+        name = gtintent.getStringArrayExtra("chicken_name");
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), OrderListActivity.class);
+                startActivity(intent);
+
             }
         });
     }
