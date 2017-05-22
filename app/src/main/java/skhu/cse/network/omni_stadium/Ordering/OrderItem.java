@@ -1,8 +1,4 @@
-package skhu.cse.network.omni_stadium;
-
-/**
- * Created by 6109P-09 on 2017-05-15.
- */
+package skhu.cse.network.omni_stadium.Ordering;
 
 public class Itemlist {
     private String name;
@@ -23,6 +19,4 @@ public class Itemlist {
     {
         return cost;
     }
-
-
 }

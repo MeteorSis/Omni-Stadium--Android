@@ -14,6 +14,5 @@ public class OrderListActivity extends AppCompatActivity {
         setContentView(R.layout.order_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //뒤로 가기 버튼
         ListView orderlist = (ListView)findViewById(R.id.lvorderlist);
-
     }
 }
