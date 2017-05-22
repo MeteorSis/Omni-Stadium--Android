@@ -1,6 +1,7 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class OrderItem implements Serializable{
 
@@ -46,5 +47,19 @@ public class OrderItem implements Serializable{
     public void setCount(int count)
     {
         this.count=count;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        OrderItem cmp=(OrderItem)obj;
+        if(name.compareTo(cmp.name)==0)
+            return true;
+        else
+            return false;
     }
 }

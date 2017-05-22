@@ -10,7 +10,7 @@ import android.widget.TextView;
 import skhu.cse.network.omni_stadium.R;
 
 public class OrderMenu extends AppCompatActivity {
-    private  int mCount=1; //후라이드 치킨 수량을 저장하는 변수
+    private  int mCount=1; //메뉴 수량을 저장하는 변수
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class OrderMenu extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String cname = intent.getStringExtra("menu_name");
+        final String cname = intent.getStringExtra("menu_name");
         String cinfo = intent.getStringExtra("menu_info");
         final int cprice = intent.getIntExtra("menu_price",16000);
         final int call_price = intent.getIntExtra("menu_allprice",16000);
@@ -62,6 +62,9 @@ public class OrderMenu extends AppCompatActivity {
         basket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent sIntent=new Intent();
+                sIntent.putExtra("OrderItem", new OrderItem(cname, cprice, mCount));
+                setResult(RESULT_OK, sIntent);
                 finish();
             }
         });

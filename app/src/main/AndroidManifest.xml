@@ -2,20 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="skhu.cse.network.omni_stadium">
 
+    <uses-sdk android:minSdkVersion="10" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-feature android:name="android.hardware.nfc"
-        android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.NFC" />
-    <uses-sdk android:minSdkVersion="10"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".OmniApplication"
         android:allowBackup="true"
         android:icon="@drawable/omni_stadium_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="skhu.cse.network.omni_stadium.OmniApplication">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -103,11 +110,15 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".Ordering.OrderActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".Ordering.OrderListActivity"
+        <activity
+            android:name=".Ordering.OrderListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".Ordering.OrderActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".Ordering.CartActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:parentActivityName=".Ordering.OrderActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
