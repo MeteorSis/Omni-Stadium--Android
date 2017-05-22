@@ -14,88 +14,116 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:text="[티켓정보]"
-        android:layout_marginTop="70dp"/>
+        android:textStyle="bold" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout8"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="84dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/relativeLayout3">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/tvtitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="200dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/table_border"
+        android:stretchColumns="2">
 
-        <TextView
-            android:id="@+id/tvticket_idname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
-            android:layout_marginTop="50dp"
-            android:text="티켓번호"
-            android:textStyle="bold" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/tvticket_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:text="30" />
+            <TextView
+                android:id="@+id/tvticket_idname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="티켓번호"
+                android:textStyle="bold" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tvticket_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="110dp"
+                android:text="30" />
+        </TableRow>
 
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout3"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/relativeLayout8"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="29dp">
+        <TableRow android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/tvuser_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerHorizontal="false"
-            android:text="예매자"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvuser_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="예매자"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvbname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="신솔비" />
+            <TextView
+                android:id="@+id/tvbname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:text="신솔비" />
+        </TableRow>
 
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/relativeLayout8"
-        android:layout_alignStart="@+id/relativeLayout3"
-        android:layout_marginTop="48dp">
+        <TableRow android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/tvseatname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="true"
-            android:text="좌석정보"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvsector_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="구역"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvseatinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="[중앙 블루석A] 1열 01석 "/>
+            <TextView
+                android:id="@+id/tvsector_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:text="중앙 블루석A " />
+        </TableRow>
 
-    </RelativeLayout>
+        <TableRow android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/tvrow_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="열"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvrow_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:text="1열" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/tvseat_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="좌석"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvseat_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:text="1석" />
+
+
+        </TableRow>
+
+
+    </TableLayout>
+
 </RelativeLayout>
+
+
 
