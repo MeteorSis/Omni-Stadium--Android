@@ -9,39 +9,85 @@
     tools:context="skhu.cse.network.omni_stadium.MenuActivity"
     tools:showIn="@layout/app_bar_menu">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout8"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/relativeLayout3">
 
-    <TextView
-        android:id="@+id/tvdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="경기 날짜 " />
+        <TextView
+            android:id="@+id/tvticket_idname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:layout_marginTop="50dp"
+            android:text="티켓번호"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvticket_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="30" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/relativeLayout8"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="29dp">
+
+        <TextView
+            android:id="@+id/tvuser_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="false"
+            android:text="예매자"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvbname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="신솔비" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/tvdate"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp">
+        android:layout_height="100dp"
+        android:layout_below="@+id/relativeLayout8"
+        android:layout_alignStart="@+id/relativeLayout3"
+        android:layout_marginTop="48dp">
+
+        <TextView
+            android:id="@+id/tvseatname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:text="좌석정보"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvseatinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerInParent="false"
-            android:layout_marginTop="15dp"
-            android:text="[중앙 블루석A] 1열 01석 "
-            android:textSize="15dp"/>
+            android:text="[중앙 블루석A] 1열 01석 "/>
 
-        <ImageView
-            android:id="@+id/ivbarcode"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
     </RelativeLayout>
-
 </RelativeLayout>
 

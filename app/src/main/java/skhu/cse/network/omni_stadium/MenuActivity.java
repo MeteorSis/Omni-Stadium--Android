@@ -46,7 +46,6 @@ public class MenuActivity extends AppCompatActivity
         View navHeaderView = getLayoutInflater().inflate(R.layout.nav_header_menu, navView);
 
         ImageView imgView_Nav_header_menu=(ImageView)navHeaderView.findViewById(R.id.imgView_Nav_header_menu);
-        Glide.with(this).load(R.drawable.barcode).into((ImageView)findViewById(R.id.ivbarcode));
         Glide.with(this).load(R.drawable.omni_stadium_logo).into(imgView_Nav_header_menu);
 
 /*        TextView tvMid = (TextView) navHeaderView.findViewById(R.id.tvMemuID);
