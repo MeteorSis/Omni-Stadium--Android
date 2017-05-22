@@ -6,9 +6,14 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -97,10 +102,22 @@ public class MyPageActivity extends AppCompatActivity {
                 else if (groupPosition == 2) {
                     if(childPosition == 0) {
                         final EditText etpw = new EditText(MyPageActivity.this);
+                        etpw.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
+                        etpw.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                            @Override
+                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                                Intent intent = new Intent(MyPageActivity.this, SignChangeActivity.class);
+                                startActivity(intent);
+                                return true;
+                            }
+                        });
+                        etpw.setSingleLine();
+                        etpw.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
                         new AlertDialog.Builder(MyPageActivity.this)
                         .setTitle("비밀번호 확인")
                         .setMessage("비밀번호를 입력하세요.")
-                         .setView(etpw)
+                        .setView(etpw)
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -117,7 +134,7 @@ public class MyPageActivity extends AppCompatActivity {
                         })
                         .show()
                         .setCancelable(false); // 백버튼 비활성화
-                        }
+                    }
                  else {
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setMessage("회원을 탈퇴하시겠습니까?")
