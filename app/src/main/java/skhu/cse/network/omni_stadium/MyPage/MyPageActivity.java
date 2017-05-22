@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -29,8 +30,6 @@ public class MyPageActivity extends AppCompatActivity {
 
     private ArrayList<String> arrayGroup = new ArrayList<String>();
     private HashMap<String, ArrayList<String>> arrayChild = new HashMap<String, ArrayList<String>>();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,11 +93,32 @@ public class MyPageActivity extends AppCompatActivity {
                                 .setNegativeButton("NO", null)
                                 .show();
                     }
-                } else {
-                    if (childPosition == 0) {
-                        Intent intent = new Intent(getApplicationContext(), SignChangeActivity.class);
-                        startActivity(intent);
-                    } else {
+                }
+                else if (groupPosition == 2) {
+                    if(childPosition == 0) {
+                        final EditText etpw = new EditText(MyPageActivity.this);
+                        new AlertDialog.Builder(MyPageActivity.this)
+                        .setTitle("비밀번호 확인")
+                        .setMessage("비밀번호를 입력하세요.")
+                         .setView(etpw)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(MyPageActivity.this, SignChangeActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setCancelable(false)
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(MyPageActivity.this, "취소되었습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show()
+                        .setCancelable(false); // 백버튼 비활성화
+                        }
+                 else {
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setMessage("회원을 탈퇴하시겠습니까?")
                                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
