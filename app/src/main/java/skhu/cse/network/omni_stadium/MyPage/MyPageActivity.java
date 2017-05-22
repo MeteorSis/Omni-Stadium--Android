@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.MyPage;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import skhu.cse.network.omni_stadium.OmniApplication;
+import skhu.cse.network.omni_stadium.R;
 
 public class MyPageActivity extends AppCompatActivity {
 

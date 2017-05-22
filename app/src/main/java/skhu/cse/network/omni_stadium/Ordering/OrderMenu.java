@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import skhu.cse.network.omni_stadium.R;
 
 public class OrderMenu extends AppCompatActivity {
     private  int mCount=1; //후라이드 치킨 수량을 저장하는 변수

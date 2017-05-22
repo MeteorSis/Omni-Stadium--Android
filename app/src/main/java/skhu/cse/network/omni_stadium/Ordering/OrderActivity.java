@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -8,15 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import skhu.cse.network.omni_stadium.R;
 
 
 public class OrderActivity extends AppCompatActivity{
 
     private ArrayList<String> group_list = new ArrayList<String>();
-    private HashMap<String, ArrayList<Itemlist>> item_list = new HashMap<String, ArrayList<Itemlist>>();
+    private HashMap<String, ArrayList<OrderItem>> item_list = new HashMap<String, ArrayList<OrderItem>>();
     private  ExpandableListAdapter listAdapter;
     static final int REQ_CODE_CHICKEN_0 =0;
     static final int REQ_CODE_PIZZA_1 = 1;
@@ -27,61 +29,61 @@ public class OrderActivity extends AppCompatActivity{
         setContentView(R.layout.order_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button order_basket = (Button)findViewById(R.id.btbasket);
-        Button order = (Button)findViewById(R.id.btorder);
+        Button order = (Button)findViewById(R.id.btOrder);
         ExpandableListView lvorder = (ExpandableListView)findViewById(R.id.explv_order);
         group_list.add("치킨");
         group_list.add("피자");
         group_list.add("햄버거");
         group_list.add("맥주");
 
-        final ArrayList<Itemlist> chicken = new ArrayList<Itemlist>();
+        final ArrayList<OrderItem> chicken = new ArrayList<OrderItem>();
 
-        chicken.add(new Itemlist("후라이드치킨", "15000원"));
-        chicken.add(new Itemlist("양념치킨", "16000원"));
-        chicken.add(new Itemlist("간장치킨", "16000원"));
-        chicken.add(new Itemlist("반반치킨", "16000원"));
-        chicken.add(new Itemlist("파닭", "17000원"));
-        chicken.add(new Itemlist("핫치킨", "18000원"));
-        chicken.add(new Itemlist("커리치킨", "18000원"));
-        chicken.add(new Itemlist("곡물치킨", "18000원"));
-        chicken.add(new Itemlist("허니갈릭스치킨", "19000원"));
-        chicken.add(new Itemlist("치즐링치킨", "19000원"));
+        chicken.add(new OrderItem("후라이드치킨", 15000));
+        chicken.add(new OrderItem("양념치킨", 16000));
+        chicken.add(new OrderItem("간장치킨", 16000));
+        chicken.add(new OrderItem("반반치킨", 16000));
+        chicken.add(new OrderItem("파닭", 17000));
+        chicken.add(new OrderItem("핫치킨", 18000));
+        chicken.add(new OrderItem("커리치킨", 18000));
+        chicken.add(new OrderItem("곡물치킨", 18000));
+        chicken.add(new OrderItem("허니갈릭스치킨", 19000));
+        chicken.add(new OrderItem("치즐링치킨", 19000));
 
-        ArrayList<Itemlist> pizza = new ArrayList<Itemlist>();
+        ArrayList<OrderItem> pizza = new ArrayList<OrderItem>();
 
-        pizza.add(new Itemlist("콤비네이션피자", "7900원"));
-        pizza.add(new Itemlist("페퍼로니피자", "7900원"));
-        pizza.add(new Itemlist("치즈피자", "7900원"));
-        pizza.add(new Itemlist("불고기피자", "8900원"));
-        pizza.add(new Itemlist("포테이토피자", "8900원"));
-        pizza.add(new Itemlist("고구마피자", "9900원"));
-        pizza.add(new Itemlist("도이치소시지피자", "9900원"));
-        pizza.add(new Itemlist("스위트골드피자", "9900원"));
-        pizza.add(new Itemlist("핫스파이스피자", "10900원"));
-        pizza.add(new Itemlist("바이트골드피자", "12900원"));
+        pizza.add(new OrderItem("콤비네이션피자", 7900));
+        pizza.add(new OrderItem("페퍼로니피자", 7900));
+        pizza.add(new OrderItem("치즈피자", 7900));
+        pizza.add(new OrderItem("불고기피자", 8900));
+        pizza.add(new OrderItem("포테이토피자", 8900));
+        pizza.add(new OrderItem("고구마피자", 9900));
+        pizza.add(new OrderItem("도이치소시지피자", 9900));
+        pizza.add(new OrderItem("스위트골드피자", 9900));
+        pizza.add(new OrderItem("핫스파이스피자", 10900));
+        pizza.add(new OrderItem("바이트골드피자", 12900));
 
-        ArrayList<Itemlist> hamburger = new ArrayList<Itemlist>();
+        ArrayList<OrderItem> hamburger = new ArrayList<OrderItem>();
 
-        hamburger.add(new Itemlist("햄버거", "2700원"));
-        hamburger.add(new Itemlist("불고기버거", "3000원"));
-        hamburger.add(new Itemlist("치즈버거", "3000원"));
-        hamburger.add(new Itemlist("크런치치킨버거", "4300원"));
-        hamburger.add(new Itemlist("와일드갈릭버거", "2900원"));
-        hamburger.add(new Itemlist("갈릭스테이크버거", "6700원"));
-        hamburger.add(new Itemlist("와퍼", "5600원"));
-        hamburger.add(new Itemlist("불고기와퍼", "5600원"));
-        hamburger.add(new Itemlist("치즈와퍼", "6200원"));
-        hamburger.add(new Itemlist("통새우와퍼", "6500원"));
+        hamburger.add(new OrderItem("햄버거", 2700));
+        hamburger.add(new OrderItem("불고기버거", 3000));
+        hamburger.add(new OrderItem("치즈버거", 3000));
+        hamburger.add(new OrderItem("크런치치킨버거", 4300));
+        hamburger.add(new OrderItem("와일드갈릭버거", 2900));
+        hamburger.add(new OrderItem("갈릭스테이크버거", 6700));
+        hamburger.add(new OrderItem("와퍼", 5600));
+        hamburger.add(new OrderItem("불고기와퍼", 5600));
+        hamburger.add(new OrderItem("치즈와퍼", 6200));
+        hamburger.add(new OrderItem("통새우와퍼", 6500));
 
-        ArrayList<Itemlist> beer = new ArrayList<Itemlist>();
+        ArrayList<OrderItem> beer = new ArrayList<OrderItem>();
 
-        beer.add(new Itemlist("생맥주", "3000원"));
-        beer.add(new Itemlist("크림생맥주", "3500원"));
-        beer.add(new Itemlist("더치맥주", "4500원"));
-        beer.add(new Itemlist("자몽맥주", "4500원"));
-        beer.add(new Itemlist("라임맥주", "4500원"));
-        beer.add(new Itemlist("청포도맥주", "4500원"));
-        beer.add(new Itemlist("병맥주", "5000원"));
+        beer.add(new OrderItem("생맥주", 3000));
+        beer.add(new OrderItem("크림생맥주", 3500));
+        beer.add(new OrderItem("더치맥주", 4500));
+        beer.add(new OrderItem("자몽맥주", 4500));
+        beer.add(new OrderItem("라임맥주", 4500));
+        beer.add(new OrderItem("청포도맥주", 4500));
+        beer.add(new OrderItem("병맥주", 5000));
 
         listAdapter = new Order_ExplvAdapter(this, group_list, item_list);
         lvorder.setAdapter(listAdapter);
@@ -474,33 +476,6 @@ public class OrderActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-    }
-
-    private class IntentData
-    {
-        private String name;                        //전달받은 이름 데이터를 저장
-        private int count,price;                  // 전달받은 수량과 가격 데이터를 저장
-        IntentData(String name, int count, int price)
-        {
-            this.name = name;
-            this.count = count;
-            this.price = price;
-        }
-
-        String getName()
-        {
-            return name;
-        }
-
-        int getCount()
-        {
-            return count;
-        }
-
-        int getPrice()
-        {
-            return price;
-        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)

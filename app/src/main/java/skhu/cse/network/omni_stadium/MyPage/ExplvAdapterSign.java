@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.MyPage;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import skhu.cse.network.omni_stadium.R;
 
 public class ExplvAdapterSign extends BaseExpandableListAdapter {
 

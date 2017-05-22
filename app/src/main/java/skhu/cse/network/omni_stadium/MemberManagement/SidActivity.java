@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.MemberManagement;
 
 
 import android.os.AsyncTask;
@@ -21,6 +21,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import skhu.cse.network.omni_stadium.R;
 
 public class SidActivity extends AppCompatActivity {
     private EditText etName, etPhoneFront, etPhoneMiddle, etPhoneBack,

@@ -33,19 +33,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".MemberManagement.SignUpActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="회원가입"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SidActivity"
+            android:name=".MemberManagement.SidActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="아이디 찾기"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SpwActivity"
+            android:name=".MemberManagement.SpwActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="비밀번호 찾기"
             android:parentActivityName=".MainActivity"
@@ -57,56 +57,56 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MultiVideoActivity"
+            android:name=".Streaming.MultiVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FullVideoActivity"
+            android:name=".Streaming.FullVideoActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
         <activity
-            android:name=".NFCActivity"
+            android:name=".RegistrationUnreservedSeat.NFCActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="NFC 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".Ordering.OrderActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="주문 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReservActivity"
+            android:name=".Reservation.ReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="좌석예매 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DetailReservActivity"
+            android:name=".Reservation.DetailReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="좌석 예매 상세정보"
-            android:parentActivityName=".ReservActivity"
+            android:parentActivityName=".Reservation.ReservActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyPageActivity"
+            android:name=".MyPage.MyPageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignChangeActivity"
+            android:name=".MyPage.SignChangeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderMenu"
+            android:name=".Ordering.OrderMenu"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:parentActivityName=".OrderActivity"
+            android:parentActivityName=".Ordering.OrderActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".OrderListActivity"
+        <activity android:name=".Ordering.OrderListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:parentActivityName=".OrderActivity"
+            android:parentActivityName=".Ordering.OrderActivity"
             android:screenOrientation="portrait"/>
     </application>
 

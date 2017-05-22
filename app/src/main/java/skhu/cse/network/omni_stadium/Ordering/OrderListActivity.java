@@ -1,10 +1,12 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Ordering;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import java.util.List;
+
+import skhu.cse.network.omni_stadium.R;
 
 public class OrderListActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import skhu.cse.network.omni_stadium.R;
+
 public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private ArrayList<String> group_menu;
-    private HashMap<String, ArrayList<Itemlist>> item_menu;
+    private HashMap<String, ArrayList<OrderItem>> item_menu;
 
-    public Order_ExplvAdapter(Context context, ArrayList<String> group_menu , HashMap<String, ArrayList<Itemlist>> item_menu)
+    public Order_ExplvAdapter(Context context, ArrayList<String> group_menu , HashMap<String, ArrayList<OrderItem>> item_menu)
     {
         super();
         this.mContext = context;
@@ -77,7 +79,7 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         // ChildList의 View. 위 ParentList의 View를 얻을 때와 비슷하게 Layout 연결 후, layout 내 TextView 2개를 연결
-        Itemlist child = (Itemlist)getChild(groupPosition, childPosition);
+        OrderItem child = (OrderItem)getChild(groupPosition, childPosition);
         if(convertView == null){
 
             LayoutInflater childInfla = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -86,7 +88,8 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
         TextView name = (TextView)convertView.findViewById(R.id.tvLitem);
         TextView cost = (TextView)convertView.findViewById(R.id.tvRitem);
         name.setText(child.getName());
-        cost.setText(child.getCost());
+        String strCost=String.valueOf(child.getCost())+"원";
+        cost.setText(strCost);
         return convertView;
     }
 

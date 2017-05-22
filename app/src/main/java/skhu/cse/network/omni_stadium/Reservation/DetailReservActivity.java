@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Reservation;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -6,15 +6,13 @@ import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import skhu.cse.network.omni_stadium.R;
 
 
 public class DetailReservActivity extends AppCompatActivity {

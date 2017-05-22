@@ -8,13 +8,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import skhu.cse.network.omni_stadium.MyPage.MyPageActivity;
+import skhu.cse.network.omni_stadium.Ordering.OrderActivity;
+import skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity;
+import skhu.cse.network.omni_stadium.Reservation.ReservActivity;
+import skhu.cse.network.omni_stadium.Streaming.MultiVideoActivity;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -76,8 +80,7 @@ public class MenuActivity extends AppCompatActivity
            case R.id.nav_streaming:
                Intent intent = new Intent(getApplicationContext(), MultiVideoActivity.class);
                startActivity(intent);
-                break;
-
+               break;
             case R.id.nav_ticket:
                 Intent tintent = new Intent(getApplicationContext(), ReservActivity.class);
                 startActivity(tintent);

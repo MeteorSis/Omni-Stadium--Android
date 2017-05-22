@@ -1,30 +1,19 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.MyPage;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedOutputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import skhu.cse.network.omni_stadium.R;
 
 public class SignChangeActivity extends AppCompatActivity{
     @Override

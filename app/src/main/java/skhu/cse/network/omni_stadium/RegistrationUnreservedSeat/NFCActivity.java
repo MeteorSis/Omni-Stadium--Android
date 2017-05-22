@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.RegistrationUnreservedSeat;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import skhu.cse.network.omni_stadium.R;
 
 
 public class NFCActivity extends AppCompatActivity {

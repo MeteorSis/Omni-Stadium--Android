@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -29,6 +28,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import skhu.cse.network.omni_stadium.MemberManagement.SidActivity;
+import skhu.cse.network.omni_stadium.MemberManagement.SignUpActivity;
+import skhu.cse.network.omni_stadium.MemberManagement.SpwActivity;
 
 public class MainActivity extends AppCompatActivity {
     private BackPressCloseHandler backPressCloseHandler;

@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Streaming;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -10,6 +10,8 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import skhu.cse.network.omni_stadium.R;
 
 public class FullVideoActivity extends AppCompatActivity {
 
