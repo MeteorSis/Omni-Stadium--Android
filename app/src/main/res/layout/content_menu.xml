@@ -9,6 +9,14 @@
     tools:context="skhu.cse.network.omni_stadium.MenuActivity"
     tools:showIn="@layout/app_bar_menu">
 
+    <TextView
+        android:id="@+id/tvtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="[티켓정보]"
+        android:layout_marginTop="70dp"/>
+
     <RelativeLayout
         android:id="@+id/relativeLayout8"
         android:layout_width="300dp"
