@@ -27,7 +27,7 @@ import skhu.cse.network.omni_stadium.R;
 
 public class NFCActivity extends AppCompatActivity {
 
-    private static final String TAG = "NFCTestR";
+    private static final String TAG = "NFCActivity";
     private boolean mResumed = false;
     private boolean mWriteMode = false;
     NfcAdapter mNfcAdapter;
@@ -38,34 +38,6 @@ public class NFCActivity extends AppCompatActivity {
     IntentFilter[] mNdefExchangeFilters;
 
     String body = null;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if(mNfcAdapter.isEnabled() != true) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("설정에서 NFC를 켜주세요.")
-                    .setPositiveButton("확인",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    //API 17 부터 NFC 설정 환경이 변경됨
-                                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN)
-                                        startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
-                                    else
-                                        startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-                                }
-                            })
-                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
-                    .setCancelable(false)
-                    .show();
-        }
-    }
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -96,6 +68,34 @@ public class NFCActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(mNfcAdapter.isEnabled() != true) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("설정에서 NFC를 켜주세요.")
+                    .setPositiveButton("확인",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //API 17 부터 NFC 설정 환경이 변경됨
+                                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN)
+                                        startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+                                    else
+                                        startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                                }
+                            })
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         mResumed = true;
@@ -113,7 +113,8 @@ public class NFCActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mResumed = false;
-        mNfcAdapter.disableForegroundNdefPush(this);
+        //mNfcAdapter.disableForegroundNdefPush(this); deprecated
+        mNfcAdapter.disableForegroundDispatch(NFCActivity.this);
     }
 
     @Override
@@ -140,7 +141,7 @@ public class NFCActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable arg0) {
             if (mResumed) {
-                //mNfcAdapter.enableForegroundNdefPush(NFCActivity.this, getNoteAsNdef());
+                //mNfcAdapter.enableForegroundNdefPush(NFCActivity.this, getNoteAsNdef()); deprecated
                 mNfcAdapter.setNdefPushMessage(getNoteAsNdef(),NFCActivity.this);
             }
         }
