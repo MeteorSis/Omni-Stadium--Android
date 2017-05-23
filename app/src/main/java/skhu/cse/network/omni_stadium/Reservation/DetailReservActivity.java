@@ -36,6 +36,9 @@ public class DetailReservActivity extends AppCompatActivity {
         value  =  intent.getStringExtra("Sector");
         seatInfo.setText(value);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ToggleButton tb1 = (ToggleButton)findViewById(R.id.tbG1);
+
+
 
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
@@ -87,26 +90,7 @@ public class DetailReservActivity extends AppCompatActivity {
             }
         });
     }
-     /*private class ToggleButtonCheckedListener implements CompoundButton.OnCheckedChangeListener
-     {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(isChecked)
-            {
-                buttonView.setChecked(false);
-                buttonView.setBackgroundColor(Color.GREEN);
-                isCheckedInArr=false;
-            }
-            else {
-                if(!isCheckedInArr)
-                {
-                    buttonView.setChecked(true);
-                    buttonView.setBackgroundColor(Color.DKGRAY);
-                    isCheckedInArr=true;
-                }
-            }
-        }
-    }*/
+
     public void onToggleClicked(View v)
     {
         ToggleButton tB=(ToggleButton)v;
