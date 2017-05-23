@@ -29,12 +29,10 @@ public class NFCActivity extends AppCompatActivity {
 
     private static final String TAG = "NFCActivity";
     private boolean mResumed = false;
-    private boolean mWriteMode = false;
     NfcAdapter mNfcAdapter;
     EditText mNote;
 
     PendingIntent mNfcPendingIntent;
-    IntentFilter[] mWriteTagFilters;
     IntentFilter[] mNdefExchangeFilters;
 
     String body = null;
@@ -51,20 +49,16 @@ public class NFCActivity extends AppCompatActivity {
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
 
-        // Handle all of our received NFC intents in this activity.
+        //이 액티비티에서 수신된 모든 NFC 인텐트를 처리
         mNfcPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
-        // Intent filters for reading a note from a tag or exchanging over p2p.
+        //태그로부터 텍스트를 읽거나 p2p를 통하여 교환할 때 필요한 인텐트 필터
         IntentFilter ndefDetected = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             ndefDetected.addDataType("text/plain");
         } catch (IntentFilter.MalformedMimeTypeException e) { }
         mNdefExchangeFilters = new IntentFilter[] { ndefDetected };
-
-        // Intent filters for writing to a tag
-        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        mWriteTagFilters = new IntentFilter[] { tagDetected };
     }
 
     @Override
@@ -99,12 +93,12 @@ public class NFCActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mResumed = true;
-        // Sticky notes received from Android
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
-            NdefMessage[] messages = getNdefMessages(getIntent());
+
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {//이 인텐트가 시작된 것이 NFC 인텐트 때문이라면
+            NdefMessage[] messages = getNdefMessages(getIntent());//인텐트에서 텍스트를 꺼내서
             byte[] payload = messages[0].getRecords()[0].getPayload();
-            setNoteBody(new String(payload));
-            setIntent(new Intent()); // Consume this intent.
+            setNoteBody(new String(payload));//화면에 표시한다.
+            setIntent(new Intent());//이 인텐트를 삭제한다.
         }
         enableNdefExchangeMode();
     }
@@ -118,9 +112,9 @@ public class NFCActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        // NDEF exchange mode
-        if (!mWriteMode && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+    protected void onNewIntent(Intent intent) {//액티비티가 인텐트를 받으면 모드를 봐서 읽거나 쓴다.
+        //NDEF 교환 모드
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             NdefMessage[] msgs = getNdefMessages(intent);
             promptForContent(msgs[0]);
         }
@@ -171,7 +165,7 @@ public class NFCActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             body = new String(msg.getRecords()[0].getPayload());
-                            setNoteBody("현재 좌석: "+body);
+                            setNoteBody("현재 좌석: " + body);
                             toast("새로운 좌석이 등록되었습니다.");
                         }
                     })
@@ -190,7 +184,7 @@ public class NFCActivity extends AppCompatActivity {
         text.append(body);
     }
 
-    private NdefMessage getNoteAsNdef() {
+    private NdefMessage getNoteAsNdef() {//NDEF 메시지로 변환한다.
         byte[] textBytes = mNote.getText().toString().getBytes();
         NdefRecord textRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, "text/plain".getBytes(),
                 new byte[] {}, textBytes);
@@ -199,8 +193,8 @@ public class NFCActivity extends AppCompatActivity {
         });
     }
 
-    NdefMessage[] getNdefMessages(Intent intent) {
-        // Parse the intent
+    NdefMessage[] getNdefMessages(Intent intent) {//인텐트에서 NDEF 메시지를 추출한다.
+        //인텐트를 파싱한다.
         NdefMessage[] msgs = null;
         String action = intent.getAction();
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
@@ -212,7 +206,7 @@ public class NFCActivity extends AppCompatActivity {
                     msgs[i] = (NdefMessage) rawMsgs[i];
                 }
             } else {
-                // Unknown tag type
+                //알 수 없는 태그 타입
                 byte[] empty = new byte[] {};
                 NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, empty, empty);
                 NdefMessage msg = new NdefMessage(new NdefRecord[] {
