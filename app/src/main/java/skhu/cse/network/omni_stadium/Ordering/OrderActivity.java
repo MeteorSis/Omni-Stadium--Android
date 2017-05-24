@@ -22,7 +22,6 @@ public class OrderActivity extends AppCompatActivity{
     private ArrayList<String> group_list = new ArrayList<String>();
     private HashMap<String, ArrayList<OrderItem>> item_list = new HashMap<String, ArrayList<OrderItem>>();
     private ExpandableListAdapter listAdapter;
-    static CartManager cartManager=CartManager.createManagerInst();
     static final int REQ_CODE_ORDERMENU =0;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -491,7 +490,7 @@ public class OrderActivity extends AppCompatActivity{
             case REQ_CODE_ORDERMENU:
                 if(resultCode==RESULT_OK)
                 {
-                    cartManager.addOrderItem((OrderItem)data.getSerializableExtra("OrderItem"));
+                    //cartManager.addOrderItem((OrderItem)data.getSerializableExtra("OrderItem"));
                 }
                 break;
         }

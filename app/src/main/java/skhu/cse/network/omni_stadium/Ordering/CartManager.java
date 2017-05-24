@@ -1,10 +1,11 @@
+/*
 package skhu.cse.network.omni_stadium.Ordering;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
 public class CartManager {
-    private HashSet<OrderItem> itemHashSet;
+    private OrderItem[] itemList;
 
     static CartManager inst=null;
     public static CartManager createManagerInst()
@@ -49,3 +50,4 @@ public class CartManager {
         return itemHashSet.remove(orderItem);
     }
 }
+*/
