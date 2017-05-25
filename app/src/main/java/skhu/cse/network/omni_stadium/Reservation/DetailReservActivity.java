@@ -34,9 +34,12 @@ public class DetailReservActivity extends AppCompatActivity {
         seatInfo.setFocusableInTouchMode(false); // EditText를 읽기전용으로 만듦
         Intent intent = getIntent();
         value  =  intent.getStringExtra("Sector");
-        seatInfo.setText(value);
+        setTitle("지정석 : "+value);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ToggleButton tb1 = (ToggleButton)findViewById(R.id.tbG1);
+        tb1.setEnabled(false);
+        tb1.setTextColor(Color.parseColor("#afaeae"));
 
 
 
@@ -114,14 +117,16 @@ public class DetailReservActivity extends AppCompatActivity {
             charRow=chSq_seat_no.charAt(0);
             if(chSq_seat_no.charAt(1)!='0')
                 charRow++;
-            seatInfo.setText(value+" : "+charRow+"열 "+chSq_seat_no+"석");
+            seatInfo.setText(charRow+"열 "+chSq_seat_no+"석");
         }
         else
         {
             tB.setTextColor(Color.parseColor("#5FBEAA"));
             isCheckedInArr=false;
             tempTB=null;
-            seatInfo.setText(value);
+            seatInfo.setText("");
         }
     }
+
+
 }
