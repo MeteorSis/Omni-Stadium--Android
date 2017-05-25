@@ -44,6 +44,7 @@ public class ReservActivity extends AppCompatActivity {
         container.addView(zoomView);
 
         Glide.with(this).load(R.drawable.seatimageview).into((ImageView)findViewById(R.id.ivseat));
+        Glide.with(this).load(R.drawable.noun_1018844_cc).into((ImageView)findViewById(R.id.ivzoom_info));
 
         zoomView.setOnTouchListener(new View.OnTouchListener() {
             @Override
