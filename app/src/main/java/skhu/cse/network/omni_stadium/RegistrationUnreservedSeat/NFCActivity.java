@@ -29,7 +29,7 @@ public class NFCActivity extends AppCompatActivity {
 
     private static final String TAG = "NFCActivity";
     private boolean mResumed = false;
-    NfcAdapter mNfcAdapter;
+    NfcAdapter mNfcAdapter;//실제 NFC 하드웨어와의 다리 역할을 한다.
     EditText mNote;
 
     PendingIntent mNfcPendingIntent;
@@ -65,7 +65,7 @@ public class NFCActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if(mNfcAdapter.isEnabled() != true) {
+        if(mNfcAdapter.isEnabled() != true) {//NFC 기능이 활성화 되어 있는지 검사한다.
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("설정에서 NFC를 켜주세요.")
                     .setPositiveButton("확인",
