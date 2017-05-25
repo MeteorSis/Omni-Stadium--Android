@@ -34,8 +34,14 @@ public class DetailReservActivity extends AppCompatActivity {
         seatInfo.setFocusableInTouchMode(false); // EditText를 읽기전용으로 만듦
         Intent intent = getIntent();
         value  =  intent.getStringExtra("Sector");
-        seatInfo.setText(value);
+        setTitle("지정석 : "+value);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ToggleButton tb1 = (ToggleButton)findViewById(R.id.tbG1);
+        tb1.setEnabled(false);
+        tb1.setTextColor(Color.parseColor("#afaeae"));
+
+
 
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
@@ -87,26 +93,7 @@ public class DetailReservActivity extends AppCompatActivity {
             }
         });
     }
-     /*private class ToggleButtonCheckedListener implements CompoundButton.OnCheckedChangeListener
-     {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(isChecked)
-            {
-                buttonView.setChecked(false);
-                buttonView.setBackgroundColor(Color.GREEN);
-                isCheckedInArr=false;
-            }
-            else {
-                if(!isCheckedInArr)
-                {
-                    buttonView.setChecked(true);
-                    buttonView.setBackgroundColor(Color.DKGRAY);
-                    isCheckedInArr=true;
-                }
-            }
-        }
-    }*/
+
     public void onToggleClicked(View v)
     {
         ToggleButton tB=(ToggleButton)v;
@@ -130,14 +117,16 @@ public class DetailReservActivity extends AppCompatActivity {
             charRow=chSq_seat_no.charAt(0);
             if(chSq_seat_no.charAt(1)!='0')
                 charRow++;
-            seatInfo.setText(value+" : "+charRow+"열 "+chSq_seat_no+"석");
+            seatInfo.setText(charRow+"열 "+chSq_seat_no+"석");
         }
         else
         {
             tB.setTextColor(Color.parseColor("#5FBEAA"));
             isCheckedInArr=false;
             tempTB=null;
-            seatInfo.setText(value);
+            seatInfo.setText("");
         }
     }
+
+
 }

@@ -36,7 +36,9 @@ import skhu.cse.network.omni_stadium.MemberManagement.SpwActivity;
 public class MainActivity extends AppCompatActivity {
     private BackPressCloseHandler backPressCloseHandler;
     private EditText etID, etPW;
+    private CheckBox cbAutoLogin;
     private String strID, strPW;
+    static final int REQ_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button Login = (Button)findViewById(R.id.btlogin);
-        CheckBox cbAutoLogin = (CheckBox)findViewById(R.id.check_autologin);
+        cbAutoLogin = (CheckBox)findViewById(R.id.check_autologin);
 
         SharedPreferences autoSetting;
         final SharedPreferences.Editor editor;
@@ -206,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     OmniApplication omniApplication=(OmniApplication)getApplicationContext();
                     omniApplication.setId(strID);
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, REQ_CODE);
                 }/*
                 else if(result==1)
                     Toast.makeText(MainActivity.this, "접속 중인 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
@@ -223,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         etID.setText("");
         etPW.setText("");
+        cbAutoLogin.setChecked(false);
         etID.requestFocus();
     }
 
@@ -231,5 +234,14 @@ public class MainActivity extends AppCompatActivity {
     {
         //super.onBackPressed();
         backPressCloseHandler.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CODE){
+            if(resultCode == RESULT_OK){
+                finish();
+            }
+        }
     }
 }

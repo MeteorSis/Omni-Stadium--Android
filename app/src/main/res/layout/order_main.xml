@@ -19,25 +19,27 @@
             android:layout_alignParentTop="true" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <Button
             android:id="@+id/btCart"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_weight="1"
             android:background="@drawable/back"
-            android:layout_alignParentStart="true"
+
             android:text="장바구니 확인" />
         <Button
             android:id="@+id/btOrder"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_weight="1"
             android:background="@drawable/back"
-            android:layout_alignParentEnd="true"
+
             android:text="주문" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

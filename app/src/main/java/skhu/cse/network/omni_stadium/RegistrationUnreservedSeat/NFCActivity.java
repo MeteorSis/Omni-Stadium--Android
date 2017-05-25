@@ -11,13 +11,19 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +41,12 @@ public class NFCActivity extends AppCompatActivity {
     PendingIntent mNfcPendingIntent;
     IntentFilter[] mNdefExchangeFilters;
 
+    /* -----------------------------------UI----------------------------------- */
+    ViewPager viewPager;
+    TextView tab_first;
+    TextView tab_second;
+    /* -----------------------------------UI----------------------------------- */
+
     String body = null;
 
     @Override
@@ -48,6 +60,51 @@ public class NFCActivity extends AppCompatActivity {
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
+
+        /* -----------------------------------UI----------------------------------- */
+        viewPager = (ViewPager)findViewById(R.id.vp);
+
+        tab_first = (TextView)findViewById(R.id.tab_first);
+        tab_second = (TextView)findViewById(R.id.tab_second);
+
+        MyPagerAdapter adapter = new MyPagerAdapter();
+        viewPager.setAdapter(adapter);
+
+        tab_first.setOnClickListener(movePageListener);
+        tab_second.setOnClickListener(movePageListener);
+
+        tab_first.setSelected(true);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
+
+            }
+
+            @Override
+            public void onPageSelected(int position)
+            {
+                switch (position){
+                    case 0:
+                        tab_first.setSelected(true);
+                        tab_second.setSelected(false);
+                        break;
+                    case 1:
+                        tab_first.setSelected(false);
+                        tab_second.setSelected(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+
+            }
+        });
+        /* -----------------------------------UI----------------------------------- */
 
         //이 액티비티에서 수신된 모든 NFC 인텐트를 처리
         mNfcPendingIntent = PendingIntent.getActivity(this, 0,
@@ -231,4 +288,55 @@ public class NFCActivity extends AppCompatActivity {
     private void toast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
+
+    /* -----------------------------------UI----------------------------------- */
+    View.OnClickListener movePageListener = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            switch(v.getId()){
+                case R.id.tab_first:
+                    tab_first.setSelected(true);
+                    tab_second.setSelected(false);
+                    viewPager.setCurrentItem(0);
+                    break;
+                case R.id.tab_second:
+                    tab_first.setSelected(false);
+                    tab_second.setSelected(true);
+                    viewPager.setCurrentItem(1);
+                    break;
+            }
+
+        }
+    };
+    class MyPagerAdapter extends PagerAdapter {
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+
+            int resId = 0;
+            switch(position)
+            {
+                case 0:
+                    resId = R.id.page_one;
+                    break;
+                case 1:
+                    resId = R.id.page_two;
+                    break;
+            }
+            return findViewById(resId);
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+    }
+    /* -----------------------------------UI----------------------------------- */
 }

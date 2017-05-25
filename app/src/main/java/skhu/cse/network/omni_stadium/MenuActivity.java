@@ -20,9 +20,10 @@ import skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity;
 import skhu.cse.network.omni_stadium.Reservation.ReservActivity;
 import skhu.cse.network.omni_stadium.Streaming.MultiVideoActivity;
 
-public class MenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-        DrawerLayout drawer;
+public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DrawerLayout drawer;
+    private BackPressCloseHandler backPressCloseHandler;
 
     static final int REQ_CODE = 1;
     @Override
@@ -56,6 +57,7 @@ public class MenuActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });*/
+        backPressCloseHandler = new BackPressCloseHandler(this);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class MenuActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            backPressCloseHandler.onBackPressed();
         }
     }
 

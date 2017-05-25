@@ -1,15 +1,17 @@
 package skhu.cse.network.omni_stadium;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import skhu.cse.network.omni_stadium.AsyncTask.LogoutTask;
 
 public class BackPressCloseHandler
 {
     private long backKeyPressedTime = 0;
     private Toast toast;
-    private Activity activity;
+    private AppCompatActivity activity;
 
-    public BackPressCloseHandler(Activity context)
+    public BackPressCloseHandler(AppCompatActivity context)
     {
         this.activity = context;
     }
@@ -24,7 +26,7 @@ public class BackPressCloseHandler
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000)
         {
-            activity.finish();
+            new LogoutTask(activity).execute(((OmniApplication)activity.getApplicationContext()).getId());
             toast.cancel();
         }
     }
