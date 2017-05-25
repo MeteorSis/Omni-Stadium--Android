@@ -28,6 +28,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import skhu.cse.network.omni_stadium.R;
 
 
@@ -205,7 +208,20 @@ public class NFCActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             body = new String(msg.getRecords()[0].getPayload());
-                            setNoteBody("현재 좌석: "+body);
+
+                            JSONObject objBody = null;
+                            try {
+                                objBody = new JSONObject(body);
+                            } catch (JSONException e) {
+
+                            }
+                            try {
+                                setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
+                            } catch (JSONException e) {
+
+                            }
+                            //setNoteBody(body); 원본
+                            Log.d("test2", body);
                             toast("좌석 변경이 완료되었습니다.");
                         }
                     })
@@ -222,7 +238,20 @@ public class NFCActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             body = new String(msg.getRecords()[0].getPayload());
-                            setNoteBody("현재 좌석: " + body);
+
+                            JSONObject objBody = null;
+                            try {
+                                objBody = new JSONObject(body);
+                            } catch (JSONException e) {
+
+                            }
+                            try {
+                                setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
+                            } catch (JSONException e) {
+
+                            }
+                            //setNoteBody(body); 원본
+                            Log.d("test3", body);
                             toast("새로운 좌석이 등록되었습니다.");
                         }
                     })
@@ -254,13 +283,13 @@ public class NFCActivity extends AppCompatActivity {
         //인텐트를 파싱한다.
         NdefMessage[] msgs = null;
         String action = intent.getAction();
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
-                || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             if (rawMsgs != null) {
                 msgs = new NdefMessage[rawMsgs.length];
                 for (int i = 0; i < rawMsgs.length; i++) {
                     msgs[i] = (NdefMessage) rawMsgs[i];
+                    Log.d("test1", msgs[i].toString());
                 }
             } else {
                 //알 수 없는 태그 타입
