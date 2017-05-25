@@ -48,6 +48,8 @@ public class NFCActivity extends AppCompatActivity {
     ViewPager viewPager;
     TextView tab_first;
     TextView tab_second;
+
+    private String value;
     /* -----------------------------------UI----------------------------------- */
 
     String body = null;
@@ -69,12 +71,18 @@ public class NFCActivity extends AppCompatActivity {
 
         tab_first = (TextView)findViewById(R.id.tab_first);
         tab_second = (TextView)findViewById(R.id.tab_second);
-
+        
         MyPagerAdapter adapter = new MyPagerAdapter();
         viewPager.setAdapter(adapter);
 
         tab_first.setOnClickListener(movePageListener);
         tab_second.setOnClickListener(movePageListener);
+
+        Intent nintent = getIntent();
+        value = nintent.getStringExtra("Sector");
+
+        Log.d("test",value);
+        tab_first.setText(value+" 현황");
 
         tab_first.setSelected(true);
 

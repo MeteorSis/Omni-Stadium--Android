@@ -88,6 +88,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_nfc:
                 Intent nintent = new Intent(getApplicationContext(), NFCActivity.class);
+                /********** dummy ***********/
+                nintent.putExtra("Sector","3루 외야그린석");
+                /********** dummy ***********/
                 startActivity(nintent);
                 break;
 
