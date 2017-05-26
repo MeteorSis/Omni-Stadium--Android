@@ -45,7 +45,6 @@ import skhu.cse.network.omni_stadium.MyPage.MyPageActivity;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
-
 public class NFCActivity extends AppCompatActivity {
 
     private static final String TAG = "NFCActivity";
@@ -65,6 +64,7 @@ public class NFCActivity extends AppCompatActivity {
     /* -----------------------------------UI----------------------------------- */
 
     String body = null;
+    String toastMsg = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,75 +219,62 @@ public class NFCActivity extends AppCompatActivity {
     };
 
     private void promptForContent(final NdefMessage msg) {
-        if (body != null) {
-            new AlertDialog.Builder(this).setTitle("현재 좌석을 이 좌석으로 바꾸시겠습니까?")
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            body = new String(msg.getRecords()[0].getPayload());
-
-                            JSONObject objBody = null;
-                            try {
-                                objBody = new JSONObject(body);
-                            } catch (JSONException e) {
-
-                            }
-                            try {
-                                setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
-                            } catch (JSONException e) {
-
-                            }
-                            //setNoteBody(body); 원본
-                            Log.d("test2", body);
-                            toast("좌석 변경이 완료되었습니다.");
-                        }
-                    })
-                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-
-                        }
-                    }).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (body == null) {
+            builder.setTitle("이 좌석으로 등록 하시겠습니까?");
+            toastMsg = "새로운 좌석이 등록되었습니다.";
         } else {
-            new AlertDialog.Builder(this).setTitle("이 좌석으로 등록 하시겠습니까?")
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            body = new String(msg.getRecords()[0].getPayload());
+            builder.setTitle("현재 좌석을 이 좌석으로 바꾸시겠습니까?");
+            toastMsg = "좌석 변경이 완료되었습니다.";
+        }
 
-                            JSONObject objBody = null;
-                            try {
-                                objBody = new JSONObject(body);
-                            } catch (JSONException e) {
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                body = new String(msg.getRecords()[0].getPayload());
 
-                            }
-                            try {
-                                setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
-                            } catch (JSONException e) {
+                JSONObject objBody = null;
+                try {
+                    objBody = new JSONObject(body);
+                } catch (JSONException e) {
 
-                            }
-                            //setNoteBody(body); 원본
-                            Log.d("test3", body);
+                }
 
 /*
-                            try {
-                                new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getId());
-                                new NFCTask(NFCActivity.this).execute(objBody.getString("seat_id"));
-                            } catch (JSONException e) {
+                try {
+                    new NFCTask(NFCActivity.this).execute(objBody.getString("seat_id"));//태그에서 읽어온 좌석 정보에서 좌석 아이디만 보냄
+                }catch (JSONException e) {
 
-                            }
+                }
+
+                if(true)
+                {
+                    try {
+                        new NFCTask(NFCActivity.this).execute(((OmniApplication)getApplicationContext()).getId()).execute(objBody.getString("seat_id"));//좌석 등록 요청
+                        setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
+                        toast(toastMsg);
+                    } catch (JSONException e) {
+
+                    }
+                    //setNoteBody(body); JSON 볼 때
+                }
 */
+                try {
+                    setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
+                    toast(toastMsg);
+                } catch (JSONException e) {
 
-                            toast("새로운 좌석이 등록되었습니다.");
-                        }
-                    })
-                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
+                }
 
-                        }
-                    }).show();
-        }
+                Log.d("test2", body);
+            }
+        })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                    }
+                }).show();
     }
 
     private void setNoteBody(String body) {
@@ -456,10 +443,12 @@ class NFCTask extends AsyncTask<String, Void, JSONObject> {
         try {
             int result = jsonObject.getInt("결과");
             if (result == 0) {
+/*
                 ((OmniApplication) activity.getApplicationContext()).setId(null);
                 Intent intent = new Intent();
                 activity.setResult(activity.RESULT_OK, intent);
                 activity.finish();
+*/
             } else
                 Toast.makeText(activity, "좌석 등록이 실패하였습니다.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
