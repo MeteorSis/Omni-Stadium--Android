@@ -241,6 +241,7 @@ public class NFCActivity extends AppCompatActivity {
                 }
 
 /*
+                //////////
                 try {
                     new NFCTask(NFCActivity.this).execute(objBody.getString("seat_id"));//태그에서 읽어온 좌석 정보에서 좌석 아이디만 보냄
                 }catch (JSONException e) {
@@ -250,7 +251,7 @@ public class NFCActivity extends AppCompatActivity {
                 if(true)
                 {
                     try {
-                        new NFCTask(NFCActivity.this).execute(((OmniApplication)getApplicationContext()).getId()).execute(objBody.getString("seat_id"));//좌석 등록 요청
+                        new NFCTask(NFCActivity.this).execute(((OmniApplication)getApplicationContext()).getId(), objBody.getString("seat_id"));//좌석 등록 요청
                         setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
                         toast(toastMsg);
                     } catch (JSONException e) {
@@ -258,7 +259,9 @@ public class NFCActivity extends AppCompatActivity {
                     }
                     //setNoteBody(body); JSON 볼 때
                 }
+                //////////
 */
+
                 try {
                     setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
                     toast(toastMsg);
@@ -382,6 +385,7 @@ public class NFCActivity extends AppCompatActivity {
 }
 
 class NFCTask extends AsyncTask<String, Void, JSONObject> {
+
     private AppCompatActivity activity;
 
     public NFCTask(AppCompatActivity activity) {
