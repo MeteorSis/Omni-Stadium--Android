@@ -13,6 +13,7 @@ import java.util.HashMap;
 import skhu.cse.network.omni_stadium.R;
 
 public class Order_ExplvAdapter extends BaseExpandableListAdapter {
+
     private Context mContext;
     private ArrayList<String> group_menu;
     private HashMap<String, ArrayList<OrderItem>> item_menu;
@@ -23,7 +24,6 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
         this.mContext = context;
         this.group_menu = group_menu;
         this.item_menu = item_menu;
-
     }
 
     @Override
@@ -45,7 +45,6 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int groupPosition, int childPosition) { // groupPostion과 childPosition을 통해 childList의 원소를 얻어옴
         return item_menu.get(group_menu.get(groupPosition)).get(childPosition);
-
     }
 
     @Override
@@ -87,16 +86,16 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
         }
         TextView name = (TextView)convertView.findViewById(R.id.tvLitem);
         TextView cost = (TextView)convertView.findViewById(R.id.tvRitem);
-        name.setText(child.getName());
-        String strCost=String.valueOf(child.getCost())+"원";
+        name.setText(child.getMenu_name());
+        String strCost=String.valueOf(child.getMenu_price())+"원";
         cost.setText(strCost);
         return convertView;
     }
 
     @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition) { return true; } // 선택여부를 boolean 값으로 반환
-
-
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;  // 선택여부를 boolean 값으로 반환
+    }
 }
 
 

@@ -1,65 +1,100 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class OrderItem implements Serializable{
 
-    private String name;
-    private int cost;
-    private int count;
+    private String food_name;
+    private int food_id;
+    private int menu_id;
+    private String menu_name;
+    private int menu_price;
+    private String menu_info;
+    private int menu_count;
 
-    public OrderItem(String name, int cost, int count)
+    public OrderItem(String food_name, int food_id,
+                     int menu_id, String menu_name, int menu_price, String menu_info, int menu_count)
     {
-        this.name = name;
-        this.cost = cost;
-        this.count=count;
+        this.food_name=food_name;
+        this.food_id=food_id;
+        this.menu_id=menu_id;
+        this.menu_name=menu_name;
+        this.menu_price=menu_price;
+        this.menu_info=menu_info;
+        this.menu_count=menu_count;
     }
-    public OrderItem(String name, int cost)
+    public OrderItem(String food_name, int food_id,
+                     int menu_id, String menu_name, int menu_price, String menu_info)
     {
-        this.name = name;
-        this.cost = cost;
-        this.count=0;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-    public void setName(String name)
-    {
-        this.name=name;
-    }
-
-    public int getCost()
-    {
-        return cost;
-    }
-    public void setCost(int cost)
-    {
-        this.cost=cost;
+        this.food_name=food_name;
+        this.food_id=food_id;
+        this.menu_id=menu_id;
+        this.menu_name=menu_name;
+        this.menu_price=menu_price;
+        this.menu_info=menu_info;
     }
 
-    public int getCount()
+    public String getFood_name()
     {
-        return count;
+        return food_name;
     }
-    public void setCount(int count)
+    public void setFood_name(String food_name)
     {
-        this.count=count;
+        this.food_name=food_name;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public int getFood_id()
+    {
+        return food_id;
+    }
+    public void setFood_id(int food_id)
+    {
+        this.food_id=food_id;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        OrderItem cmp=(OrderItem)obj;
-        if(name.compareTo(cmp.name)==0)
-            return true;
-        else
-            return false;
+    public int getMenu_id()
+    {
+        return menu_id;
     }
+    public void setMenu_id(int menu_id)
+    {
+        this.menu_id=menu_id;
+    }
+
+    public String getMenu_name()
+    {
+        return menu_name;
+    }
+    public void setMenu_name(String menu_name)
+    {
+        this.menu_name=menu_name;
+    }
+
+    public int getMenu_price()
+    {
+        return menu_price;
+    }
+    public void setMenu_price(int menu_price)
+    {
+        this.menu_price=menu_price;
+    }
+
+    public String getMenu_info()
+    {
+        return menu_info;
+    }
+    public void setMenu_info(String menu_info)
+    {
+        this.menu_info=menu_info;
+    }
+
+    public int getMenu_count()
+    {
+        return menu_count;
+    }
+    public void setMenu_count(int menu_count)
+    {
+        this.menu_count=menu_count;
+    }
+
 }

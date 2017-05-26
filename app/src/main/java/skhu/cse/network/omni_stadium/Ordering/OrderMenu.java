@@ -10,34 +10,35 @@ import android.widget.TextView;
 import skhu.cse.network.omni_stadium.R;
 
 public class OrderMenu extends AppCompatActivity {
-    private  int mCount=1; //메뉴 수량을 저장하는 변수
+
+    private int mCount=1; //메뉴 수량을 저장하는 변수
+    private String strAllPrice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_menu_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final Button minus = (Button)findViewById(R.id.btminus);
-        final TextView count = (TextView)findViewById(R.id.tvCountinfo);
-        final Button basket = (Button)findViewById(R.id.btbasket);
-        final TextView name = (TextView) findViewById(R.id.tvmenu_name);
-        final TextView info = (TextView)findViewById(R.id.tvmenu_info);
-        final TextView price = (TextView)findViewById(R.id.tvmenu_price);
-        final TextView all_price = (TextView)findViewById(R.id.tvall_price);
-        Button plus = (Button)findViewById(R.id.btplus);
+        TextView tvMenuName=(TextView)findViewById(R.id.tvMenuName);
+        TextView tvMenuInfo=(TextView)findViewById(R.id.tvMenuInfo);
+        TextView tvMenuPrice=(TextView)findViewById(R.id.tvMenuPrice);
+        final TextView tvCount=(TextView)findViewById(R.id.tvCount);
+        Button btMinus=(Button)findViewById(R.id.btMinus);
+        Button btPlus=(Button)findViewById(R.id.btPlus);
+        final TextView tvAllPrice=(TextView)findViewById(R.id.tvAllPrice);
+        Button btCart=(Button)findViewById(R.id.btCart);
 
+        final OrderItem orderItem=(OrderItem)getIntent().getSerializableExtra("OrderItem");
 
-        Intent intent = getIntent();
-        final String cname = intent.getStringExtra("menu_name");
-        String cinfo = intent.getStringExtra("menu_info");
-        final int cprice = intent.getIntExtra("menu_price",16000);
-        final int call_price = intent.getIntExtra("menu_allprice",16000);
-        price.setText(cprice+"원");
-        name.setText(cname);
-        info.setText(cinfo);
-        count.setText(""+mCount);
-        all_price.setText(mCount*cprice+"원");
+        tvMenuName.setText(orderItem.getMenu_name());
+        tvMenuInfo.setText(orderItem.getMenu_info());
+        final int menu_price=orderItem.getMenu_price();
+        String strMenu_price=menu_price+"원";
+        tvMenuPrice.setText(strMenu_price);
+        strAllPrice=mCount*menu_price+"원";
+        tvAllPrice.setText(strAllPrice);
 
-        minus.setOnClickListener(new View.OnClickListener() {
+        btMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(--mCount<0)
@@ -45,25 +46,30 @@ public class OrderMenu extends AppCompatActivity {
                     mCount=0;
                     return;
                 }
-                count.setText(""+mCount);
-                all_price.setText(mCount*cprice+"원");
+                String strCount=""+mCount;
+                tvCount.setText(strCount);
+                strAllPrice=mCount*menu_price+"원";
+                tvAllPrice.setText(strAllPrice);
             }
         });
 
-        plus.setOnClickListener(new View.OnClickListener() {
+        btPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ++mCount;
-                count.setText(""+mCount);
-                all_price.setText(mCount*cprice+"원");
+                String strCount=""+mCount;
+                tvCount.setText(strCount);
+                strAllPrice=mCount*menu_price+"원";
+                tvAllPrice.setText(strAllPrice);
             }
         });
 
-        basket.setOnClickListener(new View.OnClickListener() {
+        btCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent sIntent=new Intent();
-                sIntent.putExtra("OrderItem", new OrderItem(cname, cprice, mCount));
+                orderItem.setMenu_count(mCount);
+                sIntent.putExtra("OrderItem", orderItem);
                 setResult(RESULT_OK, sIntent);
                 finish();
             }

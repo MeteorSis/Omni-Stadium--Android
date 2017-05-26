@@ -1,53 +1,81 @@
-/*
 package skhu.cse.network.omni_stadium.Ordering;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class CartManager {
-    private OrderItem[] itemList;
+public class CartManager implements Serializable{
+    private OrderItem[][] cart;
 
     static CartManager inst=null;
-    public static CartManager createManagerInst()
+    public static CartManager createManagerInst(OrderItem[][] cart)
     {
         if(inst==null)
-            inst=new CartManager();
+            inst=new CartManager(cart);
         return inst;
     }
-    private CartManager()
+    private CartManager(OrderItem[][] cart)
     {
-        itemHashSet=new HashSet<>();
+        this.cart=cart;
     }
 
-    public Iterator<OrderItem> getIterator()
+    public int getItemCount()
     {
-        return itemHashSet.iterator();
-    }
+        int count=0;
 
-    public OrderItem search(String name)
-    {
-        Iterator<OrderItem> itr=itemHashSet.iterator();
-        while(itr.hasNext())
+        for(int row=0; row<cart.length; ++row)
         {
-            OrderItem tmpItem=itr.next();
-            if(tmpItem.getName().compareTo(name)==0)
-                return tmpItem;
+            for(int col=0; col<cart[row].length; ++col)
+            {
+                if(cart[row][col]!=null)
+                    ++count;
+            }
         }
-        return null;
+
+        return count;
+    }
+
+    public ArrayList<OrderItem> getArrList()
+    {
+        ArrayList<OrderItem> retArr=new ArrayList<>();
+        for(int row=0; row<cart.length; ++row)
+        {
+            for(int col=0; col<cart[row].length; ++col)
+            {
+                if(cart[row][col]!=null)
+                    retArr.add(cart[row][col]);
+            }
+        }
+        return retArr;
     }
 
     public void addOrderItem(OrderItem orderItem)
     {
-        if(!itemHashSet.add(orderItem))
-        {
-            OrderItem existingItem = search(orderItem.getName());
-            existingItem.setCount(existingItem.getCount()+orderItem.getCount());
-        }
+        int row=orderItem.getFood_id();
+        int col=orderItem.getMenu_id();
+        if(cart[row][col]==null)
+            cart[row][col]=orderItem;
+        else
+            cart[row][col].setMenu_count(cart[row][col].getMenu_count()+orderItem.getMenu_count());
+    }
+    public void removeOrderItem(OrderItem orderItem)
+    {
+        int row=orderItem.getFood_id();
+        int col=orderItem.getMenu_id();
+        cart[row][col]=null;
     }
 
-    public boolean removeOrderItem(OrderItem orderItem)
+    public void plusOrderItem(OrderItem orderItem)
     {
-        return itemHashSet.remove(orderItem);
+        int row=orderItem.getFood_id();
+        int col=orderItem.getMenu_id();
+        cart[row][col].setMenu_count(cart[row][col].getMenu_count()+1);
+    }
+
+    public void minusOrderItem(OrderItem orderItem)
+    {
+        int row=orderItem.getFood_id();
+        int col=orderItem.getMenu_id();
+        if(cart[row][col].getMenu_count()>1)
+            cart[row][col].setMenu_count(cart[row][col].getMenu_count()-1);
     }
 }
-*/
