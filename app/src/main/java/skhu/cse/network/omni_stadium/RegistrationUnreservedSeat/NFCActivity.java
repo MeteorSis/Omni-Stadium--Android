@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Settings;
@@ -31,6 +32,17 @@ import com.bumptech.glide.Glide;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import skhu.cse.network.omni_stadium.AsyncTask.LogoutTask;
+import skhu.cse.network.omni_stadium.MyPage.MyPageActivity;
+import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
 
@@ -55,11 +67,11 @@ public class NFCActivity extends AppCompatActivity {
     String body = null;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_main);
 
-        Glide.with(this).load(R.drawable.nfctag).into((ImageView)findViewById(R.id.ivNFC));
+        Glide.with(this).load(R.drawable.nfctag).into((ImageView) findViewById(R.id.ivNFC));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -67,11 +79,11 @@ public class NFCActivity extends AppCompatActivity {
         mNote.addTextChangedListener(mTextWatcher);
 
         /* -----------------------------------UI----------------------------------- */
-        viewPager = (ViewPager)findViewById(R.id.vp);
+        viewPager = (ViewPager) findViewById(R.id.vp);
 
-        tab_first = (TextView)findViewById(R.id.tab_first);
-        tab_second = (TextView)findViewById(R.id.tab_second);
-        
+        tab_first = (TextView) findViewById(R.id.tab_first);
+        tab_second = (TextView) findViewById(R.id.tab_second);
+
         MyPagerAdapter adapter = new MyPagerAdapter();
         viewPager.setAdapter(adapter);
 
@@ -81,23 +93,20 @@ public class NFCActivity extends AppCompatActivity {
         Intent nintent = getIntent();
         value = nintent.getStringExtra("Sector");
 
-        Log.d("test",value);
-        tab_first.setText(value+" 현황");
+        Log.d("test", value);
+        tab_first.setText(value + " 현황");
 
         tab_first.setSelected(true);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(int position)
-            {
-                switch (position){
+            public void onPageSelected(int position) {
+                switch (position) {
                     case 0:
                         tab_first.setSelected(true);
                         tab_second.setSelected(false);
@@ -110,8 +119,7 @@ public class NFCActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state)
-            {
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
@@ -125,15 +133,16 @@ public class NFCActivity extends AppCompatActivity {
         IntentFilter ndefDetected = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             ndefDetected.addDataType("text/plain");
-        } catch (IntentFilter.MalformedMimeTypeException e) { }
-        mNdefExchangeFilters = new IntentFilter[] { ndefDetected };
+        } catch (IntentFilter.MalformedMimeTypeException e) {
+        }
+        mNdefExchangeFilters = new IntentFilter[]{ndefDetected};
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if(mNfcAdapter.isEnabled() != true) {//NFC 기능이 활성화 되어 있는지 검사한다.
+        if (mNfcAdapter.isEnabled() != true) {//NFC 기능이 활성화 되어 있는지 검사한다.
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("설정에서 NFC를 켜주세요.")
                     .setPositiveButton("확인",
@@ -204,13 +213,13 @@ public class NFCActivity extends AppCompatActivity {
         public void afterTextChanged(Editable arg0) {
             if (mResumed) {
                 //mNfcAdapter.enableForegroundNdefPush(NFCActivity.this, getNoteAsNdef()); deprecated
-                mNfcAdapter.setNdefPushMessage(getNoteAsNdef(),NFCActivity.this);
+                mNfcAdapter.setNdefPushMessage(getNoteAsNdef(), NFCActivity.this);
             }
         }
     };
 
     private void promptForContent(final NdefMessage msg) {
-        if( body != null) {
+        if (body != null) {
             new AlertDialog.Builder(this).setTitle("현재 좌석을 이 좌석으로 바꾸시겠습니까?")
                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -239,8 +248,7 @@ public class NFCActivity extends AppCompatActivity {
 
                         }
                     }).show();
-        }
-        else {
+        } else {
             new AlertDialog.Builder(this).setTitle("이 좌석으로 등록 하시겠습니까?")
                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -260,6 +268,16 @@ public class NFCActivity extends AppCompatActivity {
                             }
                             //setNoteBody(body); 원본
                             Log.d("test3", body);
+
+/*
+                            try {
+                                new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getId());
+                                new NFCTask(NFCActivity.this).execute(objBody.getString("seat_id"));
+                            } catch (JSONException e) {
+
+                            }
+*/
+
                             toast("새로운 좌석이 등록되었습니다.");
                         }
                     })
@@ -281,8 +299,8 @@ public class NFCActivity extends AppCompatActivity {
     private NdefMessage getNoteAsNdef() {//NDEF 메시지로 변환한다.
         byte[] textBytes = mNote.getText().toString().getBytes();
         NdefRecord textRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, "text/plain".getBytes(),
-                new byte[] {}, textBytes);
-        return new NdefMessage(new NdefRecord[] {
+                new byte[]{}, textBytes);
+        return new NdefMessage(new NdefRecord[]{
                 textRecord
         });
     }
@@ -301,12 +319,12 @@ public class NFCActivity extends AppCompatActivity {
                 }
             } else {
                 //알 수 없는 태그 타입
-                byte[] empty = new byte[] {};
+                byte[] empty = new byte[]{};
                 NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, empty, empty);
-                NdefMessage msg = new NdefMessage(new NdefRecord[] {
+                NdefMessage msg = new NdefMessage(new NdefRecord[]{
                         record
                 });
-                msgs = new NdefMessage[] {
+                msgs = new NdefMessage[]{
                         msg
                 };
             }
@@ -328,12 +346,10 @@ public class NFCActivity extends AppCompatActivity {
 
 
     /* -----------------------------------UI----------------------------------- */
-    View.OnClickListener movePageListener = new View.OnClickListener()
-    {
+    View.OnClickListener movePageListener = new View.OnClickListener() {
         @Override
-        public void onClick(View v)
-        {
-            switch(v.getId()){
+        public void onClick(View v) {
+            switch (v.getId()) {
                 case R.id.tab_first:
                     tab_first.setSelected(true);
                     tab_second.setSelected(false);
@@ -348,13 +364,13 @@ public class NFCActivity extends AppCompatActivity {
 
         }
     };
+
     class MyPagerAdapter extends PagerAdapter {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
             int resId = 0;
-            switch(position)
-            {
+            switch (position) {
                 case 0:
                     resId = R.id.page_one;
                     break;
@@ -376,4 +392,78 @@ public class NFCActivity extends AppCompatActivity {
         }
     }
     /* -----------------------------------UI----------------------------------- */
+}
+
+class NFCTask extends AsyncTask<String, Void, JSONObject> {
+    private AppCompatActivity activity;
+
+    public NFCTask(AppCompatActivity activity) {
+        this.activity = activity;
+    }
+
+    @Override
+    protected JSONObject doInBackground(String... params) {
+        URL url = null;
+        HttpURLConnection httpCon = null;
+        JSONObject getJSON = null;
+
+        try {
+            url = new URL("http://192.168.63.25:512230/AndroidClientLogOutRequestPost");//수정 필요
+            httpCon = (HttpURLConnection) url.openConnection();
+
+            httpCon.setRequestMethod("POST");
+            httpCon.setDoInput(true);
+            httpCon.setDoOutput(true);
+            httpCon.setConnectTimeout(2000);
+            httpCon.setReadTimeout(2000);
+
+            httpCon.setRequestProperty("Cache-Control", "no-cache");
+            //서버에 요청할 Response Data Type
+            httpCon.setRequestProperty("Accept", "application/json");
+            //서버에 전송할 Data Type
+            //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpCon.setRequestProperty("Content-Type", "application/json");
+
+            JSONObject outJson = new JSONObject();
+            outJson.put("아이디", params[0]);
+            outJson.put("좌석 아이디", params[0]);
+
+            OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+            out.write(outJson.toString().getBytes("UTF-8"));
+            out.flush();
+
+            int responseCode = httpCon.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                InputStream inputStream = httpCon.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                StringBuilder result = new StringBuilder();
+                while ((line = bufferedReader.readLine()) != null)
+                    result.append(line);
+                inputStream.close();
+                getJSON = new JSONObject(result.toString());
+            }
+        } catch (Exception e) {
+        } finally {
+            httpCon.disconnect();
+        }
+        return getJSON;
+    }
+
+    @Override
+    protected void onPostExecute(JSONObject jsonObject) {//Runs on the UI thread after doInBackground()
+        super.onPostExecute(jsonObject);
+        try {
+            int result = jsonObject.getInt("결과");
+            if (result == 0) {
+                ((OmniApplication) activity.getApplicationContext()).setId(null);
+                Intent intent = new Intent();
+                activity.setResult(activity.RESULT_OK, intent);
+                activity.finish();
+            } else
+                Toast.makeText(activity, "좌석 등록이 실패하였습니다.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+
+        }
+    }
 }
