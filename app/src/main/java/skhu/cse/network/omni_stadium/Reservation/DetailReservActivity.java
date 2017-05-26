@@ -3,6 +3,7 @@ package skhu.cse.network.omni_stadium.Reservation;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,12 +13,27 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import skhu.cse.network.omni_stadium.MainActivity;
+import skhu.cse.network.omni_stadium.MenuActivity;
+import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
 
 public class DetailReservActivity extends AppCompatActivity {
     private String value;
-    private boolean isCheckedInArr=false;
+    private boolean isCheckedInArr = false;
     private ToggleButton tempTB;
     private EditText seatInfo;
     private char charRow;
@@ -29,18 +45,14 @@ public class DetailReservActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reserv_detail);
-        Button SeatOk = (Button)findViewById(R.id.btSeatOk);
-        seatInfo = (EditText)findViewById(R.id.etSeatInfo);
+        Button SeatOk = (Button) findViewById(R.id.btSeatOk);
+        seatInfo = (EditText) findViewById(R.id.etSeatInfo);
         seatInfo.setFocusableInTouchMode(false); // EditText를 읽기전용으로 만듦
         Intent intent = getIntent();
-        value  =  intent.getStringExtra("Sector");
-        setTitle("지정석 : "+value);
+        value = intent.getStringExtra("Sector");
+        setTitle("지정석 : " + value);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ToggleButton tb1 = (ToggleButton)findViewById(R.id.tbG1);
-        tb1.setEnabled(false);
-        tb1.setTextColor(Color.parseColor("#afaeae"));
-
 
 
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
@@ -62,8 +74,7 @@ public class DetailReservActivity extends AppCompatActivity {
         SeatOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isCheckedInArr)
-                {
+                if (isCheckedInArr) {
                     AlertDialog.Builder dlg = new AlertDialog.Builder(DetailReservActivity.this);
                     dlg.setTitle("예매 정보");
                     dlg.setMessage("해당 좌석을 결제 하시겠습니까?");
@@ -76,7 +87,8 @@ public class DetailReservActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();
                             finish();
                         }
-                    });  dlg.setCancelable(false);
+                    });
+                    dlg.setCancelable(false);
                     dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -85,48 +97,108 @@ public class DetailReservActivity extends AppCompatActivity {
                     });
                     dlg.show();
                     dlg.setCancelable(false); // 백버튼 비활성화
-                }
-                else
-                {
+                } else {
                     Toast.makeText(getApplicationContext(), "선택한 좌석이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        new ReservTask().execute(value);
     }
 
-    public void onToggleClicked(View v)
-    {
-        ToggleButton tB=(ToggleButton)v;
+    public void onToggleClicked(View v) {
+        ToggleButton tB = (ToggleButton) v;
         boolean on = tB.isChecked();
 
-        if(on)
-        {
-            if(isCheckedInArr)
-            {
+        if (on) {
+            if (isCheckedInArr) {
                 tempTB.toggle();
                 tempTB.setTextColor(Color.parseColor("#5FBEAA"));
-                tempTB=tB;
-            }
-            else
-            {
+                tempTB = tB;
+            } else {
                 isCheckedInArr = true;
-                tempTB=tB;
+                tempTB = tB;
             }
             tB.setTextColor(Color.parseColor("#FFFFFF"));
-            chSq_seat_no=tB.getText();
-            charRow=chSq_seat_no.charAt(0);
-            if(chSq_seat_no.charAt(1)!='0')
+            chSq_seat_no = tB.getText();
+            charRow = chSq_seat_no.charAt(0);
+            if (chSq_seat_no.charAt(1) != '0')
                 charRow++;
-            seatInfo.setText(charRow+"열 "+chSq_seat_no+"석");
-        }
-        else
-        {
+            seatInfo.setText(charRow + "열 " + chSq_seat_no + "석");
+        } else {
             tB.setTextColor(Color.parseColor("#5FBEAA"));
-            isCheckedInArr=false;
-            tempTB=null;
+            isCheckedInArr = false;
+            tempTB = null;
             seatInfo.setText("");
         }
     }
 
+    private class ReservTask extends AsyncTask<String, Void, JSONArray> {
 
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONArray getJSONArr = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/웹주소");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("구역", params[0]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream=httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSONArr = new JSONArray(result.toString());
+                }
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSONArr;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
+            try {
+                if(jsonArray!=null){
+                    for(int i=0; i<jsonArray.length(); ++i)
+                    {
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                        int seat_no=jsonObject.getInt("seat_no");
+                        // 이미 점유된 좌석의 상태 변경
+                        tempTB.setEnabled(false);
+                        tempTB.setTextColor(Color.parseColor("#afaeae"));
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }
 }
