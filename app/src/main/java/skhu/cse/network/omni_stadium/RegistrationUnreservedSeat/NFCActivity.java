@@ -83,7 +83,7 @@ public class NFCActivity extends AppCompatActivity {
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
 
-        mNFCView = (ImageView)findViewById(R.id.ivNFC);
+        mNFCView = (ImageView) findViewById(R.id.ivNFC);
 
         /* -----------------------------------UI-----------------------------------
         viewPager = (ViewPager) findViewById(R.id.vp);
@@ -239,9 +239,10 @@ public class NFCActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 cpyBody = new String(msg.getRecords()[0].getPayload());
-                if (cpyBody.equals(body))
+                if (cpyBody.equals(body)) {
                     toast("동일한 좌석입니다.");
-                else {
+                    finish();
+                } else {
                     //웹과 연결
 /*
                 try {
@@ -447,6 +448,7 @@ public class NFCActivity extends AppCompatActivity {
                         objBody = new JSONObject(body);
                         setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
                         toast(toastMsg);
+                        finish();
                         Log.d("cpyBody", cpyBody);
                         Log.d("body", body);
                     } catch (JSONException e) {
