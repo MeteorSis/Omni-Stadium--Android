@@ -52,16 +52,18 @@ public class NFCActivity extends AppCompatActivity {
     NfcAdapter mNfcAdapter;//실제 NFC 하드웨어와의 다리 역할을 한다.
     EditText mNote;
 
+    ImageView mNFCView;
+
     PendingIntent mNfcPendingIntent;
     IntentFilter[] mNdefExchangeFilters;
 
-    /* -----------------------------------UI----------------------------------- */
+    /* -----------------------------------UI-----------------------------------
     ViewPager viewPager;
     TextView tab_first;
     TextView tab_second;
 
     private String value;
-    /* -----------------------------------UI----------------------------------- */
+    -----------------------------------UI----------------------------------- */
 
     String body = null;
     String cpyBody = null;
@@ -81,7 +83,9 @@ public class NFCActivity extends AppCompatActivity {
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
 
-        /* -----------------------------------UI----------------------------------- */
+        mNFCView = (ImageView)findViewById(R.id.ivNFC);
+
+        /* -----------------------------------UI-----------------------------------
         viewPager = (ViewPager) findViewById(R.id.vp);
 
         tab_first = (TextView) findViewById(R.id.tab_first);
@@ -126,7 +130,7 @@ public class NFCActivity extends AppCompatActivity {
 
             }
         });
-        /* -----------------------------------UI----------------------------------- */
+        -----------------------------------UI----------------------------------- */
 
         //이 액티비티에서 수신된 모든 NFC 인텐트를 처리
         mNfcPendingIntent = PendingIntent.getActivity(this, 0,
@@ -254,6 +258,7 @@ public class NFCActivity extends AppCompatActivity {
                         objBody = new JSONObject(body);
                         setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
                         toast(toastMsg);
+                        mNFCView.setVisibility(View.GONE);
                         Log.d("cpyBody", cpyBody);
                         Log.d("body", body);
                     } catch (JSONException e) {
@@ -326,7 +331,7 @@ public class NFCActivity extends AppCompatActivity {
     }
 
 
-    /* -----------------------------------UI----------------------------------- */
+    /* -----------------------------------UI-----------------------------------
     View.OnClickListener movePageListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -372,7 +377,7 @@ public class NFCActivity extends AppCompatActivity {
             return view == object;
         }
     }
-    /* -----------------------------------UI----------------------------------- */
+     -----------------------------------UI----------------------------------- */
 
     private class NFCTask extends AsyncTask<String, Void, JSONObject> {
 

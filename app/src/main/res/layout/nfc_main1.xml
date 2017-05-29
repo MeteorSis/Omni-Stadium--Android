@@ -103,13 +103,6 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
                         android:id="@+id/tbG3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -132,6 +125,13 @@
                         android:textOff="04"
                         android:textOn="04"
                         android:textStyle="bold" />
+
+                    <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
 
                     <ToggleButton
                         android:layout_width="wrap_content"
@@ -165,6 +165,18 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
+                        android:id="@+id/tbG7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/togglebutton_selector"
+
+                        android:clickable="false"
+                        android:textColor="#5FBEAA"
+                        android:textOff="07"
+                        android:textOn="07"
+                        android:textStyle="bold" />
+
+                    <ToggleButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -176,6 +188,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="3dp">
+
+                    <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
 
                     <ToggleButton
                         android:layout_width="wrap_content"
@@ -208,12 +227,6 @@
                         android:textOn="12"
                         android:textStyle="bold" />
 
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
 
                     <ToggleButton
                         android:id="@+id/tbG13"
@@ -228,6 +241,20 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
                         android:id="@+id/tbG14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -238,13 +265,6 @@
                         android:textOff="14"
                         android:textOn="14"
                         android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
 
                     <ToggleButton
                         android:id="@+id/tbG15"
@@ -292,6 +312,13 @@
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
                         android:id="@+id/tbG21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -316,13 +343,6 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
                         android:id="@+id/tbG23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -335,6 +355,20 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
                         android:id="@+id/tbG24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -345,13 +379,6 @@
                         android:textOff="24"
                         android:textOn="24"
                         android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
 
                     <ToggleButton
                         android:id="@+id/tbG25"
@@ -376,6 +403,8 @@
                         android:textOff="26"
                         android:textOn="26"
                         android:textStyle="bold" />
+
+
 
                     <ToggleButton
                         android:layout_width="wrap_content"
@@ -423,13 +452,6 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
                         android:id="@+id/tbG33"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -461,6 +483,13 @@
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
                         android:id="@+id/tbG35"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -482,6 +511,18 @@
                         android:textColor="#5FBEAA"
                         android:textOff="36"
                         android:textOn="36"
+                        android:textStyle="bold" />
+
+                    <ToggleButton
+                        android:id="@+id/tbG37"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/togglebutton_selector"
+
+                        android:clickable="false"
+                        android:textColor="#5FBEAA"
+                        android:textOff="37"
+                        android:textOn="37"
                         android:textStyle="bold" />
 
                     <ToggleButton
@@ -530,13 +571,6 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
                         android:id="@+id/tbG43"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -568,6 +602,13 @@
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
                         android:id="@+id/tbG45"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -589,6 +630,18 @@
                         android:textColor="#5FBEAA"
                         android:textOff="46"
                         android:textOn="46"
+                        android:textStyle="bold" />
+
+                    <ToggleButton
+                        android:id="@+id/tbG47"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/togglebutton_selector"
+
+                        android:clickable="false"
+                        android:textColor="#5FBEAA"
+                        android:textOff="47"
+                        android:textOn="47"
                         android:textStyle="bold" />
 
                     <ToggleButton
@@ -637,13 +690,6 @@
                         android:textStyle="bold" />
 
                     <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
                         android:id="@+id/tbG53"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -675,6 +721,13 @@
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:textColor="#FFFFFF" />
+
+                    <ToggleButton
                         android:id="@+id/tbG55"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -696,6 +749,18 @@
                         android:textColor="#5FBEAA"
                         android:textOff="56"
                         android:textOn="56"
+                        android:textStyle="bold" />
+
+                    <ToggleButton
+                        android:id="@+id/tbG57"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/togglebutton_selector"
+
+                        android:clickable="false"
+                        android:textColor="#5FBEAA"
+                        android:textOff="57"
+                        android:textOn="57"
                         android:textStyle="bold" />
 
                     <ToggleButton
