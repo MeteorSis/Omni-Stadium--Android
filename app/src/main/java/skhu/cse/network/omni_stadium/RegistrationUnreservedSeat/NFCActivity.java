@@ -64,7 +64,10 @@ public class NFCActivity extends AppCompatActivity {
     /* -----------------------------------UI----------------------------------- */
 
     String body = null;
+    String cpyBody = null;
     String toastMsg = null;
+
+    JSONObject objBody = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +176,7 @@ public class NFCActivity extends AppCompatActivity {
 
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {//이 인텐트가 시작된 것이 NFC 인텐트 때문이라면
             NdefMessage[] messages = getNdefMessages(getIntent());//인텐트에서 텍스트를 꺼내서
-            byte[] payload = messages[0].getRecords()[0].getPayload();
+            byte[] payload = messages[0].getRecords()[0].getPayload();//payload에 실제 데이터가 저장된다.
             setNoteBody(new String(payload));//화면에 표시한다.
             setIntent(new Intent());//이 인텐트를 삭제한다.
         }
@@ -192,8 +195,8 @@ public class NFCActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {//액티비티가 인텐트를 받으면 모드를 봐서 읽거나 쓴다.
         //NDEF 교환 모드
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            NdefMessage[] msgs = getNdefMessages(intent);
-            promptForContent(msgs[0]);
+            NdefMessage[] msgs = getNdefMessages(intent);//nfc2
+            promptForContent(msgs[0]);//nfc3
         }
     }
 
@@ -218,7 +221,7 @@ public class NFCActivity extends AppCompatActivity {
         }
     };
 
-    private void promptForContent(final NdefMessage msg) {
+    private void promptForContent(final NdefMessage msg) {//nfc4
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (body == null) {
             builder.setTitle("이 좌석으로 등록 하시겠습니까?");
@@ -231,45 +234,33 @@ public class NFCActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                body = new String(msg.getRecords()[0].getPayload());
-
-                JSONObject objBody = null;
+                cpyBody = new String(msg.getRecords()[0].getPayload());
+                if (cpyBody.equals(body))
+                    toast("동일한 좌석입니다.");
+                else {
+                    //웹과 연결
+/*
                 try {
-                    objBody = new JSONObject(body);
+                    new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getId(), objBody.getString("seat_id"));//좌석 등록 요청
                 } catch (JSONException e) {
 
                 }
+                //끝
+*/
 
-/*
-                //////////
-                try {
-                    new NFCTask(NFCActivity.this).execute(objBody.getString("seat_id"));//태그에서 읽어온 좌석 정보에서 좌석 아이디만 보냄
-                }catch (JSONException e) {
-
-                }
-
-                if(true)
-                {
+                    //////////웹과 연결 시 삭제
                     try {
-                        new NFCTask(NFCActivity.this).execute(((OmniApplication)getApplicationContext()).getId(), objBody.getString("seat_id"));//좌석 등록 요청
+                        body = cpyBody;
+                        objBody = new JSONObject(body);
                         setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
                         toast(toastMsg);
+                        Log.d("cpyBody", cpyBody);
+                        Log.d("body", body);
                     } catch (JSONException e) {
 
                     }
-                    //setNoteBody(body); JSON 볼 때
+                    //////////
                 }
-                //////////
-*/
-
-                try {
-                    setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
-                    toast(toastMsg);
-                } catch (JSONException e) {
-
-                }
-
-                Log.d("test2", body);
             }
         })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -295,7 +286,7 @@ public class NFCActivity extends AppCompatActivity {
         });
     }
 
-    NdefMessage[] getNdefMessages(Intent intent) {//인텐트에서 NDEF 메시지를 추출한다.
+    NdefMessage[] getNdefMessages(Intent intent) {//인텐트에서 NDEF 메시지를 추출한다. nfc1
         //인텐트를 파싱한다.
         NdefMessage[] msgs = null;
         String action = intent.getAction();
@@ -382,81 +373,85 @@ public class NFCActivity extends AppCompatActivity {
         }
     }
     /* -----------------------------------UI----------------------------------- */
-}
 
-class NFCTask extends AsyncTask<String, Void, JSONObject> {
+    private class NFCTask extends AsyncTask<String, Void, JSONObject> {
 
-    private AppCompatActivity activity;
+        private AppCompatActivity activity;
 
-    public NFCTask(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-
-    @Override
-    protected JSONObject doInBackground(String... params) {
-        URL url = null;
-        HttpURLConnection httpCon = null;
-        JSONObject getJSON = null;
-
-        try {
-            url = new URL("http://192.168.63.25:512230/AndroidClientLogOutRequestPost");//수정 필요
-            httpCon = (HttpURLConnection) url.openConnection();
-
-            httpCon.setRequestMethod("POST");
-            httpCon.setDoInput(true);
-            httpCon.setDoOutput(true);
-            httpCon.setConnectTimeout(2000);
-            httpCon.setReadTimeout(2000);
-
-            httpCon.setRequestProperty("Cache-Control", "no-cache");
-            //서버에 요청할 Response Data Type
-            httpCon.setRequestProperty("Accept", "application/json");
-            //서버에 전송할 Data Type
-            //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            httpCon.setRequestProperty("Content-Type", "application/json");
-
-            JSONObject outJson = new JSONObject();
-            outJson.put("아이디", params[0]);
-            outJson.put("좌석 아이디", params[0]);
-
-            OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
-            out.write(outJson.toString().getBytes("UTF-8"));
-            out.flush();
-
-            int responseCode = httpCon.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                InputStream inputStream = httpCon.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                StringBuilder result = new StringBuilder();
-                while ((line = bufferedReader.readLine()) != null)
-                    result.append(line);
-                inputStream.close();
-                getJSON = new JSONObject(result.toString());
-            }
-        } catch (Exception e) {
-        } finally {
-            httpCon.disconnect();
+        public NFCTask(AppCompatActivity activity) {
+            this.activity = activity;
         }
-        return getJSON;
-    }
 
-    @Override
-    protected void onPostExecute(JSONObject jsonObject) {//Runs on the UI thread after doInBackground()
-        super.onPostExecute(jsonObject);
-        try {
-            int result = jsonObject.getInt("결과");
-            if (result == 0) {
-/*
-                ((OmniApplication) activity.getApplicationContext()).setId(null);
-                Intent intent = new Intent();
-                activity.setResult(activity.RESULT_OK, intent);
-                activity.finish();
-*/
-            } else
-                Toast.makeText(activity, "좌석 등록이 실패하였습니다.", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
 
+            try {
+                url = new URL("http://192.168.63.25:512230/AndroidClientLogOutRequestPost");//수정 필요
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("좌석 아이디", params[1]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {//Runs on the UI thread after doInBackground()
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");//0:좌석등록성공,  else:등록된좌석
+                if (result == 0) {//좌석이 비어있어서 좌석이 등록됨
+                    try {
+                        body = cpyBody;
+                        objBody = new JSONObject(body);
+                        setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
+                        toast(toastMsg);
+                        Log.d("cpyBody", cpyBody);
+                        Log.d("body", body);
+                    } catch (JSONException e) {
+
+                    }
+                } else
+                    Toast.makeText(activity, "해당 좌석은 이미 등록된 좌석입니다.", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+
+            }
         }
     }
 }
