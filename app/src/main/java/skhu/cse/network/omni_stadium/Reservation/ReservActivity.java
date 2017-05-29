@@ -13,17 +13,24 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import pl.polidea.view.ZoomView;
 import skhu.cse.network.omni_stadium.R;
+import skhu.cse.network.omni_stadium.ViewHolderHelper;
 
 public class ReservActivity extends AppCompatActivity {
 
     private Bitmap bitmap_ZoomView;
+    private CustomZoomView zoomView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +41,7 @@ public class ReservActivity extends AppCompatActivity {
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reserv_zoom, null, false);
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ZoomView zoomView = new ZoomView(this);
+        zoomView = new CustomZoomView(this);
         zoomView.addView(v);
         zoomView.setLayoutParams(layoutParams);
         zoomView.setMiniMapEnabled(false); // 좌측 상단 검은색 미니맵 설정안함
@@ -43,8 +50,8 @@ public class ReservActivity extends AppCompatActivity {
         ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         container.addView(zoomView);
 
-        Glide.with(this).load(R.drawable.seatimageview).into((ImageView)findViewById(R.id.ivseat));
-        Glide.with(this).load(R.drawable.noun_1018844_cc).into((ImageView)findViewById(R.id.ivzoom_info));
+        Glide.with(ReservActivity.this).load(R.drawable.noun_1018844_cc).into((ImageView)findViewById(R.id.ivzoom_info));
+        Glide.with(ReservActivity.this).load(R.drawable.seatimageview).into((ImageView)findViewById(R.id.ivseat));
 
         zoomView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -52,16 +59,12 @@ public class ReservActivity extends AppCompatActivity {
             {
                 if(event.getAction()==MotionEvent.ACTION_UP)
                 {
-                    if (bitmap_ZoomView == null)
-                    {
-                        bitmap_ZoomView = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-                        Canvas canvas = new Canvas(bitmap_ZoomView);
-                        v.draw(canvas);
-                    }
                     int pixel = bitmap_ZoomView.getPixel((int) event.getX(), (int) event.getY());
                     int redPixel = Color.red(pixel);
                     int greenPixel = Color.green(pixel);
                     int bluePixel = Color.blue(pixel);
+
+                    Log.v("Pixel", redPixel+", "+greenPixel+", "+bluePixel);
                     if(redPixel==0 && greenPixel==94 && bluePixel==221)
                     {
                         //가운데 연파랑 영역
@@ -130,5 +133,24 @@ public class ReservActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private class CustomZoomView extends ZoomView
+    {
+        public CustomZoomView(Context context) {
+            super(context);
+        }
+
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent ev) {
+            if(bitmap_ZoomView==null)
+            {
+                bitmap_ZoomView = Bitmap.createBitmap(zoomView.getWidth(), zoomView.getHeight(), Bitmap.Config.ARGB_8888);
+                Log.v("Test", zoomView.getWidth() + ", " + zoomView.getHeight());
+                Canvas myCanvas = new Canvas(bitmap_ZoomView);
+                zoomView.draw(myCanvas);
+            }
+            return super.dispatchTouchEvent(ev);
+        }
     }
 }
