@@ -31,7 +31,6 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         cartManager=(CartManager)getIntent().getSerializableExtra("CartManager");
-        Log.v("ref", cartManager.toString());
 
         ListView lvCart=(ListView)findViewById(R.id.lvCart);
         ArrayList<OrderItem> cartList=cartManager.getArrList();

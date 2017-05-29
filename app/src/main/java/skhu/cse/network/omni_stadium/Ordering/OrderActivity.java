@@ -166,7 +166,6 @@ public class OrderActivity extends AppCompatActivity{
                         {
                             Intent intent = new Intent(OrderActivity.this, CartActivity.class);
                             intent.putExtra("CartManager", cartManager);
-                            Log.v("ref", cartManager.toString());
                             startActivityForResult(intent, REQ_CODE_CARTACTIVITY);
                         }
                         else
