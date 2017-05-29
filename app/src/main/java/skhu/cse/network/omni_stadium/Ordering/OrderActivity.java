@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
@@ -33,6 +34,7 @@ public class OrderActivity extends AppCompatActivity{
     private ExpandableListAdapter listAdapter;
     private ExpandableListView lvOrder;
     static final int REQ_CODE_ORDERMENU =0;
+    static final int REQ_CODE_CARTACTIVITY =1;
     private CartManager cartManager;
     private Button btCart, btOrder;
 
@@ -53,6 +55,10 @@ public class OrderActivity extends AppCompatActivity{
             case REQ_CODE_ORDERMENU:
                 if(resultCode==RESULT_OK)
                     cartManager.addOrderItem((OrderItem)data.getSerializableExtra("OrderItem"));
+                break;
+            case REQ_CODE_CARTACTIVITY:
+                if(resultCode==RESULT_OK)
+                    cartManager=(CartManager)data.getSerializableExtra("CartManager");
                 break;
         }
     }
@@ -130,7 +136,7 @@ public class OrderActivity extends AppCompatActivity{
                                 foodObject.getInt("menu_id")-1,
                                 foodObject.getString("menu_name"),
                                 foodObject.getInt("menu_price"),
-                                foodObject.getString("menu_info")));
+                                foodObject.getString("menu_info").replace("\\n", "\n")));
                     }
                     foodList.add(childFoodList);
                     String food_name=childFoodList.get(0).getFood_name();
@@ -160,7 +166,8 @@ public class OrderActivity extends AppCompatActivity{
                         {
                             Intent intent = new Intent(OrderActivity.this, CartActivity.class);
                             intent.putExtra("CartManager", cartManager);
-                            startActivity(intent);
+                            Log.v("ref", cartManager.toString());
+                            startActivityForResult(intent, REQ_CODE_CARTACTIVITY);
                         }
                         else
                             Toast.makeText(OrderActivity.this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show();

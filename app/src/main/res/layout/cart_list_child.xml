@@ -2,7 +2,17 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tvItemName"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
 
     <Button
         android:layout_width="35dp"
@@ -11,17 +21,8 @@
         android:id="@+id/btRemoveItem"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/tvItemName"
         android:background="@android:color/transparent"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/btRemoveItem"
-        android:id="@+id/tvItemName"
-        android:textSize="25sp"
-        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,9 +58,10 @@
 
     <LinearLayout
         android:layout_width="180dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:id="@+id/plusMinusLayout"
-        android:layout_alignBottom="@+id/tvCountInfo"
+        android:layout_marginTop="55dp"
+        android:layout_below="@id/tvPrice"
         android:layout_alignEnd="@id/tvPrice">
         <Button
             android:layout_width="0dp"
@@ -76,6 +78,8 @@
             android:layout_weight="1"
             android:text=""
             android:textSize="20sp"
+            android:textAlignment="center"
+            android:gravity="center"
             android:background="@android:drawable/editbox_background"/>
 
         <Button
@@ -90,17 +94,19 @@
     <View
         android:id="@+id/divider"
         style="@style/Divider"
-        android:layout_width="match_parent"
+        android:layout_width="330dp"
         android:layout_height="1dp"
         android:layout_below="@id/plusMinusLayout"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
         android:layout_alignStart="@id/tvCountInfo"
+        android:layout_marginEnd="20dp"
         android:id="@+id/tvSumPriceInfo"
         android:text="소계"
         android:textSize="20sp"
