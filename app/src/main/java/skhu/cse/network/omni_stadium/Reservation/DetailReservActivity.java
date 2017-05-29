@@ -40,11 +40,12 @@ public class DetailReservActivity extends AppCompatActivity {
     private int row;
     private CharSequence chSq_seat_no;
     private int seat_no;
-
+    private  ToggleButton btArr[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reserv_detail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button SeatOk = (Button) findViewById(R.id.btSeatOk);
         seatInfo = (EditText) findViewById(R.id.etSeatInfo);
         seatInfo.setFocusableInTouchMode(false); // EditText를 읽기전용으로 만듦
@@ -52,9 +53,12 @@ public class DetailReservActivity extends AppCompatActivity {
         value = intent.getStringExtra("Sector");
         setTitle("지정석 : " + value);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
+        btArr = new ToggleButton[50];
+        for(int i=0; i<btArr.length; ++i)
+        {
+            int resource = getResources().getIdentifier("tbG"+i, "id" , "skhu.cse.network.omni_stadium");
+            btArr[i]=(ToggleButton)findViewById(resource);
+        }
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
                 R.id.tbG11, R.id.tbG12, R.id.tbG13, R.id.tbG14, R.id.tbG15, R.id.tbG16,  R.id.tbG17, R.id.tbG18, R.id.tbG19, R.id.tbG20,
@@ -102,7 +106,7 @@ public class DetailReservActivity extends AppCompatActivity {
                 }
             }
         });
-        new ReservTask().execute(value);
+        //new ReservTask().execute(value);
     }
 
     public void onToggleClicked(View v) {
@@ -190,10 +194,10 @@ public class DetailReservActivity extends AppCompatActivity {
                     for(int i=0; i<jsonArray.length(); ++i)
                     {
                         JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        int seat_no=jsonObject.getInt("seat_no");
+                        int seat_no=jsonObject.getInt("seat_no")-1;
                         // 이미 점유된 좌석의 상태 변경
-                        tempTB.setEnabled(false);
-                        tempTB.setTextColor(Color.parseColor("#afaeae"));
+                      btArr[seat_no].setEnabled(false);
+                      btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
                     }
                 }
             } catch (Exception e) {
