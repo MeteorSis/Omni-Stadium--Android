@@ -76,6 +76,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -131,6 +133,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -138,6 +142,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -181,6 +187,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
                 </TableRow>
 
@@ -194,6 +202,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -201,6 +211,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -245,6 +257,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -252,6 +266,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -295,6 +311,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                 </TableRow>
@@ -309,6 +327,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -316,6 +336,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -359,6 +381,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -366,6 +390,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -411,6 +437,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                 </TableRow>
@@ -425,6 +453,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -480,6 +510,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -487,6 +519,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -530,6 +564,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                 </TableRow>
@@ -544,6 +580,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -599,6 +637,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -606,6 +646,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -649,6 +691,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                 </TableRow>
@@ -663,6 +707,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -718,6 +764,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -725,6 +773,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                     <ToggleButton
@@ -768,6 +818,8 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:clickable="false"
+                        android:textOff=""
+                        android:textOn=""
                         android:textColor="#FFFFFF" />
 
                 </TableRow>
