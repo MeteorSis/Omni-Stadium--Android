@@ -66,7 +66,7 @@ public class OrderActivity extends AppCompatActivity{
             JSONArray getJSONArray = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/jsonArrayTest");
+                url = new URL("http://192.168.63.25:51223/AndroidClientFoodOrderRequestPost");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
