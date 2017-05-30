@@ -4,16 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CartManager implements Serializable{
+
     private OrderItem[][] cart;
 
-    static CartManager inst=null;
-    public static CartManager createManagerInst(OrderItem[][] cart)
-    {
-        if(inst==null)
-            inst=new CartManager(cart);
-        return inst;
-    }
-    private CartManager(OrderItem[][] cart)
+    public CartManager(OrderItem[][] cart)
     {
         this.cart=cart;
     }
@@ -32,6 +26,22 @@ public class CartManager implements Serializable{
         }
 
         return count;
+    }
+
+    public int getAllPrice()
+    {
+        int allPrice=0;
+
+        for(int row=0; row<cart.length; ++row)
+        {
+            for(int col=0; col<cart[row].length; ++col)
+            {
+                OrderItem item=cart[row][col];
+                if(item!=null)
+                    allPrice+=item.getMenu_price()*item.getMenu_count();
+            }
+        }
+        return allPrice;
     }
 
     public ArrayList<OrderItem> getArrList()

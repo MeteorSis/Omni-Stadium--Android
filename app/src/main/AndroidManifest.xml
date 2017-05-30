@@ -111,12 +111,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Ordering.OrderListActivity"
+            android:label="주문 확인"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".Ordering.OrderActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Ordering.CartActivity"
-            android:label="장바구니"
+            android:label="장바구니 확인"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".Ordering.OrderActivity"
             android:screenOrientation="portrait" />

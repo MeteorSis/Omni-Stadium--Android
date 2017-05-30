@@ -152,7 +152,7 @@ public class OrderActivity extends AppCompatActivity{
                 listAdapter = new Order_ExplvAdapter(OrderActivity.this, group_list, item_list);
                 lvOrder.setAdapter(listAdapter);
 
-                cartManager=CartManager.createManagerInst(cart);
+                cartManager=new CartManager(cart);
 
                 lvOrder.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
@@ -181,12 +181,14 @@ public class OrderActivity extends AppCompatActivity{
                 btOrder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                /*if(cartManager.getItemCount()>0)
-                {
-                    Intent intent = new Intent(OrderActivity.this, CartActivity.class);
-                    intent.putExtra("CartManager", cartManager);
-                    startActivity(intent);
-                }*/
+                        if(cartManager.getAllPrice()>=10000)
+                        {
+                            Intent intent = new Intent(OrderActivity.this, OrderListActivity.class);
+                            intent.putExtra("CartManager", cartManager);
+                            startActivity(intent);
+                        }
+                        else
+                            Toast.makeText(OrderActivity.this, "만 원 이상부터 주문 가능합니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
 
