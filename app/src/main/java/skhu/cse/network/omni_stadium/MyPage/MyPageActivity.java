@@ -3,6 +3,7 @@ package skhu.cse.network.omni_stadium.MyPage;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,9 +45,6 @@ public class MyPageActivity extends AppCompatActivity {
         arrayGroup.add("로그아웃");
         arrayGroup.add("티켓관리");
         arrayGroup.add("회원정보 관리");
-
-        /*ArrayList<String> arrayLogout = new ArrayList<String>();
-        arrayLogout.add("· 로그아웃");*/
 
         ArrayList<String> arrayTicket = new ArrayList<String>();
         arrayTicket.add("· 자유석 해제");
@@ -157,5 +155,9 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
+    }
 }

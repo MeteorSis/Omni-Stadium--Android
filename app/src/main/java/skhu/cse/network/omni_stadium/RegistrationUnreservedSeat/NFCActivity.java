@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -77,7 +78,6 @@ public class NFCActivity extends AppCompatActivity {
         setContentView(R.layout.nfc_main);
 
         Glide.with(this).load(R.drawable.nfctag).into((ImageView) findViewById(R.id.ivNFC));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNote = ((EditText) findViewById(R.id.note));
@@ -460,5 +460,11 @@ public class NFCActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
     }
 }
