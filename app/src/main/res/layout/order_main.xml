@@ -30,7 +30,6 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/back"
-
             android:text="장바구니 확인" />
         <Button
             android:id="@+id/btOrder"

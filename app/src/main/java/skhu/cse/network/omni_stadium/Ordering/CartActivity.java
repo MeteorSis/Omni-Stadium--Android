@@ -76,10 +76,6 @@ public class CartActivity extends AppCompatActivity {
             TextView tvItemName=ViewHolderHelper.get(convertView, R.id.tvItemName);
             tvItemName.setText(item.getMenu_name());
 
-            TextView tvPrice=ViewHolderHelper.get(convertView, R.id.tvPrice);
-            String strPrice=item.getMenu_price()+"원";
-            tvPrice.setText(strPrice);
-
             final TextView tvCount=ViewHolderHelper.get(convertView, R.id.tvCount);
             String strCount=String.valueOf(item.getMenu_count());
             tvCount.setText(strCount);

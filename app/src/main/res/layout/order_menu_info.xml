@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="400dp"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6">
 
         <TextView
             android:id="@+id/tvMenuName"
@@ -19,7 +19,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="48dp"
             android:textAlignment="center"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="30sp"/>
 
         <TextView
             android:id="@+id/tvMenuInfo"
@@ -28,7 +29,8 @@
             android:layout_marginTop="16dp"
             android:textAlignment="center"
             android:layout_below="@id/tvMenuName"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"/>
 
 
     </RelativeLayout>
@@ -36,11 +38,8 @@
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/relativeLayout"
-        android:padding="10dp">
-
+        android:layout_height="0dp"
+        android:layout_weight="4">
 
         <View
             android:id="@+id/view4"
@@ -52,28 +51,27 @@
             android:id="@+id/tvMenuPriceInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="45dp"
             android:text="가격"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvMenuPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="25dp" />
+            android:layout_alignBaseline="@id/tvMenuPriceInfo"
+            android:textSize="30sp"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout5"
-        android:layout_width="400dp"
-        android:layout_height="80dp"
-        android:padding="10dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true">
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
 
         <View
             android:id="@+id/view2"
@@ -86,64 +84,48 @@
             android:id="@+id/tvMenuCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="false"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
             android:text="수량"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="20sp"/>
 
-        <Button
-            android:id="@+id/btMinus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="false"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/back"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btPlus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignBottom="@+id/tvCount"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="false"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/tvCount"
-            android:background="@drawable/back"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/tvCount"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="false"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="170dp"
-            android:layout_marginTop="20dp"
-            android:text="1"
-            android:textAlignment="center" />
-
-
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/plusMinusLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22dp">
+            <Button
+                android:id="@+id/btMinus"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:background="@drawable/back"
+                android:text="-" />
+            <TextView
+                android:id="@+id/tvCount"
+                android:layout_width="0dp"
+                android:layout_weight="1.1"
+                android:layout_height="30dp"
+                android:text="1"
+                android:textAlignment="center" />
+            <Button
+                android:id="@+id/btPlus"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:background="@drawable/back"
+                android:text="+" />
+        </LinearLayout>
     </RelativeLayout>
 
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:padding="10dp"
-        android:layout_above="@+id/relativeLayout6"
-        android:layout_alignParentStart="true">
+        android:layout_height="0dp"
+        android:layout_weight="6">
 
         <View
             android:id="@+id/view3"
@@ -158,22 +140,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/view3"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="15dp"
             android:text="총 주문 금액"
             android:textAlignment="center"
-            android:textSize="20dp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvAllPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="65dp"
             android:textAlignment="center"
             android:textColor="#22d771"
-            android:textSize="25dp"
+            android:textSize="40sp"
             android:textStyle="bold" />
 
         <TextView
@@ -184,30 +165,25 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="110dp"
             android:text="최소 주문 금액: 10000원"
-            android:textAlignment="center" />
+            android:layout_marginBottom="15dp"
+            android:textAlignment="center"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout6"
+        android:id="@+id/relativeLayout5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:padding="10dp">
+        android:layout_height="50dp">
 
         <Button
             android:id="@+id/btCart"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/back"
             android:text="장바구니 담기" />
 
     </RelativeLayout>
-
-
-
-    </RelativeLayout >
-
+</LinearLayout >
