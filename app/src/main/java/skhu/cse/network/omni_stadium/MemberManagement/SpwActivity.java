@@ -1,21 +1,29 @@
 package skhu.cse.network.omni_stadium.MemberManagement;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,26 +32,36 @@ import java.util.regex.Pattern;
 
 import skhu.cse.network.omni_stadium.R;
 
-public class SpwActivity extends AppCompatActivity{
+public class SpwActivity extends AppCompatActivity {
     private EditText etID, etName,
             etPhoneFront, etPhoneMiddle, etPhoneBack,
             etBirthYYYY, etBirthMM, etBirthDD;
 
+    private EditText change_PW;
+    private EditText confirm_PW;
+
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spw_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Button btOK = (Button)findViewById(R.id.btSpwOK);
+        Button btOK = (Button) findViewById(R.id.btSpwOK);
 
-        etID = (EditText)findViewById(R.id.etID);
-        etName = (EditText)findViewById(R.id.etName);
-        etPhoneFront = (EditText)findViewById(R.id.etPhoneFront);
-        etPhoneMiddle = (EditText)findViewById(R.id.etPhoneMiddle);
-        etPhoneBack = (EditText)findViewById(R.id.etPhoneBack);
-        etBirthYYYY = (EditText)findViewById(R.id.etBirthYYYY);
-        etBirthMM = (EditText)findViewById(R.id.etBirthMM);
-        etBirthDD = (EditText)findViewById(R.id.etBirthDD);
+/*      inflater = getLayoutInflater();
+        tableLayout = (TableLayout) inflater.inflate(R.layout.change_pw, null);
+
+        change_PW = (EditText) tableLayout.findViewById(R.id.etNewPW);
+        confirm_PW = (EditText) tableLayout.findViewById(R.id.etConfirm);*/
+
+        etID = (EditText) findViewById(R.id.etID);
+        etName = (EditText) findViewById(R.id.etName);
+        etPhoneFront = (EditText) findViewById(R.id.etPhoneFront);
+        etPhoneMiddle = (EditText) findViewById(R.id.etPhoneMiddle);
+        etPhoneBack = (EditText) findViewById(R.id.etPhoneBack);
+        etBirthYYYY = (EditText) findViewById(R.id.etBirthYYYY);
+        etBirthMM = (EditText) findViewById(R.id.etBirthMM);
+        etBirthDD = (EditText) findViewById(R.id.etBirthDD);
 
         etBirthDD.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -59,65 +77,63 @@ public class SpwActivity extends AppCompatActivity{
                 patternCheck();
             }
         });
+
+
     }
 
     private void patternCheck() {
-        String IdData=etID.getText().toString();
-        String NameData=etName.getText().toString();
-        String PhoneFrontData=etPhoneFront.getText().toString();
-        String PhoneMiddleData=etPhoneMiddle.getText().toString();
-        String PhoneBackData=etPhoneBack.getText().toString();
-        String BirthYYYYData=etBirthYYYY.getText().toString();
-        String BirthMMData=etBirthMM.getText().toString();
-        String BirthDDData=etBirthDD.getText().toString();
+        String IdData = etID.getText().toString();
+        String NameData = etName.getText().toString();
+        String PhoneFrontData = etPhoneFront.getText().toString();
+        String PhoneMiddleData = etPhoneMiddle.getText().toString();
+        String PhoneBackData = etPhoneBack.getText().toString();
+        String BirthYYYYData = etBirthYYYY.getText().toString();
+        String BirthMMData = etBirthMM.getText().toString();
+        String BirthDDData = etBirthDD.getText().toString();
         String Empty = "";
 
-        if(IdData.matches("")){
+        if (IdData.matches("")) {
             Empty = Empty + "아이디 ";
-        }
-        else{
+        } else {
             String Idregex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
             Pattern IDpattern = Pattern.compile(Idregex);
             Matcher IDmatcher = IDpattern.matcher(IdData);
-            if(!IDmatcher.find()) {
+            if (!IDmatcher.find()) {
                 Empty = Empty + "아이디 ";
             }
         }
-        if(NameData.matches("")){
+        if (NameData.matches("")) {
             Empty = Empty + "이름 ";
-        }
-        else{
+        } else {
             String Nameregex = "^[가-힣]{2,4}$";
             Pattern Namepattern = Pattern.compile(Nameregex);
             Matcher Namematcher = Namepattern.matcher(NameData);
-            if (!Namematcher.find()){
+            if (!Namematcher.find()) {
                 Empty = Empty + "이름 ";
             }
         }
-        if(PhoneFrontData.matches("") || PhoneMiddleData.matches("") || PhoneBackData.matches("")){
+        if (PhoneFrontData.matches("") || PhoneMiddleData.matches("") || PhoneBackData.matches("")) {
             Empty = Empty + "핸드폰 번호 ";
-        }
-        else{
+        } else {
             String PhoneFrontregex = "^01[016789]$";
-            String PhoneMiddleregex="^[0-9]{3,4}$";
-            String PhoneBackregex="^[0-9]{3,4}$";
+            String PhoneMiddleregex = "^[0-9]{3,4}$";
+            String PhoneBackregex = "^[0-9]{3,4}$";
             Pattern PhoneFrontpattern = Pattern.compile(PhoneFrontregex);
             Pattern PhoneMiddlepattern = Pattern.compile(PhoneMiddleregex);
             Pattern PhoneBackpattern = Pattern.compile(PhoneBackregex);
             Matcher PhoneFrontmatcher = PhoneFrontpattern.matcher(PhoneFrontData);
             Matcher PhoneMiddlematcher = PhoneMiddlepattern.matcher(PhoneMiddleData);
             Matcher PhoneBackmatcher = PhoneBackpattern.matcher(PhoneBackData);
-            if (!PhoneFrontmatcher.find() || !PhoneMiddlematcher.find() || !PhoneBackmatcher.find()){
+            if (!PhoneFrontmatcher.find() || !PhoneMiddlematcher.find() || !PhoneBackmatcher.find()) {
                 Empty = Empty + "핸드폰 번호 ";
             }
         }
-        if(BirthYYYYData.matches("") || BirthMMData.matches("") || BirthDDData.matches("")){
+        if (BirthYYYYData.matches("") || BirthMMData.matches("") || BirthDDData.matches("")) {
             Empty = Empty + "생년월일 ";
-        }
-        else{
-            String BYYYYregex="^(19|20)[0-9]{2}$";
-            String BMMregex="^(0[1-9]|1[012]|[1-9])$";
-            String BDDregex="^([1-9]|0[1-9]|[12][0-9]|3[01])$";
+        } else {
+            String BYYYYregex = "^(19|20)[0-9]{2}$";
+            String BMMregex = "^(0[1-9]|1[012]|[1-9])$";
+            String BDDregex = "^([1-9]|0[1-9]|[12][0-9]|3[01])$";
 
             Pattern BYYYYpattern = Pattern.compile(BYYYYregex);
             Pattern BMMpattern = Pattern.compile(BMMregex);
@@ -125,21 +141,22 @@ public class SpwActivity extends AppCompatActivity{
             Matcher BYYYYmatcher = BYYYYpattern.matcher(BirthYYYYData);
             Matcher BMMmatcher = BMMpattern.matcher(BirthMMData);
             Matcher BDDmatcher = BDDpattern.matcher(BirthDDData);
-            if (!BYYYYmatcher.find() || !BMMmatcher.find() || !BDDmatcher.find()){
+            if (!BYYYYmatcher.find() || !BMMmatcher.find() || !BDDmatcher.find()) {
                 Empty = Empty + "생년월일 ";
             }
         }
 
-        if(Empty.matches("")){
+        if (Empty.matches("")) {
             //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
+            Log.d("test", IdData);
+            Log.d("test", NameData);
             new FindPW().execute(IdData, NameData,
-                    PhoneFrontData+"-"+PhoneMiddleData+"-"+PhoneBackData,
-                    BirthYYYYData+"-"+BirthMMData+"-"+BirthDDData);
-        }
-        else{
+                    PhoneFrontData + "-" + PhoneMiddleData + "-" + PhoneBackData,
+                    BirthYYYYData + "-" + BirthMMData + "-" + BirthDDData);
+        } else {
             new AlertDialog.Builder(SpwActivity.this)
-                    .setMessage(Empty+"을(를) 다시 확인해주세요.")
-                    .setPositiveButton("OK",null)
+                    .setMessage(Empty + "을(를) 다시 확인해주세요.")
+                    .setPositiveButton("OK", null)
                     .show();
         }
     }
@@ -150,40 +167,101 @@ public class SpwActivity extends AppCompatActivity{
         protected JSONObject doInBackground(String... params) {
 
             URL url = null;
-            HttpURLConnection urlConnection = null;
+            HttpURLConnection httpCon = null;
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.109:8080/json/print.jsp");
-                urlConnection = (HttpURLConnection) url.openConnection();
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/FindPassword");
+                httpCon = (HttpURLConnection) url.openConnection();
 
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                //urlConnection.setRequestProperty("Cache-Control","no-cache");
-                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                /*urlConnection.addRequestProperty("Accept", "application/json");
-                urlConnection.setRequestProperty("Content-Type", "application/json");*/
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
 
-                JSONObject putJSON = new JSONObject();
-                putJSON.put("ID", params[0]);
-                putJSON.put("Name", params[1]);
-                putJSON.put("Phone", params[2]);
-                putJSON.put("Bdate", params[3]);
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("이름", params[1]);
+                outJson.put("전화", params[2]);
+                outJson.put("생일", params[3]);
 
-                Log.d("testJSON1", putJSON.toString().getBytes().toString());
-                Log.d("testJSON2", putJSON.toString());
-
-                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                out.write(putJSON.toString().getBytes());
+                Log.d("test", outJson.toString());
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
 
             } catch (Exception e) {
 
             } finally {
-                urlConnection.disconnect();
+                httpCon.disconnect();
             }
-            return null;
+
+            return getJSON;
         }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            LayoutInflater inflater = getLayoutInflater();
+            final TableLayout tableLayout = (TableLayout)inflater.inflate(R.layout.change_pw, null);
+            change_PW = (EditText) tableLayout.findViewById(R.id.etNewPW);
+            confirm_PW = (EditText) tableLayout.findViewById(R.id.etConfirm);
+
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SpwActivity.this);
+                    builder.setMessage("비밀번호 변경")
+                            .setView(tableLayout)
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (!(change_PW.getText().toString().equals(confirm_PW.getText().toString()))
+                                            || change_PW.getText().toString().length() < 6) {
+                                        Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                                        ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "완료", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                        ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                                    }
+                                }
+                            })
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                                }
+                            })
+                            .setCancelable(false)
+                            .create();
+                    builder.show();
+                }
+                else if(result ==1){
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
+
     }
+
 }
