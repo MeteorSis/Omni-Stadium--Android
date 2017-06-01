@@ -26,7 +26,7 @@ public class BackPressCloseHandler
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000)
         {
-            new LogoutTask(activity).execute(((OmniApplication)activity.getApplicationContext()).getId());
+            new LogoutTask(activity).execute(((OmniApplication)activity.getApplicationContext()).getMem_id());
             toast.cancel();
         }
     }

@@ -12,10 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -136,46 +140,75 @@ public class SidActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... params) {
 
             URL url = null;
-            HttpURLConnection urlConnection = null;
+            HttpURLConnection httpCon = null;
             JSONObject getJSON = null;
 
-            try{
-                url = new URL("http://192.168.63.109:8080/json/print.jsp");
-                urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/FindID");
+                httpCon = (HttpURLConnection) url.openConnection();
 
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                //urlConnection.setRequestProperty("Cache-Control","no-cache");
-                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                /*urlConnection.addRequestProperty("Accept", "application/json");
-                urlConnection.setRequestProperty("Content-Type", "application/json");*/
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
 
-                JSONObject putJSON = new JSONObject();
-                putJSON.put("NamePhone", params[0]);
-                putJSON.put("Phone", params[1]);
-                putJSON.put("Bdate", params[2]);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
 
-                Log.d("testJSON1", putJSON.toString().getBytes().toString());
-                Log.d("testJSON2", putJSON.toString());
+                JSONObject outJson = new JSONObject();
+                outJson.put("이름", params[0]);
+                outJson.put("전화", params[1]);
+                outJson.put("생일", params[2]);
 
-                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                out.write(putJSON.toString().getBytes());
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
 
-            }
-            catch (Exception e) {
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
 
+            } catch (Exception e) {
+
+            } finally {
+                httpCon.disconnect();
             }
-            finally {
-                urlConnection.disconnect();
-            }
-            return null;
+
+            return getJSON;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    new AlertDialog.Builder(SidActivity.this)
+                            .setMessage("회원님의 아이디는"+jsonObject.getString("아이디")+" 입니다")
+                            .setPositiveButton("확인",null)
+                            .show();
+                }
+                else if(result ==1){
+                    Toast.makeText(SidActivity.this, "존재하지 않는 회원정보입니다", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+
+            } catch (Exception e) {
+            }
         }
     }
 

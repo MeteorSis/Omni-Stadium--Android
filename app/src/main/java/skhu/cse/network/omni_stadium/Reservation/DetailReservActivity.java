@@ -53,12 +53,15 @@ public class DetailReservActivity extends AppCompatActivity {
         Intent intent = getIntent();
         value = intent.getStringExtra("Sector");
         setTitle("지정석 : " + value);
-        mem_id= ((OmniApplication)getApplicationContext()).getId();
+        mem_id= ((OmniApplication)getApplicationContext()).getMem_id();
         btArr = new ToggleButton[50];
         for (int i = 0; i < btArr.length; ++i) {
             int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");
             btArr[i] = (ToggleButton) findViewById(resource);
         }
+
+       //자유석일 때, 좌석 현황 x
+
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
                 R.id.tbG11, R.id.tbG12, R.id.tbG13, R.id.tbG14, R.id.tbG15, R.id.tbG16,  R.id.tbG17, R.id.tbG18, R.id.tbG19, R.id.tbG20,
@@ -88,6 +91,7 @@ public class DetailReservActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             row = Character.getNumericValue(charRow);
                             seat_no = Integer.parseInt(chSq_seat_no.toString());
+
                             new TicketBuyingTask().execute(value, String.valueOf(seat_no),mem_id);
                           /*  Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();*/
                             finish();
@@ -267,9 +271,9 @@ public class DetailReservActivity extends AppCompatActivity {
                     // 예매가 완료된 좌석의 상태 변경
                     btArr[seat_no].setEnabled(false);
                     btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
-                    Toast.makeText(DetailReservActivity.this,"예매 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailReservActivity.this,msg, Toast.LENGTH_SHORT).show();
                 } else {
-                Toast.makeText(DetailReservActivity.this,"예매에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailReservActivity.this, msg , Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
             }
