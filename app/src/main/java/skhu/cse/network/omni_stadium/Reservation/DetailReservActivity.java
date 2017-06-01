@@ -40,7 +40,8 @@ public class DetailReservActivity extends AppCompatActivity {
     private int row;
     private CharSequence chSq_seat_no;
     private int seat_no;
-    private  ToggleButton btArr[];
+    private ToggleButton btArr[];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +55,9 @@ public class DetailReservActivity extends AppCompatActivity {
         setTitle("지정석 : " + value);
 
         btArr = new ToggleButton[50];
-        for(int i=0; i<btArr.length; ++i)
-        {
-            int resource = getResources().getIdentifier("tbG"+i, "id" , "skhu.cse.network.omni_stadium");
-            btArr[i]=(ToggleButton)findViewById(resource);
+        for (int i = 0; i < btArr.length; ++i) {
+            int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");
+            btArr[i] = (ToggleButton) findViewById(resource);
         }
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
@@ -89,7 +89,9 @@ public class DetailReservActivity extends AppCompatActivity {
                             row = Character.getNumericValue(charRow);
                             seat_no = Integer.parseInt(chSq_seat_no.toString());
                             Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();
+                            new TicketBuyingTask().execute(value, String.valueOf(seat_no));
                             finish();
+
                         }
                     });
                     dlg.setCancelable(false);
@@ -106,7 +108,7 @@ public class DetailReservActivity extends AppCompatActivity {
                 }
             }
         });
-        //new ReservTask().execute(value);
+        new ReservTask().execute(value);
     }
 
     public void onToggleClicked(View v) {
@@ -145,7 +147,7 @@ public class DetailReservActivity extends AppCompatActivity {
             JSONArray getJSONArr = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/웹주소");
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/OccupiedSeats");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -162,7 +164,7 @@ public class DetailReservActivity extends AppCompatActivity {
                 httpCon.setRequestProperty("Content-Type", "application/json");
 
                 JSONObject outJson = new JSONObject();
-                outJson.put("구역", params[0]);
+                outJson.put("구역정보", params[0]);
 
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
@@ -170,11 +172,11 @@ public class DetailReservActivity extends AppCompatActivity {
 
                 int responseCode = httpCon.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
-                    InputStream inputStream=httpCon.getInputStream();
+                    InputStream inputStream = httpCon.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     String line;
                     StringBuilder result = new StringBuilder();
-                    while((line = bufferedReader.readLine()) != null)
+                    while ((line = bufferedReader.readLine()) != null)
                         result.append(line);
                     inputStream.close();
                     getJSONArr = new JSONArray(result.toString());
@@ -190,18 +192,84 @@ public class DetailReservActivity extends AppCompatActivity {
         protected void onPostExecute(JSONArray jsonArray) {
             super.onPostExecute(jsonArray);
             try {
-                if(jsonArray!=null){
-                    for(int i=0; i<jsonArray.length(); ++i)
-                    {
-                        JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        int seat_no=jsonObject.getInt("seat_no")-1;
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); ++i) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int seat_no = jsonObject.getInt("seat_no") - 1;
                         // 이미 점유된 좌석의 상태 변경
-                      btArr[seat_no].setEnabled(false);
-                      btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
+                        btArr[seat_no].setEnabled(false);
+                        btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
                     }
                 }
             } catch (Exception e) {
 
+            }
+        }
+    }
+
+    private class TicketBuyingTask extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/Buying");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("구역정보", params[0]);
+                outJson.put("좌석정보", Integer.valueOf(params[1]));
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("예매결과"); // 예매 성공: 0 예매 실패: else
+                if (result == 0) {
+                    // 예매가 완료된 좌석의 상태 변경
+                    btArr[seat_no].setEnabled(false);
+                    btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
+                } else {
+                Toast.makeText(DetailReservActivity.this,"예매에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
             }
         }
     }
