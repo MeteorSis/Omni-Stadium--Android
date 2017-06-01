@@ -40,6 +40,8 @@ public class SpwActivity extends AppCompatActivity {
     private EditText change_PW;
     private EditText confirm_PW;
 
+    private String setID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,6 @@ public class SpwActivity extends AppCompatActivity {
         setContentView(R.layout.spw_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button btOK = (Button) findViewById(R.id.btSpwOK);
-
-/*      inflater = getLayoutInflater();
-        tableLayout = (TableLayout) inflater.inflate(R.layout.change_pw, null);
-
-        change_PW = (EditText) tableLayout.findViewById(R.id.etNewPW);
-        confirm_PW = (EditText) tableLayout.findViewById(R.id.etConfirm);*/
 
         etID = (EditText) findViewById(R.id.etID);
         etName = (EditText) findViewById(R.id.etName);
@@ -102,6 +98,8 @@ public class SpwActivity extends AppCompatActivity {
                 Empty = Empty + "아이디 ";
             }
         }
+        setID = IdData;
+
         if (NameData.matches("")) {
             Empty = Empty + "이름 ";
         } else {
@@ -148,8 +146,6 @@ public class SpwActivity extends AppCompatActivity {
 
         if (Empty.matches("")) {
             //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
-            Log.d("test", IdData);
-            Log.d("test", NameData);
             new FindPW().execute(IdData, NameData,
                     PhoneFrontData + "-" + PhoneMiddleData + "-" + PhoneBackData,
                     BirthYYYYData + "-" + BirthMMData + "-" + BirthDDData);
@@ -190,7 +186,6 @@ public class SpwActivity extends AppCompatActivity {
                 outJson.put("전화", params[2]);
                 outJson.put("생일", params[3]);
 
-                Log.d("test", outJson.toString());
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -238,7 +233,7 @@ public class SpwActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력해주세요", Toast.LENGTH_SHORT).show();
                                         ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
                                     } else {
-                                        Toast.makeText(getApplicationContext(), "완료", Toast.LENGTH_SHORT).show();
+                                        new ChangePW().execute(setID, change_PW.getText().toString());
                                         dialog.dismiss();
                                         ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
                                     }
@@ -262,6 +257,81 @@ public class SpwActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private class ChangePW extends AsyncTask<String, Void, JSONObject>{
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("비밀번호", params[1]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+
+            } catch (Exception e) {
+
+            } finally {
+                httpCon.disconnect();
+            }
+
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    new AlertDialog.Builder(SpwActivity.this)
+                            .setMessage("비밀번호 변경이 완료되었습니다.\n새로운 비밀번호로 로그인 해주세요.")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
+                            .show();
+
+                }
+                else if(result == 2){
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
     }
 
 }

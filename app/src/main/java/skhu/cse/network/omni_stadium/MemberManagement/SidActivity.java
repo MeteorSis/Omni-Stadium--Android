@@ -202,10 +202,11 @@ public class SidActivity extends AppCompatActivity {
                             .show();
                 }
                 else if(result ==1){
-                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SidActivity.this, "존재하지 않는 회원정보입니다", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(SidActivity.this, "존재하지 않는 회원정보입니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+
             } catch (Exception e) {
             }
         }
