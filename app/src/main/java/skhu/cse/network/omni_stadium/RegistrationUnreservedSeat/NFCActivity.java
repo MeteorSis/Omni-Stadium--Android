@@ -245,7 +245,7 @@ public class NFCActivity extends AppCompatActivity {
                     //웹과 연결
                     try {
                         jsonBody = new JSONObject(body);
-                        new NFCTask(NFCActivity.this).execute(jsonBody.getString("zone"), String.valueOf(jsonBody.getInt("seat_no")), ((OmniApplication) getApplicationContext()).getId());//좌석 등록 요청
+                        new NFCTask(NFCActivity.this).execute(jsonBody.getString("zone"), String.valueOf(jsonBody.getInt("seat_no")), ((OmniApplication) getApplicationContext()).getMem_id());//좌석 등록 요청
                     } catch (JSONException e) {
 
                     }
