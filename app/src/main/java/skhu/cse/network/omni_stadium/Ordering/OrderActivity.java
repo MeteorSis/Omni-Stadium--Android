@@ -136,12 +136,14 @@ public class OrderActivity extends AppCompatActivity{
                         JSONObject foodObject=jsonArray.getJSONArray(row).getJSONObject(col);
                         childFoodList.add(
                                 new OrderItem(
-                                foodObject.getString("food_name"),
-                                foodObject.getInt("food_id")-1,
-                                foodObject.getInt("menu_id")-1,
-                                foodObject.getString("menu_name"),
-                                foodObject.getInt("menu_price"),
-                                foodObject.getString("menu_info").replace("\\n", "\n")));
+                                        foodObject.getString("food_name"),
+                                        foodObject.getInt("food_id")-1,
+                                        foodObject.getInt("menu_id")-1,
+                                        foodObject.getString("menu_name"),
+                                        foodObject.getInt("menu_price"),
+                                        foodObject.getString("menu_info").replace("\\n", "\n"),
+                                        foodObject.getInt("menu_stock")));
+
                     }
                     foodList.add(childFoodList);
                     String food_name=childFoodList.get(0).getFood_name();
@@ -157,9 +159,13 @@ public class OrderActivity extends AppCompatActivity{
                 lvOrder.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                        Intent intent=new Intent(OrderActivity.this, OrderMenu.class);
-                        intent.putExtra("OrderItem", foodList.get(groupPosition).get(childPosition));
-                        startActivityForResult(intent, REQ_CODE_ORDERMENU);
+                        OrderItem item=foodList.get(groupPosition).get(childPosition);
+                        if(item.getMenu_count()>0)
+                        {
+                            Intent intent = new Intent(OrderActivity.this, OrderMenu.class);
+                            intent.putExtra("OrderItem", item);
+                            startActivityForResult(intent, REQ_CODE_ORDERMENU);
+                        }
                         return false;
                     }
                 });

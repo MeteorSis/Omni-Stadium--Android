@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,19 @@ public class CartActivity extends AppCompatActivity {
         allPrice=cartManager.getAllPrice();
         String strAllPrice=String.valueOf(allPrice)+"원";
         tvAllPrice.setText(strAllPrice);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent sIntent=new Intent();
+                sIntent.putExtra("CartManager", cartManager);
+                setResult(RESULT_OK, sIntent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class CartListAdapter extends ArrayAdapter<OrderItem>
