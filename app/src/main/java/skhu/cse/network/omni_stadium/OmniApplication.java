@@ -4,15 +4,18 @@ import android.app.Application;
 
 public class OmniApplication extends Application {
 
-    private String id=null;
+    private String mem_id=null;
+    private String name=null;
+    private String
 
-    public void setId(String id)
+
+    public void setMem_id(String mem_id)
     {
-        this.id=id;
+        this.mem_id=mem_id;
     }
-    public String getId()
+    public String getMem_id()
     {
-        return id;
+        return mem_id;
     }
 
 

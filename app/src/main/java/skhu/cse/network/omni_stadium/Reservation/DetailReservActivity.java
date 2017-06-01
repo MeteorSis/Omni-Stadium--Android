@@ -53,7 +53,7 @@ public class DetailReservActivity extends AppCompatActivity {
         Intent intent = getIntent();
         value = intent.getStringExtra("Sector");
         setTitle("지정석 : " + value);
-        mem_id= ((OmniApplication)getApplicationContext()).getId();
+        mem_id= ((OmniApplication)getApplicationContext()).getMem_id();
         btArr = new ToggleButton[50];
         for (int i = 0; i < btArr.length; ++i) {
             int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");

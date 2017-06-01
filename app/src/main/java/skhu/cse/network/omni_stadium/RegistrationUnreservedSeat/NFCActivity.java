@@ -246,7 +246,7 @@ public class NFCActivity extends AppCompatActivity {
                     //웹과 연결
 /*
                 try {
-                    new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getId(), objBody.getInt("seat_id"));//좌석 등록 요청
+                    new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getMem_id(), objBody.getInt("seat_id"));//좌석 등록 요청
                 } catch (JSONException e) {
 
                 }
