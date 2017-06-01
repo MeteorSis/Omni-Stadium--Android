@@ -1,12 +1,13 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -15,9 +16,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import skhu.cse.network.omni_stadium.MainActivity;
 import skhu.cse.network.omni_stadium.R;
 import skhu.cse.network.omni_stadium.ViewHolderHelper;
 
@@ -32,7 +44,7 @@ public class OrderListActivity extends AppCompatActivity {
         cartManager=(CartManager)getIntent().getSerializableExtra("CartManager");
 
         ListView lvCart=(ListView)findViewById(R.id.lvOrderList);
-        ArrayList<OrderItem> orderList=cartManager.getArrList();
+        final ArrayList<OrderItem> orderList=cartManager.getArrList();
         OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, R.layout.order_list_child, orderList);
         lvCart.setAdapter(adapter);
 
@@ -44,9 +56,19 @@ public class OrderListActivity extends AppCompatActivity {
         btOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OrderListActivity.this, "주문 완료", Toast.LENGTH_SHORT).show();
+                new OrderTask().execute(orderList);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class OrderListAdapter extends ArrayAdapter<OrderItem>
@@ -79,6 +101,88 @@ public class OrderListActivity extends AppCompatActivity {
             tvSumPrice.setText(strSumPrice);
 
             return convertView;
+        }
+    }
+
+    private class OrderTask extends AsyncTask<ArrayList<OrderItem>, Void, JSONObject>
+    {
+        @Override
+        protected JSONObject doInBackground(ArrayList<OrderItem>... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientFoodOrderRequestPost");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONArray outJsonArr = new JSONArray();
+                for(int i=0; i<params[0].size(); ++i)
+                {
+                    OrderItem item=params[0].get(i);
+
+                    JSONObject childJSONObject=new JSONObject();
+                    childJSONObject.put("food_id", item.getFood_id()+1);
+                    childJSONObject.put("menu_id", item.getMenu_id()+1);
+                    childJSONObject.put("menu_count", item.getMenu_count());
+
+                    outJsonArr.put(childJSONObject);
+                }
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJsonArr.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream=httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try
+            {
+                int result=jsonObject.getInt("결과");
+                if(result==1)
+                {
+                    Toast.makeText(OrderListActivity.this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(OrderListActivity.this, "재고가 없는 상품이 있습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            } catch (Exception e) {
+
+            }
         }
     }
 }

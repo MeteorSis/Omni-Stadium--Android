@@ -80,7 +80,7 @@ public class LogoutTask extends AsyncTask<String, Void, JSONObject>
             int result=jsonObject.getInt("결과");
             if(result==0)
             {
-                ((OmniApplication)activity.getApplicationContext()).setId(null);
+                ((OmniApplication)activity.getApplicationContext()).setMem_id(null);
                 Intent intent = new Intent();
                 activity.setResult(activity.RESULT_OK, intent);
                 activity.finish();

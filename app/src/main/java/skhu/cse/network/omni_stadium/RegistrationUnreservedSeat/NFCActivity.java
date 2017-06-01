@@ -246,7 +246,7 @@ public class NFCActivity extends AppCompatActivity {
                     //웹과 연결
 /*
                 try {
-                    new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getId(), objBody.getString("seat_id"));//좌석 등록 요청
+                    new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getMem_id(), objBody.getInt("seat_id"));//좌석 등록 요청
                 } catch (JSONException e) {
 
                 }
@@ -257,7 +257,7 @@ public class NFCActivity extends AppCompatActivity {
                     try {
                         body = cpyBody;
                         objBody = new JSONObject(body);
-                        setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
+                        setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.get("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
                         toast(toastMsg);
                         mNFCView.setVisibility(View.GONE);
                         Log.d("cpyBody", cpyBody);

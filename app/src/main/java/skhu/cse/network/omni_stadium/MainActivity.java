@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         cbAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if(isChecked)
+                {
                     strID = etID.getText().toString();
                     strPW = etPW.getText().toString();
 
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
                     editor.putBoolean("Auto_Login_enabled",true);
                     editor.commit();
                 }
-                else{
+                else
+                    {
                     editor.remove("ID");
                     editor.remove("PW");
                     editor.remove("Auto_Login_enabled");
@@ -209,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 if(result==0||result==1)
                 {
                     OmniApplication omniApplication=(OmniApplication)getApplicationContext();
-                    omniApplication.setId(strID);
+                    omniApplication.setMem_id(strID);
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivityForResult(intent, REQ_CODE);
                 }/*

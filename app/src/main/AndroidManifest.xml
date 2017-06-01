@@ -75,7 +75,7 @@
         <activity
             android:name=".RegistrationUnreservedSeat.NFCActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="NFC 기능"
+            android:label="자유석 등록 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity

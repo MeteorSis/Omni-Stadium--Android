@@ -70,7 +70,7 @@ public class MyPageActivity extends AppCompatActivity {
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    new LogoutTask(MyPageActivity.this).execute(((OmniApplication)getApplicationContext()).getId());
+                                    new LogoutTask(MyPageActivity.this).execute(((OmniApplication)getApplicationContext()).getMem_id());
                                 }
                             })
                             .setNegativeButton("취소",null)
