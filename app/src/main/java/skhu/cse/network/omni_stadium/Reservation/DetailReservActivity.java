@@ -41,7 +41,7 @@ public class DetailReservActivity extends AppCompatActivity {
     private CharSequence chSq_seat_no;
     private int seat_no;
     private ToggleButton btArr[];
-
+    private String mem_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class DetailReservActivity extends AppCompatActivity {
         Intent intent = getIntent();
         value = intent.getStringExtra("Sector");
         setTitle("지정석 : " + value);
-
+        mem_id= ((OmniApplication)getApplicationContext()).getId();
         btArr = new ToggleButton[50];
         for (int i = 0; i < btArr.length; ++i) {
             int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");
@@ -88,10 +88,9 @@ public class DetailReservActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             row = Character.getNumericValue(charRow);
                             seat_no = Integer.parseInt(chSq_seat_no.toString());
-                            Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();
-                            new TicketBuyingTask().execute(value, String.valueOf(seat_no));
+                            new TicketBuyingTask().execute(value, String.valueOf(seat_no),mem_id);
+                          /*  Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();*/
                             finish();
-
                         }
                     });
                     dlg.setCancelable(false);
@@ -235,6 +234,7 @@ public class DetailReservActivity extends AppCompatActivity {
                 JSONObject outJson = new JSONObject();
                 outJson.put("구역정보", params[0]);
                 outJson.put("좌석정보", Integer.valueOf(params[1]));
+                outJson.put("아이디", params[2]);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -261,11 +261,13 @@ public class DetailReservActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
             try {
-                int result = jsonObject.getInt("예매결과"); // 예매 성공: 0 예매 실패: else
+                int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
+                String msg = jsonObject.getString("메시지");
                 if (result == 0) {
                     // 예매가 완료된 좌석의 상태 변경
                     btArr[seat_no].setEnabled(false);
                     btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
+                    Toast.makeText(DetailReservActivity.this,"예매 되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {
                 Toast.makeText(DetailReservActivity.this,"예매에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                 }
