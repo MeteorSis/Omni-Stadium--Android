@@ -67,10 +67,9 @@ public class NFCActivity extends AppCompatActivity {
     -----------------------------------UI----------------------------------- */
 
     String body = null;
-    String cpyBody = null;
     String toastMsg = null;
 
-    JSONObject objBody = null;
+    JSONObject jsonBody = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,26 +237,26 @@ public class NFCActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                cpyBody = new String(msg.getRecords()[0].getPayload());
-                if (cpyBody.equals(body)) {
+                body = new String(msg.getRecords()[0].getPayload());
+                if (false) {
                     toast("동일한 좌석입니다.");
                     finish();
                 } else {
                     //웹과 연결
+                    try {
+                        jsonBody = new JSONObject(body);
+                        new NFCTask(NFCActivity.this).execute(jsonBody.getString("zone"), String.valueOf(jsonBody.getInt("seat_no")), ((OmniApplication) getApplicationContext()).getId());//좌석 등록 요청
+                    } catch (JSONException e) {
+
+                    }
+                    //끝
+
 /*
-                try {
-                    new NFCTask(NFCActivity.this).execute(((OmniApplication) getApplicationContext()).getId(), objBody.getInt("seat_id"));//좌석 등록 요청
-                } catch (JSONException e) {
-
-                }
-                //끝
-*/
-
                     //////////웹과 연결 시 삭제
                     try {
                         body = cpyBody;
                         objBody = new JSONObject(body);
-                        setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.get("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
+                        setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getInt("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
                         toast(toastMsg);
                         mNFCView.setVisibility(View.GONE);
                         Log.d("cpyBody", cpyBody);
@@ -266,6 +265,7 @@ public class NFCActivity extends AppCompatActivity {
 
                     }
                     //////////
+*/
                 }
             }
         })
@@ -395,7 +395,7 @@ public class NFCActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:512230/AndroidClientLogOutRequestPost");//수정 필요
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/Buying");//수정 필요
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -412,9 +412,10 @@ public class NFCActivity extends AppCompatActivity {
                 httpCon.setRequestProperty("Content-Type", "application/json");
 
                 JSONObject outJson = new JSONObject();
-                outJson.put("아이디", params[0]);
-                outJson.put("좌석 아이디", params[1]);
 
+                outJson.put("구역정보", params[0]);
+                outJson.put("좌석정보", Integer.valueOf(params[1]));
+                outJson.put("아이디", params[2]);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -442,20 +443,17 @@ public class NFCActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try {
                 int result = jsonObject.getInt("결과");//0:좌석등록성공,  else:등록된좌석
+                String msg = jsonObject.getString("메시지");
                 if (result == 0) {//좌석이 비어있어서 좌석이 등록됨
-                    try {
-                        body = cpyBody;
-                        objBody = new JSONObject(body);
-                        setNoteBody("고객님의 좌석\n구역: " + objBody.getString("zone") + "\n열: " + objBody.getString("row") + "\n좌석 번호: " + objBody.getString("seat_no"));
-                        toast(toastMsg);
-                        finish();
-                        Log.d("cpyBody", cpyBody);
-                        Log.d("body", body);
-                    } catch (JSONException e) {
-
-                    }
-                } else
+                    //setNoteBody(msg);
+                    setNoteBody("고객님의 좌석\n구역: " + jsonBody.getString("zone") + "\n열: " + jsonBody.getInt("row") + "\n좌석 번호: " + jsonBody.getString("seat_no"));
+                    mNFCView.setVisibility(View.GONE);
+                    toast(toastMsg);
+                    Log.d("body", body);
+                } else {
                     Toast.makeText(activity, "해당 좌석은 이미 등록된 좌석입니다.", Toast.LENGTH_SHORT).show();
+                    //finish();
+                }
             } catch (Exception e) {
 
             }
