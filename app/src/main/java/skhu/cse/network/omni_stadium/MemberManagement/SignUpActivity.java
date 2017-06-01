@@ -2,7 +2,6 @@ package skhu.cse.network.omni_stadium.MemberManagement;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +18,9 @@ import com.bumptech.glide.Glide;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -31,7 +33,7 @@ public class SignUpActivity extends AppCompatActivity{
     private EditText etID, etPW, etMail, etMailDomain, etPhoneFront, etPhoneMiddle, etPhoneBack, etName, etBirthYYYY, etBirthMM, etBirthDD;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -168,13 +170,10 @@ public class SignUpActivity extends AppCompatActivity{
         }
         if(Empty.matches("")){
             //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
-            Log.d("test1", "test1");
             new SignUp().execute(IdData, PwData,
                     MailData+"@"+MailDomainData,
                     PhoneFrontData+"-"+PhoneMiddleData+"-"+PhoneBackData,
                     NameData, BirthYYYYData+"-"+BirthMMData+"-"+BirthDDData);
-            Toast.makeText(getApplicationContext(), "회원가입 완료 ", Toast.LENGTH_SHORT).show();
-            finish();
         }
         else{
             new AlertDialog.Builder(SignUpActivity.this)
@@ -183,63 +182,77 @@ public class SignUpActivity extends AppCompatActivity{
                     .show();
         }
     }
-    private class SignUp extends AsyncTask<String, Void, JSONObject>{
+    private class SignUp extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         protected JSONObject doInBackground(String... params) {
 
             URL url = null;
-            HttpURLConnection urlConnection = null;
+            HttpURLConnection httpCon = null;
             JSONObject getJSON = null;
 
-            try{
-                url = new URL("http://192.168.63.109:8080/json/print.jsp");
-                urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientRegisterRequestPost");
+                httpCon = (HttpURLConnection) url.openConnection();
 
-                Log.d("test2", "test2");
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
 
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
 
-                Log.d("test3", "test3");
+                JSONObject outJson = new JSONObject();
+                outJson.put("ID", params[0]);
+                outJson.put("PW", params[1]);
+                outJson.put("Email", params[2]);
+                outJson.put("Phone", params[3]);
+                outJson.put("Name", params[4]);
+                outJson.put("Bdate", params[5]);
 
-                JSONObject putJSON = new JSONObject();
-                Log.d("test4", "test4");
-                putJSON.put("ID", params[0]);
-                putJSON.put("PW", params[1]);
-                putJSON.put("Email", params[2]);
-                putJSON.put("Phone", params[3]);
-                putJSON.put("Name", params[4]);
-                putJSON.put("Bdate", params[5]);
-
-                Log.d("testJSON1", putJSON.toString().getBytes().toString());
-                Log.d("testJSON2", putJSON.toString());
-                Log.d("testJSON3", new String(putJSON.toString().getBytes(), 0, putJSON.toString().getBytes().length));
-
-                Log.d("test5", "test5");
-
-                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                Log.d("test6", "test6");
-                out.write(putJSON.toString().getBytes());
-                Log.d("test7", "test7");
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
 
-                Log.d("test8", "test8");
-            }
-            catch (Exception e) {
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
 
+            } catch (Exception e) {
+
+            } finally {
+                httpCon.disconnect();
             }
-            finally {
-                urlConnection.disconnect();
-            }
-            return null;
+
+            return getJSON;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0 || result == 1) {
+                    Toast.makeText(SignUpActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else
+                    Toast.makeText(SignUpActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+            }
         }
     }
 }

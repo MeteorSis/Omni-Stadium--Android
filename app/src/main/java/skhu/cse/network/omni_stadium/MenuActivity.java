@@ -49,14 +49,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         ImageView imgView_Nav_header_menu=(ImageView)navHeaderView.findViewById(R.id.imgView_Nav_header_menu);
         Glide.with(this).load(R.drawable.omni_stadium_logo).into(imgView_Nav_header_menu);
 
-/*        TextView tvMid = (TextView) navHeaderView.findViewById(R.id.tvMemuID);
-        tvMid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
-                startActivity(intent);
-            }
-        });*/
         backPressCloseHandler = new BackPressCloseHandler(this);
     }
 

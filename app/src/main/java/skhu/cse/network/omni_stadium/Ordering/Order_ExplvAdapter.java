@@ -1,6 +1,8 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,8 +89,18 @@ public class Order_ExplvAdapter extends BaseExpandableListAdapter {
         TextView name = (TextView)convertView.findViewById(R.id.tvLitem);
         TextView cost = (TextView)convertView.findViewById(R.id.tvRitem);
         name.setText(child.getMenu_name());
-        String strCost=String.valueOf(child.getMenu_price())+"원";
-        cost.setText(strCost);
+        if(child.getMenu_count()!=0)
+        {
+            String strCost = String.valueOf(child.getMenu_price()) + "원";
+            cost.setText(strCost);
+            cost.setTextColor(Color.parseColor("#20d56F"));
+        }
+        else
+        {
+            cost.setText("재고 없음");
+            cost.setTextColor(Color.parseColor("#FF0000"));
+        }
+
         return convertView;
     }
 

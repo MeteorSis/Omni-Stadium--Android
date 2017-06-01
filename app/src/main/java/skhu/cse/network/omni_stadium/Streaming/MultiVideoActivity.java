@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,8 +69,6 @@ public class MultiVideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_video);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         imgView_warning1=(ImageView)findViewById(R.id.imgView_warning1);
         imgView_warning2=(ImageView)findViewById(R.id.imgView_warning2);
@@ -294,5 +293,11 @@ public class MultiVideoActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
     }
 }

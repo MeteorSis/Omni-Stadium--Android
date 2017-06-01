@@ -182,19 +182,22 @@ public class MainActivity extends AppCompatActivity {
 
                 int responseCode = httpCon.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
-                    InputStream inputStream=httpCon.getInputStream();
+                    InputStream inputStream = httpCon.getInputStream();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                     String line;
                     StringBuilder result = new StringBuilder();
-                    while((line = bufferedReader.readLine()) != null)
+                    while ((line = bufferedReader.readLine()) != null)
                         result.append(line);
                     inputStream.close();
                     getJSON = new JSONObject(result.toString());
                 }
+
             } catch (Exception e) {
+
             } finally {
                 httpCon.disconnect();
             }
+
             return getJSON;
         }
 

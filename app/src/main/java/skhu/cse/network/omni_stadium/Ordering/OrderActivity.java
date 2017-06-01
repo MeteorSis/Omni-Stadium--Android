@@ -3,9 +3,9 @@ package skhu.cse.network.omni_stadium.Ordering;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
@@ -41,12 +41,17 @@ public class OrderActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_main);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btCart = (Button)findViewById(R.id.btCart);
         btOrder = (Button)findViewById(R.id.btOrder);
         lvOrder = (ExpandableListView)findViewById(R.id.explv_order);
 
         new GetFoodListTask().execute("메뉴요청");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -131,12 +136,14 @@ public class OrderActivity extends AppCompatActivity{
                         JSONObject foodObject=jsonArray.getJSONArray(row).getJSONObject(col);
                         childFoodList.add(
                                 new OrderItem(
-                                foodObject.getString("food_name"),
-                                foodObject.getInt("food_id")-1,
-                                foodObject.getInt("menu_id")-1,
-                                foodObject.getString("menu_name"),
-                                foodObject.getInt("menu_price"),
-                                foodObject.getString("menu_info").replace("\\n", "\n")));
+                                        foodObject.getString("food_name"),
+                                        foodObject.getInt("food_id")-1,
+                                        foodObject.getInt("menu_id")-1,
+                                        foodObject.getString("menu_name"),
+                                        foodObject.getInt("menu_price"),
+                                        foodObject.getString("menu_info").replace("\\n", "\n"),
+                                        foodObject.getInt("menu_stock")));
+
                     }
                     foodList.add(childFoodList);
                     String food_name=childFoodList.get(0).getFood_name();
@@ -147,14 +154,18 @@ public class OrderActivity extends AppCompatActivity{
                 listAdapter = new Order_ExplvAdapter(OrderActivity.this, group_list, item_list);
                 lvOrder.setAdapter(listAdapter);
 
-                cartManager=CartManager.createManagerInst(cart);
+                cartManager=new CartManager(cart);
 
                 lvOrder.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                        Intent intent=new Intent(OrderActivity.this, OrderMenu.class);
-                        intent.putExtra("OrderItem", foodList.get(groupPosition).get(childPosition));
-                        startActivityForResult(intent, REQ_CODE_ORDERMENU);
+                        OrderItem item=foodList.get(groupPosition).get(childPosition);
+                        if(item.getMenu_count()>0)
+                        {
+                            Intent intent = new Intent(OrderActivity.this, OrderMenu.class);
+                            intent.putExtra("OrderItem", item);
+                            startActivityForResult(intent, REQ_CODE_ORDERMENU);
+                        }
                         return false;
                     }
                 });
@@ -176,12 +187,14 @@ public class OrderActivity extends AppCompatActivity{
                 btOrder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                /*if(cartManager.getItemCount()>0)
-                {
-                    Intent intent = new Intent(OrderActivity.this, CartActivity.class);
-                    intent.putExtra("CartManager", cartManager);
-                    startActivity(intent);
-                }*/
+                        if(cartManager.getAllPrice()>=10000)
+                        {
+                            Intent intent = new Intent(OrderActivity.this, OrderListActivity.class);
+                            intent.putExtra("CartManager", cartManager);
+                            startActivity(intent);
+                        }
+                        else
+                            Toast.makeText(OrderActivity.this, "만 원 이상부터 주문 가능합니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
 

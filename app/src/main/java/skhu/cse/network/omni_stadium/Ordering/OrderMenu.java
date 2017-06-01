@@ -41,9 +41,9 @@ public class OrderMenu extends AppCompatActivity {
         btMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(--mCount<0)
+                if(--mCount<1)
                 {
-                    mCount=0;
+                    mCount=1;
                     return;
                 }
                 String strCount=""+mCount;

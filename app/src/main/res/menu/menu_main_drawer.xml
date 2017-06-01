@@ -17,7 +17,7 @@
 
         <item
             android:id="@+id/nav_nfc"
-            android:title="NFC 기능"
+            android:title="자유석 등록 기능"
             android:icon="@drawable/ic_tap_and_play_black_48dp"
             android:checkable="true"/>
 
