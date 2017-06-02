@@ -117,7 +117,7 @@ public class ReservActivity extends AppCompatActivity {
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 0) {
                         //왼쪽 위 그린 영역
                         Log.v("Event Test", "왼쪽 위 그린 영역");
-                        ((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");
+                        /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
                         mHandler = new Handler(); //프로그레스 다이얼로그를 위한 핸들러 생성
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
                         dlg.setTitle("");
@@ -143,6 +143,7 @@ public class ReservActivity extends AppCompatActivity {
                                     }
                                 }, 1000);*/
                                 new UnreservedSeatTask().execute(Zone);
+                                /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
                                 finish();
                             }
                         });
@@ -157,7 +158,6 @@ public class ReservActivity extends AppCompatActivity {
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 1) {
                         //오른쪽 위 그린 영역
                         Log.v("Event Test", "오른쪽 위 그린 영역");
-                        ((OmniApplication)getApplicationContext()).setSeat_zone("1루 외야그린석");
                         mHandler = new Handler(); //프로그레스 다이얼로그를 위한 핸들러 생성
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
                         dlg.setTitle("");
@@ -182,6 +182,7 @@ public class ReservActivity extends AppCompatActivity {
                                     }
                                 }, 1000); */
                                 new UnreservedSeatTask().execute(Zone);
+                              /*  ((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
                                 finish();
                             }
                         });
@@ -280,8 +281,8 @@ public class ReservActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
-                    // 예매가 완료된 좌석의 상태 변경
                     Toast.makeText(ReservActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    ((OmniApplication) getApplicationContext()).setSeat_zone(jsonObject.getString("zone"));
                 } else {
                     Toast.makeText(ReservActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }

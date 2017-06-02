@@ -268,8 +268,9 @@ public class DetailReservActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
+                    ((OmniApplication)getApplicationContext()).setSeat_zone(jsonObject.getString("zone"));
+                    ((OmniApplication)getApplicationContext()).setSeat_no(jsonObject.getInt("seat_no"));
                     // 예매가 완료된 좌석의 상태 변경
-                    
                     btArr[seat_no].setEnabled(false);
                     btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
                     Toast.makeText(DetailReservActivity.this,msg, Toast.LENGTH_SHORT).show();
