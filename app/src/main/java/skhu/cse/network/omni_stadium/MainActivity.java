@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                             omniApplication.setSeat_zone(strSeat_zone);
                             String strSeat_row=jsonObject.getString("열");
                             String strSeat_no=jsonObject.getString("좌석");
-                            if(!strSeat_row.equals("") && !strSeat_no.equals(""))
+                            if(!strSeat_row.equals("null") && !strSeat_no.equals("null"))
                             {
                                 omniApplication.setSeat_row(Integer.valueOf(strSeat_row));
                                 omniApplication.setSeat_no(Integer.valueOf(strSeat_no));
