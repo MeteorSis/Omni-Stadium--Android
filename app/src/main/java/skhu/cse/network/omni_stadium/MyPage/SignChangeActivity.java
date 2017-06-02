@@ -1,127 +1,214 @@
 package skhu.cse.network.omni_stadium.MyPage;
 
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import skhu.cse.network.omni_stadium.MemberManagement.SpwActivity;
+import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
-public class SignChangeActivity extends AppCompatActivity{
+public class SignChangeActivity extends AppCompatActivity {
+
+    private String mem_id;
+
+    private EditText change_PW;
+    private EditText confirm_PW;
+
+    private EditText etID, etPW, etMail, etMailDomain, etPhoneFront, etPhoneMiddle, etPhoneBack, etName, etBirthYYYY, etBirthMM, etBirthDD;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_change);
+        setContentView(R.layout.activity_signchange);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText etPW = (EditText)findViewById(R.id.etPW);
-        final EditText etMail = (EditText)findViewById(R.id.etMail);
-        final EditText etPhone = (EditText)findViewById(R.id.etPhone);
-        final EditText etName = (EditText)findViewById(R.id.etName);
-        final EditText etBdate = (EditText)findViewById(R.id.etBdate);
+        mem_id = ((OmniApplication) getApplicationContext()).getMem_id();
 
-        Button btCPW = (Button)findViewById(R.id.btChangePW);
-        Button btCMail = (Button)findViewById(R.id.btChangeEmail);
-        Button btCPhone = (Button)findViewById(R.id.btChangePhone);
-        Button btCName = (Button)findViewById(R.id.btChangeName);
-        Button btCBdate = (Button)findViewById(R.id.btChangeBirth);
+        LayoutInflater inflater = getLayoutInflater();
+        final TableLayout tableLayout = (TableLayout) inflater.inflate(R.layout.change_pw, null);
+        change_PW = (EditText) tableLayout.findViewById(R.id.etNewPW);
+        confirm_PW = (EditText) tableLayout.findViewById(R.id.etConfirm);
+
+        etID = (EditText) findViewById(R.id.etID);
+        etPW = (EditText) findViewById(R.id.etPW);
+
+        etMail=(EditText)findViewById(R.id.etMail);
+        etMailDomain=(EditText)findViewById(R.id.etMailDomain);
+        etPhoneFront=(EditText)findViewById(R.id.etPhoneFront);
+        etPhoneMiddle=(EditText)findViewById(R.id.etPhoneMiddle);
+        etPhoneBack=(EditText)findViewById(R.id.etPhoneBack);
+        etName=(EditText)findViewById(R.id.etName);
+        etBirthYYYY=(EditText)findViewById(R.id.etBirthYYYY);
+        etBirthMM=(EditText)findViewById(R.id.etBirthMM);
+        etBirthDD=(EditText)findViewById(R.id.etBirthDD);
+
+        etID.setText(((OmniApplication) getApplicationContext()).getMem_id());
+
+        Button btCPW = (Button) findViewById(R.id.btChangePW);
+        Button btCMail = (Button) findViewById(R.id.btChangeEmail);
+        Button btCPhone = (Button) findViewById(R.id.btChangePhone);
+        Button btCName = (Button) findViewById(R.id.btChangeName);
+        Button btCBdate = (Button) findViewById(R.id.btChangeBirth);
 
         btCPW.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cPwData = etPW.getText().toString();
-                if((cPwData.matches("") || (cPwData.length()<6))){
+                final String PwData = etPW.getText().toString();
+                if ((PwData.matches("") || (PwData.length() < 6))) {
                     new AlertDialog.Builder(SignChangeActivity.this)
                             .setMessage("비밀번호를 다시 확인해주세요.")
-                            .setPositiveButton("OK",null)
+                            .setPositiveButton("OK", null)
                             .show();
+                } else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignChangeActivity.this);
+                    builder.setMessage("비밀번호 변경")
+                            .setView(tableLayout)
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (!(change_PW.getText().toString().equals(confirm_PW.getText().toString()))
+                                            || !(change_PW.getText().toString().equals(etPW.getText().toString()))
+                                            || change_PW.getText().toString().length() < 6) {
+                                        Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                                        ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                                    } else {
+                                        new ChangePW().execute(mem_id, PwData);
+                                        dialog.dismiss();
+                                        ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                                    }
+                                }
+                            })
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                                }
+                            })
+                            .setCancelable(false)
+                            .create();
+                    builder.show();
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
-
             }
         });
 
         btCMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cMailData = etMail.getText().toString();
-                String Mailregex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+";
+                String MailData = etMail.getText().toString();
+                String MailDomainData=etMailDomain.getText().toString();
+                String Mailregex = "^[_a-zA-Z0-9-\\.]+$";
+                String MailDomainregex="^[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
                 Pattern Mailpattern = Pattern.compile(Mailregex);
-                Matcher Mailmatcher = Mailpattern.matcher(cMailData);
+                Pattern MailDomainpattern=Pattern.compile(MailDomainregex);
+                Matcher Mailmatcher = Mailpattern.matcher(MailData);
+                Matcher MailDomainmatcher = MailDomainpattern.matcher(MailDomainData);
 
-                if(cMailData.matches("") || !Mailmatcher.find()){
+                if (!Mailmatcher.find() || !MailDomainmatcher.find()) {
                     new AlertDialog.Builder(SignChangeActivity.this)
                             .setMessage("이메일을 다시 확인해주세요.")
-                            .setPositiveButton("OK",null)
+                            .setPositiveButton("OK", null)
                             .show();
-                }
-                else
-                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+                } else
+                   new ChangeEmail().execute(mem_id, MailData+"@"+MailDomainData);
             }
         });
 
         btCPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cPhoneData = etPhone.getText().toString();
-                String Phoneregex = "010([0-9]{4})([0-9]{4})$";
-                Pattern Phonepattern = Pattern.compile(Phoneregex);
-                Matcher Phonematcher = Phonepattern.matcher(cPhoneData);
-
-                if(cPhoneData.matches("") || !Phonematcher.find())
+                String PhoneFrontData = etPhoneFront.getText().toString();
+                String PhoneMiddleData = etPhoneMiddle.getText().toString();
+                String PhoneBackData = etPhoneBack.getText().toString();
+                String PhoneFrontregex = "^01[016789]$";
+                String PhoneMiddleregex="^[0-9]{3,4}$";
+                String PhoneBackregex="^[0-9]{3,4}$";
+                Pattern PhoneFrontpattern = Pattern.compile(PhoneFrontregex);
+                Pattern PhoneMiddlepattern = Pattern.compile(PhoneMiddleregex);
+                Pattern PhoneBackpattern = Pattern.compile(PhoneBackregex);
+                Matcher PhoneFrontmatcher = PhoneFrontpattern.matcher(PhoneFrontData);
+                Matcher PhoneMiddlematcher = PhoneMiddlepattern.matcher(PhoneMiddleData);
+                Matcher PhoneBackmatcher = PhoneBackpattern.matcher(PhoneBackData);
+                if (!PhoneFrontmatcher.find() || !PhoneMiddlematcher.find() || !PhoneBackmatcher.find())
                     new AlertDialog.Builder(SignChangeActivity.this)
                             .setMessage("핸드폰 번호를 다시 확인해주세요.")
-                            .setPositiveButton("OK",null)
+                            .setPositiveButton("OK", null)
                             .show();
                 else
-                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+                    new ChangePhone().execute(mem_id, PhoneFrontData+"-"+PhoneMiddleData+"-"+PhoneBackData);
             }
         });
 
         btCName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cNameData = etName.getText().toString();
+                String NameData = etName.getText().toString();
                 String Nameregex = "^[가-힣]{2,4}$";
                 Pattern Namepattern = Pattern.compile(Nameregex);
-                Matcher Namematcher = Namepattern.matcher(cNameData);
+                Matcher Namematcher = Namepattern.matcher(NameData);
 
-                if(cNameData.matches("") || !Namematcher.find())
+                if (!Namematcher.find())
                     new AlertDialog.Builder(SignChangeActivity.this)
                             .setMessage("이름을 다시 확인해주세요.")
-                            .setPositiveButton("OK",null)
+                            .setPositiveButton("OK", null)
                             .show();
                 else
-                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+                    new ChangeName().execute(mem_id, NameData);
             }
         });
 
         btCBdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cBdateData = etBdate.getText().toString();
-                String Bdateregex = "(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$";
-                Pattern Bdatepattern = Pattern.compile(Bdateregex);
-                Matcher Bdatematcher = Bdatepattern.matcher(cBdateData);
-                if(cBdateData.matches("") || !Bdatematcher.find())
+                String BirthYYYYData = etBirthYYYY.getText().toString();
+                String BirthMMData = etBirthMM.getText().toString();
+                String BirthDDData = etBirthDD.getText().toString();
+
+                String BYYYYregex="^(19|20)[0-9]{2}$";
+                String BMMregex="^(0[1-9]|1[012]|[1-9])$";
+                String BDDregex="^([1-9]|0[1-9]|[12][0-9]|3[01])$";
+
+                Pattern BYYYYpattern = Pattern.compile(BYYYYregex);
+                Pattern BMMpattern = Pattern.compile(BMMregex);
+                Pattern BDDpattern = Pattern.compile(BDDregex);
+                Matcher BYYYYmatcher = BYYYYpattern.matcher(BirthYYYYData);
+                Matcher BMMmatcher = BMMpattern.matcher(BirthMMData);
+                Matcher BDDmatcher = BDDpattern.matcher(BirthDDData);
+                if (!BYYYYmatcher.find() || !BMMmatcher.find() || !BDDmatcher.find())
                     new AlertDialog.Builder(SignChangeActivity.this)
                             .setMessage("생년월일을 다시 확인해주세요.")
-                            .setPositiveButton("OK",null)
+                            .setPositiveButton("OK", null)
                             .show();
                 else
-                    Toast.makeText(getApplicationContext(), "Make AsyncTask", Toast.LENGTH_SHORT).show();
+                    new ChangeBdate().execute(mem_id, BirthYYYYData+"-"+BirthMMData+"-"+BirthDDData);
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -132,170 +219,335 @@ public class SignChangeActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-
-      /*  btAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText etID = (EditText)findViewById(R.id.etID);
-
-
-                String IdData = etID.getText().toString();
-                String PwData = etPW.getText().toString();
-                String MailData = etMail.getText().toString();
-                String PhoneData = etPhone.getText().toString();
-                String NameData = etName.getText().toString();
-                String BdateData = etBdate.getText().toString();
-
-                String[] SignupData = {IdData, PwData, MailData, PhoneData, NameData, BdateData};
-                String Empty = "";
-
-                if(SignupData[0].matches("")){
-                    Empty = Empty + "아이디";
-                }
-                else{
-                    String Idregex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
-                    Pattern IDpattern = Pattern.compile(Idregex);
-                    Matcher IDmatcher = IDpattern.matcher(IdData);
-                    if(!IDmatcher.find()) {
-                        Empty = Empty + "아이디";
-                    }
-                }
-                if((SignupData[1].matches("") || (SignupData[1].length()<6)) && Empty.matches("")){
-                    Empty = Empty + "비밀번호";
-                }
-
-                if(SignupData[2].matches("") && Empty.matches("")){
-                    Empty = Empty + "Email";
-                }
-                else {
-                    String Mailregex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+";
-                    Pattern Mailpattern = Pattern.compile(Mailregex);
-                    Matcher Mailmatcher = Mailpattern.matcher(MailData);
-                    if (!Mailmatcher.find() && Empty.matches("")){
-                        Empty = Empty + "Email";
-                    }
-                }
-
-                if(SignupData[3].matches("")&& Empty.matches("")){
-                    Empty = Empty + "핸드폰 번호";
-                }
-                else{
-                    String Phoneregex = "010([0-9]{3,4})([0-9]{4})";
-                    Pattern Phonepattern = Pattern.compile(Phoneregex);
-                    Matcher Phonematcher = Phonepattern.matcher(PhoneData);
-                    if (!Phonematcher.find()&& Empty.matches("")){
-                        Empty = Empty + "핸드폰 번호";
-                    }
-                }
-                if(SignupData[4].matches("")&& Empty.matches("")){
-                    Empty = Empty + "이름";
-                }
-                else{
-                    String Nameregex = "^[가-힣]{2,4}$";
-                    Pattern Namepattern = Pattern.compile(Nameregex);
-                    Matcher Namematcher = Namepattern.matcher(NameData);
-                    if (!Namematcher.find()&& Empty.matches("")){
-                        Empty = Empty + "이름";
-                    }
-                }
-                if(SignupData[5].matches("")&& Empty.matches("")){
-                    Empty = Empty + "생년월일";
-                }
-                else{
-                    String Bdateregex = "(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$";
-                    Pattern Bdatepattern = Pattern.compile(Bdateregex);
-                    Matcher Bdatematcher = Bdatepattern.matcher(BdateData);
-                    if (!Bdatematcher.find()&& Empty.matches("")){
-                        Empty = Empty + "생년월일";
-                    }
-                }
-
-                if(Empty.matches("")){
-                    //Toast.makeText(getApplicationContext(), "입력 완료", Toast.LENGTH_SHORT).show();
-                    Log.d("test1", "test1");
-                    new SignUp().execute(SignupData[0], SignupData[1], SignupData[2], SignupData[3], SignupData[4], SignupData[5]);
-                }
-                else{
-                    new AlertDialog.Builder(SignChangeActivity.this)
-                            .setMessage(Empty+"을(를) 다시 확인해주세요.")
-                            .setPositiveButton("OK",null)
-                            .show();
-                }
-            }
-        });
-
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-    private class SignUp extends AsyncTask<String, Void, JSONObject>{
-
+    private class ChangePW extends AsyncTask<String, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(String... params) {
-
             URL url = null;
-            HttpURLConnection urlConnection = null;
+            HttpURLConnection httpCon = null;
             JSONObject getJSON = null;
 
-            try{
-                url = new URL("http://192.168.63.109:8080/json/print.jsp");
-                urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                httpCon = (HttpURLConnection) url.openConnection();
 
-                Log.d("test2", "test2");
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
 
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                //urlConnection.setRequestProperty("Cache-Control","no-cache");
-                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                *//*urlConnection.addRequestProperty("Accept", "application/json");
-                urlConnection.setRequestProperty("Content-Type", "application/json");*//*
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("비밀번호", params[1]);
 
-                Log.d("test3", "test3");
-
-                JSONObject putJSON = new JSONObject();
-                Log.d("test4", "test4");
-                putJSON.put("ID", params[0]);
-                putJSON.put("PW", params[1]);
-                putJSON.put("Email", params[2]);
-                putJSON.put("Phone", params[3]);
-                putJSON.put("Name", params[4]);
-                putJSON.put("Bdate", params[5]);
-
-                Log.d("testJSON1", putJSON.toString().getBytes().toString());
-                Log.d("testJSON2", putJSON.toString());
-                Log.d("testJSON3", new String(putJSON.toString().getBytes(), 0, putJSON.toString().getBytes().length));
-
-                Log.d("test5", "test5");
-
-                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                Log.d("test6", "test6");
-                out.write(putJSON.toString().getBytes());
-                Log.d("test7", "test7");
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
 
-                Log.d("test8", "test8");
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
 
+            } catch (Exception e) {
 
+            } finally {
+                httpCon.disconnect();
             }
-            catch (Exception e) {
 
-            }
-            finally {
-                urlConnection.disconnect();
-            }
-            return null;
+            return getJSON;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    Toast.makeText(getApplicationContext(), "비밀번호 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else if(result == 2){
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
         }
     }
 
+    private class ChangeEmail extends AsyncTask<String, Void, JSONObject>{
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
 
-    }*/
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("이메일", params[1]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+
+            } catch (Exception e) {
+
+            } finally {
+                httpCon.disconnect();
+            }
+
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    Toast.makeText(getApplicationContext(), "이메일 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                }
+                else if(result == 2){
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private class ChangePhone extends AsyncTask<String, Void, JSONObject>{
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("핸드폰", params[1]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+
+            } catch (Exception e) {
+
+            } finally {
+                httpCon.disconnect();
+            }
+
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    Toast.makeText(getApplicationContext(), "비밀번호 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else if(result == 2){
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private class ChangeName extends AsyncTask<String, Void, JSONObject>{
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("이름", params[1]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+
+            } catch (Exception e) {
+
+            } finally {
+                httpCon.disconnect();
+            }
+
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    Toast.makeText(getApplicationContext(), "핸드폰 번호 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else if(result == 2){
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private class ChangeBdate extends AsyncTask<String, Void, JSONObject>{
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                outJson.put("생일", params[1]);
+
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+
+            } catch (Exception e) {
+
+            } finally {
+                httpCon.disconnect();
+            }
+
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과");
+                if (result == 0) {
+                    Toast.makeText(getApplicationContext(), "이름 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else if(result == 2){
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
 }
