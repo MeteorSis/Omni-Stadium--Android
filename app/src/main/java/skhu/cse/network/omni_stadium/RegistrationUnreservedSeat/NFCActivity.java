@@ -28,8 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,8 +51,6 @@ public class NFCActivity extends AppCompatActivity {
     NfcAdapter mNfcAdapter;//실제 NFC 하드웨어와의 다리 역할을 한다.
     EditText mNote;
 
-    ImageView mNFCView;
-
     PendingIntent mNfcPendingIntent;
     IntentFilter[] mNdefExchangeFilters;
 
@@ -75,13 +71,9 @@ public class NFCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_main);
 
-        Glide.with(this).load(R.drawable.nfctag).into((ImageView) findViewById(R.id.ivNFC));
-
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
-
-        mNFCView = (ImageView) findViewById(R.id.ivNFC);
 
         /* -----------------------------------UI-----------------------------------
         viewPager = (ViewPager) findViewById(R.id.vp);
@@ -433,8 +425,8 @@ public class NFCActivity extends AppCompatActivity {
                     ((OmniApplication) getApplicationContext()).setSeat_no(jsonBody.getInt("seat_no"));
                     ((OmniApplication) getApplicationContext()).setSeat_row(jsonBody.getInt("row"));
                     ((OmniApplication) getApplicationContext()).setSeat_zone(jsonBody.getString("zone"));
-                    mNFCView.setVisibility(View.GONE);
                     toast(msg);
+                    Log.d("body", body);
                 } else {
                     toast(msg);
                     finish();

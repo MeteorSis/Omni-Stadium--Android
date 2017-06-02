@@ -269,6 +269,7 @@ public class DetailReservActivity extends AppCompatActivity {
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
                     // 예매가 완료된 좌석의 상태 변경
+                    
                     btArr[seat_no].setEnabled(false);
                     btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
                     Toast.makeText(DetailReservActivity.this,msg, Toast.LENGTH_SHORT).show();
