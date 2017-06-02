@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -208,19 +209,37 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try {
                 int result=jsonObject.getInt("결과");
-                if(result==0||result==1)
+                if(result==0)
                 {
+                    Log.d("jsonTest", jsonObject.toString());
                     OmniApplication omniApplication=(OmniApplication)getApplicationContext();
                     omniApplication.setMem_id(strID);
+                    omniApplication.setMem_name(jsonObject.getString("이름"));
+                    String strTicket_no=jsonObject.getString("티켓");
+                    if(!strTicket_no.equals(""))
+                    {
+                        omniApplication.setTicket_no(Integer.valueOf(strTicket_no));
+                        String strSeat_zone = jsonObject.getString("구역");
+                        if (!strSeat_zone.equals(""))
+                        {
+                            omniApplication.setSeat_zone(strSeat_zone);
+                            String strSeat_row=jsonObject.getString("열");
+                            String strSeat_no=jsonObject.getString("좌석");
+                            if(!strSeat_row.equals("") && !strSeat_no.equals(""))
+                            {
+                                omniApplication.setSeat_row(Integer.valueOf(strSeat_row));
+                                omniApplication.setSeat_no(Integer.valueOf(strSeat_no));
+                            }
+                        }
+                    }
+                    Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivityForResult(intent, REQ_CODE);
-                }/*
+                }
                 else if(result==1)
-                    Toast.makeText(MainActivity.this, "접속 중인 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
-                */else
                     Toast.makeText(MainActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }
