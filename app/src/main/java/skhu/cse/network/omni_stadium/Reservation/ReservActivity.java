@@ -117,8 +117,8 @@ public class ReservActivity extends AppCompatActivity {
                         Log.v("Event Test", "왼쪽 위 그린 영역");
                         mHandler = new Handler(); //프로그레스 다이얼로그를 위한 핸들러 생성
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
-                        dlg.setTitle("예매 정보");
-                        dlg.setMessage("선택한 구역을 예매 하시겠습니까?");
+                        dlg.setTitle("");
+                        dlg.setMessage("3루 외야그린석을 예매 하시겠습니까?");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -156,8 +156,8 @@ public class ReservActivity extends AppCompatActivity {
                         Log.v("Event Test", "오른쪽 위 그린 영역");
                         mHandler = new Handler(); //프로그레스 다이얼로그를 위한 핸들러 생성
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
-                        dlg.setTitle("예매 정보");
-                        dlg.setMessage("선택한 구역을 예매 하시겠습니까?");
+                        dlg.setTitle("");
+                        dlg.setMessage("1루 외야그린석을 예매 하시겠습니까?");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
