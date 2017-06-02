@@ -238,6 +238,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(result==1)
                     Toast.makeText(MainActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }

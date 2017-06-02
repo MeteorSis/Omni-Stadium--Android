@@ -1,5 +1,6 @@
 package skhu.cse.network.omni_stadium.AsyncTask;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -80,9 +81,15 @@ public class LogoutTask extends AsyncTask<String, Void, JSONObject>
             int result=jsonObject.getInt("결과");
             if(result==0)
             {
-                ((OmniApplication)activity.getApplicationContext()).setMem_id(null);
+                OmniApplication omniApplication=(OmniApplication)activity.getApplicationContext();
+                omniApplication.setMem_id(null);
+                omniApplication.setMem_name(null);
+                omniApplication.setTicket_no(null);
+                omniApplication.setSeat_zone(null);
+                omniApplication.setSeat_row(null);
+                omniApplication.setSeat_no(null);
                 Intent intent = new Intent();
-                activity.setResult(activity.RESULT_OK, intent);
+                activity.setResult(Activity.RESULT_OK, intent);
                 activity.finish();
             }
             else
