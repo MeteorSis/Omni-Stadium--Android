@@ -28,8 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,8 +51,6 @@ public class NFCActivity extends AppCompatActivity {
     NfcAdapter mNfcAdapter;//실제 NFC 하드웨어와의 다리 역할을 한다.
     EditText mNote;
 
-    ImageView mNFCView;
-
     PendingIntent mNfcPendingIntent;
     IntentFilter[] mNdefExchangeFilters;
 
@@ -76,13 +72,9 @@ public class NFCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_main);
 
-        Glide.with(this).load(R.drawable.nfctag).into((ImageView) findViewById(R.id.ivNFC));
-
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
-
-        mNFCView = (ImageView) findViewById(R.id.ivNFC);
 
         /* -----------------------------------UI-----------------------------------
         viewPager = (ViewPager) findViewById(R.id.vp);
@@ -447,7 +439,6 @@ public class NFCActivity extends AppCompatActivity {
                 if (result == 0) {//좌석이 비어있어서 좌석이 등록됨
                     //setNoteBody(msg);
                     setNoteBody("고객님의 좌석\n구역: " + jsonBody.getString("zone") + "\n열: " + jsonBody.getInt("row") + "\n좌석 번호: " + jsonBody.getString("seat_no"));
-                    mNFCView.setVisibility(View.GONE);
                     toast(toastMsg);
                     Log.d("body", body);
                 } else {
