@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#84bd00</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">@android:color/holo_green_dark</color>
+    <color name="colorPrimaryDark">@android:color/holo_green_dark</color>
     <color name="colorAccent">#82b94b</color>
     <color name="colorgreen">#91d409</color>
     <color name="colorPriceGreen">#20d56F</color>
+
+    <color name="colorGreenZone">#349600</color>
+    <color name="colorBlueAZone">#005EDD</color>
+    <color name="colorBlueBZone">#2429AC</color>
+    <color name="colorRedZone">#DD002A</color>
+    <color name="colorNavyZone">#242853</color>
 </resources>

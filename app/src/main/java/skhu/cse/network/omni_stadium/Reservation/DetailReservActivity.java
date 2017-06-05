@@ -1,5 +1,6 @@
 package skhu.cse.network.omni_stadium.Reservation;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,9 +94,8 @@ public class DetailReservActivity extends AppCompatActivity {
                             row = Character.getNumericValue(charRow);
                             seat_no = Integer.parseInt(chSq_seat_no.toString());
 
-                            new TicketBuyingTask().execute(value, String.valueOf(seat_no),mem_id);
+                            new TicketBuyingTask().execute(mem_id, value, String.valueOf(row), String.valueOf(seat_no));
                           /*  Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();*/
-                            finish();
                         }
                     });
                     dlg.setCancelable(false);
@@ -212,6 +213,9 @@ public class DetailReservActivity extends AppCompatActivity {
 
     private class TicketBuyingTask extends AsyncTask<String, Void, JSONObject> {
 
+        private String zone;
+        private int seat_row, seat_no;
+
         @Override
         protected JSONObject doInBackground(String... params) {
             URL url = null;
@@ -236,9 +240,12 @@ public class DetailReservActivity extends AppCompatActivity {
                 httpCon.setRequestProperty("Content-Type", "application/json");
 
                 JSONObject outJson = new JSONObject();
-                outJson.put("구역정보", params[0]);
-                outJson.put("좌석정보", Integer.valueOf(params[1]));
-                outJson.put("아이디", params[2]);
+                outJson.put("아이디", params[0]);
+                zone=params[1];
+                outJson.put("구역정보", params[1]);
+                seat_row=Integer.valueOf(params[2]);
+                seat_no=Integer.valueOf(params[3]);
+                outJson.put("좌석정보", seat_no);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -268,12 +275,19 @@ public class DetailReservActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
-                    ((OmniApplication)getApplicationContext()).setSeat_zone(jsonObject.getString("zone"));
-                    ((OmniApplication)getApplicationContext()).setSeat_no(jsonObject.getInt("seat_no"));
+                    OmniApplication omniApplication=(OmniApplication)getApplicationContext();
+                    omniApplication.setTicket_no(jsonObject.getInt("티켓"));
+                    omniApplication.setSeat_zone(zone);
+                    omniApplication.setSeat_row(seat_row);
+                    omniApplication.setSeat_no(seat_no);
+                    Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
                     // 예매가 완료된 좌석의 상태 변경
                     btArr[seat_no].setEnabled(false);
                     btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
                     Toast.makeText(DetailReservActivity.this,msg, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 } else {
                 Toast.makeText(DetailReservActivity.this, msg , Toast.LENGTH_SHORT).show();
                 }

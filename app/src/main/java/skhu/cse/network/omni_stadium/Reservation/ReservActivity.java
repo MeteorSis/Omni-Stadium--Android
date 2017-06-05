@@ -46,6 +46,7 @@ public class ReservActivity extends AppCompatActivity {
     private CustomZoomView zoomView;
     private Handler mHandler;
     private ProgressDialog mProgressDialog;
+    static final int REQ_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class ReservActivity extends AppCompatActivity {
                         //가운데 연파랑 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
                         intent.putExtra("Sector", "중앙 블루석A");
-                        startActivity(intent);
+                        startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "가운데 연파랑 영역");
                     } else if (redPixel == 221 && greenPixel == 0 && bluePixel == 42) {
                         //아래 왼쪽 빨강 영역
@@ -90,25 +91,25 @@ public class ReservActivity extends AppCompatActivity {
                         //아래 오른쪽 빨강 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
                         intent.putExtra("Sector", "1루 레드석");
-                        startActivity(intent);
+                        startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 오른쪽 빨강 영역");
                     } else if (redPixel == 36 && greenPixel == 41 && bluePixel == 172) {
                         //가운데 진파랑 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
                         intent.putExtra("Sector", "중앙 블루석B");
-                        startActivity(intent);
+                        startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "가운데 진파랑 영역");
                     } else if (redPixel == 36 && greenPixel == 40 && bluePixel == 83) {
                         //아래 왼쪽 남색 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
                         intent.putExtra("Sector", "3루 네이비석");
-                        startActivity(intent);
+                        startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 왼쪽 남색 영역");
                     } else if (redPixel == 36 && greenPixel == 41 && bluePixel == 83) {
                         //아래 오른쪽 남색 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
                         intent.putExtra("Sector", "1루 네이비석");
-                        startActivity(intent);
+                        startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 오른쪽 남색 영역");
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 0) {
                         //왼쪽 위 그린 영역
@@ -137,7 +138,6 @@ public class ReservActivity extends AppCompatActivity {
                                     }
                                 }, 1000);
                                 new UnreservedSeatTask().execute("3루 외야그린석");
-                                finish();
                             }
                         });
                         dlg.setCancelable(false);
@@ -175,7 +175,6 @@ public class ReservActivity extends AppCompatActivity {
                                     }
                                 }, 1000); */
                                 new UnreservedSeatTask().execute("1루 외야그린석");
-                                finish();
                             }
                         });
                         dlg.setCancelable(false);
@@ -218,6 +217,8 @@ public class ReservActivity extends AppCompatActivity {
 
     private class UnreservedSeatTask extends AsyncTask<String, Void, JSONObject> {
 
+        private String zone;
+
         @Override
         protected JSONObject doInBackground(String... params) {
             URL url = null;
@@ -243,6 +244,7 @@ public class ReservActivity extends AppCompatActivity {
 
                 JSONObject outJson = new JSONObject();
                 outJson.put("아이디", ((OmniApplication)getApplicationContext()).getMem_id());
+                zone=params[0];
                 outJson.put("구역정보", params[0]);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
@@ -274,11 +276,24 @@ public class ReservActivity extends AppCompatActivity {
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
                     Toast.makeText(ReservActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    ((OmniApplication) getApplicationContext()).setSeat_zone(jsonObject.getString("zone"));
+                    OmniApplication omniApplication=(OmniApplication)getApplicationContext();
+                    omniApplication.setTicket_no(jsonObject.getInt("티켓"));
+                    omniApplication.setSeat_zone(zone);
+                    Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
+                    finish();
                 } else {
                     Toast.makeText(ReservActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CODE){
+            if(resultCode == RESULT_OK){
+                finish();
             }
         }
     }
