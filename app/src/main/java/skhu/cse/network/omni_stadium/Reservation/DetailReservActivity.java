@@ -60,7 +60,7 @@ public class DetailReservActivity extends AppCompatActivity {
             btArr[i] = (ToggleButton) findViewById(resource);
         }
 
-       //자유석일 때, 좌석 현황 x
+        //자유석일 때, 좌석 현황 x
 
         /*ToggleButton[][] btArray =new ToggleButton[5][10];
         int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
@@ -275,7 +275,7 @@ public class DetailReservActivity extends AppCompatActivity {
                     btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
                     Toast.makeText(DetailReservActivity.this,msg, Toast.LENGTH_SHORT).show();
                 } else {
-                Toast.makeText(DetailReservActivity.this, msg , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailReservActivity.this, msg , Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
             }
