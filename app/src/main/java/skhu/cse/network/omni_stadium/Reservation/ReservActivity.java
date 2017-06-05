@@ -46,13 +46,11 @@ public class ReservActivity extends AppCompatActivity {
     private CustomZoomView zoomView;
     private Handler mHandler;
     private ProgressDialog mProgressDialog;
-    private String Zone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reserv_main);
-        Zone = ((OmniApplication)getApplicationContext()).getSeat_zone();
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reserv_zoom, null, false);
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -142,7 +140,7 @@ public class ReservActivity extends AppCompatActivity {
                                         }
                                     }
                                 }, 1000);*/
-                                new UnreservedSeatTask().execute(Zone);
+                                new UnreservedSeatTask().execute("3루 외야그린석");
                                 /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
                                 finish();
                             }
@@ -181,8 +179,8 @@ public class ReservActivity extends AppCompatActivity {
                                         }
                                     }
                                 }, 1000); */
-                                new UnreservedSeatTask().execute(Zone);
-                              /*  ((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
+                                new UnreservedSeatTask().execute("1루 외야그린석");
+                              /*  ((OmniApplication)getApplicationContext()).setSeat_zone("1루 외야그린석");*/
                                 finish();
                             }
                         });
@@ -251,7 +249,7 @@ public class ReservActivity extends AppCompatActivity {
 
                 JSONObject outJson = new JSONObject();
                 outJson.put("아이디", ((OmniApplication)getApplicationContext()).getMem_id());
-                outJson.put("구역정보", Zone);
+                outJson.put("구역정보", params[0]);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
