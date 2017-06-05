@@ -9,12 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -92,13 +90,23 @@ public class MyPageActivity extends AppCompatActivity {
                     if (childPosition == 0) {
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setMessage("자유석을 해제하시겠습니까?")
-                                .setPositiveButton("확인", null)
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //AsyncTask
+                                    }
+                                })
                                 .setNegativeButton("취소", null)
                                 .show();
                     } else {
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setMessage("티켓을 환불하시겠습니까?")
-                                .setPositiveButton("확인", null)
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //AsyncTask
+                                    }
+                                })
                                 .setNegativeButton("취소", null)
                                 .show();
                     }
@@ -106,14 +114,6 @@ public class MyPageActivity extends AppCompatActivity {
                     if (childPosition == 0) {
                         final EditText etpw = new EditText(MyPageActivity.this);
                         etpw.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-                        etpw.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                            @Override
-                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                Intent intent = new Intent(MyPageActivity.this, SignChangeActivity.class);
-                                startActivity(intent);
-                                return true;
-                            }
-                        });
                         etpw.setSingleLine();
                         etpw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
@@ -124,9 +124,7 @@ public class MyPageActivity extends AppCompatActivity {
                                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //new GetPasswordTask_ToSignChange().execute(mem_id, etpw.getText().toString());
-                                        Intent intent = new Intent(MyPageActivity.this, SignChangeActivity.class);
-                                        startActivity(intent);
+                                        new GetPasswordTask_ToSignChange().execute(mem_id, etpw.getText().toString());
                                     }
                                 })
                                 .setCancelable(false)
@@ -141,14 +139,6 @@ public class MyPageActivity extends AppCompatActivity {
                     } else {
                         final EditText etpw = new EditText(MyPageActivity.this);
                         etpw.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-                        etpw.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                            @Override
-                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                Intent intent = new Intent(MyPageActivity.this, SignChangeActivity.class);
-                                startActivity(intent);
-                                return true;
-                            }
-                        });
                         etpw.setSingleLine();
                         etpw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
@@ -160,7 +150,6 @@ public class MyPageActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         new GetPasswordTask_ToLeave().execute(mem_id, etpw.getText().toString());
-
                                     }
                                 })
                                 .setCancelable(false)
@@ -172,7 +161,6 @@ public class MyPageActivity extends AppCompatActivity {
                                 })
                                 .show()
                                 .setCancelable(false); // 백버튼 비활성화
-
                     }
                 }
                 return false;
@@ -188,7 +176,7 @@ public class MyPageActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientLogInRequestPost");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/ConfirmPassword");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -240,7 +228,7 @@ public class MyPageActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과");
                 if (result == 0) {
                     new AlertDialog.Builder(MyPageActivity.this)
-                            .setMessage("회원을 탈퇴하시겠습니까?")
+                            .setMessage("회원을 탈퇴하시겠습니까?\n(주의: 구매한 티켓이 삭제됩니다.)")
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -255,7 +243,7 @@ public class MyPageActivity extends AppCompatActivity {
                 */ else if (result == 1)
                     Toast.makeText(MyPageActivity.this, "비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPageActivity.this, "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
 
             }
@@ -270,7 +258,7 @@ public class MyPageActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientLogInRequestPost");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/DeleteAccount");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -319,17 +307,15 @@ public class MyPageActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try {
                 int result = jsonObject.getInt("결과");
-                if (result == 0) {
+                if (result != 0) {
+                    Toast.makeText(MyPageActivity.this, "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(MyPageActivity.this, "회원탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();
-                }/*
-                else if(result==1)
-                    Toast.makeText(MainActivity.this, "접속 중인 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
-                */ else if (result == 1)
-                    Toast.makeText(MyPageActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
 
             }
@@ -344,7 +330,7 @@ public class MyPageActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientLogInRequestPost");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/ConfirmPassword");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -403,13 +389,146 @@ public class MyPageActivity extends AppCompatActivity {
                 */ else if (result == 1)
                     Toast.makeText(MyPageActivity.this, "비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPageActivity.this, "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
 
             }
         }
     }
 
+    private class UnreservedSeat_ClearTask extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/FreeSeat");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
+                if (result == 0) {
+                    Toast.makeText(MyPageActivity.this, "자유석 해제에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                    ((OmniApplication) getApplicationContext()).setMem_id(null);
+                } else {
+                    Toast.makeText(MyPageActivity.this, "자유석 해제에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private class TicketRefundTask extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/Buying");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", params[0]);
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+            } catch (Exception e) {
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
+                if (result == 0) {
+                    ((OmniApplication)getApplicationContext()).setSeat_zone(null);
+                    ((OmniApplication)getApplicationContext()).setSeat_no(null);
+                    // 예매가 완료된 좌석의 상태 변경
+                    /*btArr[seat_no].setEnabled(false);
+                    btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));*/
+                    Toast.makeText(MyPageActivity.this, "티켓환불에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MyPageActivity.this, "티켓환불에 실패했습니다. 다시 시도해주세요." , Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {
