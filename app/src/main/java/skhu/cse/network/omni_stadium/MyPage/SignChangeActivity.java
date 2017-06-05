@@ -227,7 +227,7 @@ public class SignChangeActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdateInfo_pw");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -277,7 +277,7 @@ public class SignChangeActivity extends AppCompatActivity {
                 if (result == 0) {
                     Toast.makeText(getApplicationContext(), "비밀번호 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
-                else if(result == 2){
+                else {
                     Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
@@ -293,7 +293,7 @@ public class SignChangeActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdateInfo_email");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -342,9 +342,8 @@ public class SignChangeActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과");
                 if (result == 0) {
                     Toast.makeText(getApplicationContext(), "이메일 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
                 }
-                else if(result == 2){
+                else{
                     Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
@@ -360,7 +359,7 @@ public class SignChangeActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdateInfo_phone");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -375,7 +374,7 @@ public class SignChangeActivity extends AppCompatActivity {
 
                 JSONObject outJson = new JSONObject();
                 outJson.put("아이디", params[0]);
-                outJson.put("핸드폰", params[1]);
+                outJson.put("전화번호", params[1]);
 
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
@@ -408,9 +407,9 @@ public class SignChangeActivity extends AppCompatActivity {
             try {
                 int result = jsonObject.getInt("결과");
                 if (result == 0) {
-                    Toast.makeText(getApplicationContext(), "비밀번호 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "핸드폰 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
-                else if(result == 2){
+                else{
                     Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
@@ -426,7 +425,7 @@ public class SignChangeActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdateInfo_name");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -474,9 +473,9 @@ public class SignChangeActivity extends AppCompatActivity {
             try {
                 int result = jsonObject.getInt("결과");
                 if (result == 0) {
-                    Toast.makeText(getApplicationContext(), "핸드폰 번호 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "이름 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
-                else if(result == 2){
+                else{
                     Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
@@ -492,7 +491,7 @@ public class SignChangeActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdatePassword");
+                url = new URL("http://192.168.63.25:51223/AndroidClientAccountRequestPost/UpdateInfo_bdate");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -540,9 +539,9 @@ public class SignChangeActivity extends AppCompatActivity {
             try {
                 int result = jsonObject.getInt("결과");
                 if (result == 0) {
-                    Toast.makeText(getApplicationContext(), "이름 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "생년월일 변경이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
-                else if(result == 2){
+                else{
                     Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
