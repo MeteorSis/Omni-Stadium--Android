@@ -14,19 +14,12 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v4.app.NavUtils;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -42,36 +35,25 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import skhu.cse.network.omni_stadium.AsyncTask.LogoutTask;
-import skhu.cse.network.omni_stadium.MyPage.MyPageActivity;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
-import skhu.cse.network.omni_stadium.Reservation.DetailReservActivity;
 
 public class NFCActivity extends AppCompatActivity {
 
     private static final String TAG = "NFCActivity";
     private boolean mResumed = false;
-    NfcAdapter mNfcAdapter;//실제 NFC 하드웨어와의 다리 역할을 한다.
-    EditText mNote;
+    private NfcAdapter mNfcAdapter;//실제 NFC 하드웨어와의 다리 역할을 한다.
+    private EditText mNote;
 
-    PendingIntent mNfcPendingIntent;
-    IntentFilter[] mNdefExchangeFilters;
+    private PendingIntent mNfcPendingIntent;
+    private IntentFilter[] mNdefExchangeFilters;
 
-    /* -----------------------------------UI-----------------------------------
-    ViewPager viewPager;
-    TextView tab_first;
-    TextView tab_second;
+    private String body = null;//NFC 태그에서 읽어 들인 string을 저장하는 변수
+    private JSONObject jsonBody = null;
+    private boolean isNewMode = false;//자유석 좌석 신규등록 모드
 
-    private String value;
-    -----------------------------------UI----------------------------------- */
-
-    String body = null;
-
-    JSONObject jsonBody = null;
-
-    //////////////////////////////////////////////////////
-    private String value = "1루 외야그린석";
+    //좌석 현황 갱신에 필요한 변수
+    private String zone = "1루 외야그린석";
     private ToggleButton btArr[];
 
     @Override
@@ -83,80 +65,34 @@ public class NFCActivity extends AppCompatActivity {
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
 
-        /* -----------------------------------UI-----------------------------------
-        viewPager = (ViewPager) findViewById(R.id.vp);
-
-        tab_first = (TextView) findViewById(R.id.tab_first);
-        tab_second = (TextView) findViewById(R.id.tab_second);
-
-        MyPagerAdapter adapter = new MyPagerAdapter();
-        viewPager.setAdapter(adapter);
-
-        tab_first.setOnClickListener(movePageListener);
-        tab_second.setOnClickListener(movePageListener);
-
-        Intent nintent = getIntent();
-        value = nintent.getStringExtra("Sector");
-
-        Log.d("test", value);
-        tab_first.setText(value + " 현황");
-
-        tab_first.setSelected(true);
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        tab_first.setSelected(true);
-                        tab_second.setSelected(false);
-                        break;
-                    case 1:
-                        tab_first.setSelected(false);
-                        tab_second.setSelected(true);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        -----------------------------------UI----------------------------------- */
-
         //이 액티비티에서 수신된 모든 NFC 인텐트를 처리
         mNfcPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
-        //태그로부터 텍스트를 읽거나 p2p를 통하여 교환할 때 필요한 인텐트 필터
+        //태그로부터 텍스트를 읽거나 P2P를 통하여 교환할 때 필요한 인텐트 필터
         IntentFilter ndefDetected = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             ndefDetected.addDataType("text/plain");
         } catch (IntentFilter.MalformedMimeTypeException e) {
+
         }
         mNdefExchangeFilters = new IntentFilter[]{ndefDetected};
 
-        //////////////////////////////////////////////
+        //좌석 갱신
         btArr = new ToggleButton[50];
         for (int i = 0; i < btArr.length; ++i) {
             int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");
             btArr[i] = (ToggleButton) findViewById(resource);
         }
-
-        new ReserveTask().execute(value);
+        new UpdateSeatsTask().execute(zone);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if (mNfcAdapter.isEnabled() != true) {//NFC 기능이 활성화 되어 있는지 검사한다.
+        //NFC 활성화 검사
+        if (mNfcAdapter.isEnabled() != true) {//NFC 기능이 비활성화 되어 있으면
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("설정에서 NFC를 켜주세요.")
                     .setPositiveButton("확인",
@@ -198,7 +134,6 @@ public class NFCActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mResumed = false;
-        //mNfcAdapter.disableForegroundNdefPush(this); deprecated
         mNfcAdapter.disableForegroundDispatch(NFCActivity.this);
     }
 
@@ -225,19 +160,20 @@ public class NFCActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable arg0) {
-            if (mResumed) {
-                //mNfcAdapter.enableForegroundNdefPush(NFCActivity.this, getNoteAsNdef()); deprecated
+            if (mResumed)
                 mNfcAdapter.setNdefPushMessage(getNoteAsNdef(), NFCActivity.this);
-            }
         }
     };
 
     private void promptForContent(final NdefMessage msg) {//nfc4
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (((OmniApplication) getApplicationContext()).getSeat_no() == null)//티켓 정보에서 가져와서 비교하도록 수정해야함
+        if (((OmniApplication) getApplicationContext()).getSeat_no() == null) {//자유석 티켓은 있으나 좌석 등록이 되어 있지 않으면(신규 등록이면)
+            isNewMode = true;//모드 변경
             builder.setTitle("이 좌석으로 등록 하시겠습니까?");
-        else
+        } else {
+            isNewMode = false;//모드 변경
             builder.setTitle("현재 좌석을 이 좌석으로 바꾸시겠습니까?");
+        }
 
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
@@ -245,11 +181,14 @@ public class NFCActivity extends AppCompatActivity {
                 body = new String(msg.getRecords()[0].getPayload());
                 try {
                     jsonBody = new JSONObject(body);
-                    if (((OmniApplication) getApplicationContext()).getSeat_zone().equals(jsonBody.getString("zone")) && ((OmniApplication) getApplicationContext()).getSeat_no() == jsonBody.getInt("seat_no")) {//티켓 정보에서 가져와서 비교하도록 수정해야함
+
+                    //티켓 정보와 NFC 태그에서 읽은 정보 비교
+                    if (!(isNewMode) && ((OmniApplication) getApplicationContext()).getSeat_zone().equals(jsonBody.getString("zone")) && ((OmniApplication) getApplicationContext()).getSeat_no() == jsonBody.getInt("seat_no")) {
                         toast("동일한 좌석입니다.");
                         finish();
-                    } else {
-                        //웹과 연결
+                    }
+                    //웹과 연결
+                    else {
                         try {
                             new NFCTask(NFCActivity.this).execute(jsonBody.getString("zone"), String.valueOf(jsonBody.getInt("seat_id")), ((OmniApplication) getApplicationContext()).getMem_id());//좌석 등록 요청
                         } catch (JSONException e) {
@@ -266,10 +205,11 @@ public class NFCActivity extends AppCompatActivity {
                     public void onClick(DialogInterface arg0, int arg1) {
 
                     }
-                }).show();
+                })
+                .show();
     }
 
-    private void setNoteBody(String body) {
+    private void setNoteBody(String body) {//필요 없어질 예정
         Editable text = mNote.getText();
         text.clear();
         text.append(body);
@@ -294,7 +234,6 @@ public class NFCActivity extends AppCompatActivity {
                 msgs = new NdefMessage[rawMsgs.length];
                 for (int i = 0; i < rawMsgs.length; i++) {
                     msgs[i] = (NdefMessage) rawMsgs[i];
-                    Log.d("test1", msgs[i].toString());
                 }
             } else {
                 //알 수 없는 태그 타입
@@ -319,59 +258,7 @@ public class NFCActivity extends AppCompatActivity {
         mNfcAdapter.enableForegroundDispatch(this, mNfcPendingIntent, mNdefExchangeFilters, null);
     }
 
-    private void toast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
-
-
-    /* -----------------------------------UI-----------------------------------
-    View.OnClickListener movePageListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.tab_first:
-                    tab_first.setSelected(true);
-                    tab_second.setSelected(false);
-                    viewPager.setCurrentItem(0);
-                    break;
-                case R.id.tab_second:
-                    tab_first.setSelected(false);
-                    tab_second.setSelected(true);
-                    viewPager.setCurrentItem(1);
-                    break;
-            }
-
-        }
-    };
-
-    class MyPagerAdapter extends PagerAdapter {
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-
-            int resId = 0;
-            switch (position) {
-                case 0:
-                    resId = R.id.page_one;
-                    break;
-                case 1:
-                    resId = R.id.page_two;
-                    break;
-            }
-            return findViewById(resId);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-    }
-     -----------------------------------UI----------------------------------- */
-
+    //자유석 등록
     private class NFCTask extends AsyncTask<String, Void, JSONObject> {
 
         private AppCompatActivity activity;
@@ -434,7 +321,7 @@ public class NFCActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {//Runs on the UI thread after doInBackground()
             super.onPostExecute(jsonObject);
             try {
-                int result = jsonObject.getInt("결과");//0:좌석등록성공,  else:등록된좌석
+                int result = jsonObject.getInt("결과");//0:좌석등록성공 else:등록된좌석
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {//좌석이 비어있어서 좌석이 등록됨
                     //setNoteBody(msg);
@@ -454,13 +341,8 @@ public class NFCActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        NavUtils.navigateUpFromSameTask(this);
-    }
-///////////////////////////////////////////////////////////////////////
-    private class ReserveTask extends AsyncTask<String, Void, JSONArray> {
+    //좌석 갱신
+    private class UpdateSeatsTask extends AsyncTask<String, Void, JSONArray> {
 
         @Override
         protected JSONArray doInBackground(String... params) {
@@ -518,7 +400,7 @@ public class NFCActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); ++i) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int seat_no = jsonObject.getInt("seat_no") - 1;
-                        // 이미 점유된 좌석의 상태 변경
+                        //이미 점유된 좌석의 상태 변경
                         btArr[seat_no].setEnabled(false);
                         btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
                     }
@@ -527,5 +409,15 @@ public class NFCActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NavUtils.navigateUpFromSameTask(this);
+    }
+
+    private void toast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 }
