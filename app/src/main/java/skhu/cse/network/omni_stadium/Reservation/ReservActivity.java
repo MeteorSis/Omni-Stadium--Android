@@ -59,10 +59,8 @@ public class ReservActivity extends AppCompatActivity {
         zoomView.setLayoutParams(layoutParams);
         zoomView.setMiniMapEnabled(false); // 좌측 상단 검은색 미니맵 설정안함
         zoomView.setMaxZoom(4f); // 줌 Max 배율 설정  1f 로 설정하면 줌 안됩니다.
-
         ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         container.addView(zoomView);
-
         Glide.with(ReservActivity.this).load(R.drawable.noun_1018844_cc).into((ImageView) findViewById(R.id.ivzoom_info));
         Glide.with(ReservActivity.this).load(R.drawable.seatimageview).into((ImageView) findViewById(R.id.ivseat));
 
@@ -123,8 +121,7 @@ public class ReservActivity extends AppCompatActivity {
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                /*new UnreservedSeatTask().execute(Sector_Green);*/
-                              /*  mProgressDialog = ProgressDialog.show(ReservActivity.this, "",
+                                mProgressDialog = ProgressDialog.show(ReservActivity.this, "",
                                         "결제중입니다.", true);
                                 mHandler.postDelayed(new Runnable() {
                                     @Override
@@ -133,15 +130,13 @@ public class ReservActivity extends AppCompatActivity {
                                             if (mProgressDialog != null && mProgressDialog.isShowing()) {
                                                 mProgressDialog.dismiss();
                                                 Toast.makeText(ReservActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
-                                                new UnreservedSeatTask().execute(Sector);
                                             }
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
                                     }
-                                }, 1000);*/
+                                }, 1000);
                                 new UnreservedSeatTask().execute("3루 외야그린석");
-                                /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
                                 finish();
                             }
                         });
@@ -180,7 +175,6 @@ public class ReservActivity extends AppCompatActivity {
                                     }
                                 }, 1000); */
                                 new UnreservedSeatTask().execute("1루 외야그린석");
-                              /*  ((OmniApplication)getApplicationContext()).setSeat_zone("1루 외야그린석");*/
                                 finish();
                             }
                         });
