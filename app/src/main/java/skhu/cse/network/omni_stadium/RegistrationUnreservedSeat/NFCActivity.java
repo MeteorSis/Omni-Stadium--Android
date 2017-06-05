@@ -228,7 +228,7 @@ public class NFCActivity extends AppCompatActivity {
                 body = new String(msg.getRecords()[0].getPayload());
                 try {
                     jsonBody = new JSONObject(body);
-                    if (((OmniApplication) getApplicationContext()).getSeat_zone().equals(jsonBody.getString("zone")) && ((OmniApplication) getApplicationContext()).getSeat_no().equals(jsonBody.getInt("seat_no"))) {//티켓 정보에서 가져와서 비교하도록 수정해야함
+                    if (((OmniApplication) getApplicationContext()).getSeat_zone().equals(jsonBody.getString("zone")) && ((OmniApplication) getApplicationContext()).getSeat_no() == jsonBody.getInt("seat_no")) {//티켓 정보에서 가져와서 비교하도록 수정해야함
                         toast("동일한 좌석입니다.");
                         finish();
                     } else {
