@@ -290,6 +290,9 @@ public class DetailReservActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Toast.makeText(DetailReservActivity.this, msg , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 }
             } catch (Exception e) {
             }
