@@ -26,35 +26,32 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2017.06.02"
                 android:textColor="#FFFFFF"
                 android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/tvDayOfTheWeek"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_toEndOf="@id/tvDate"
-                android:layout_alignBaseline="@id/tvDate"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
                 android:background="@android:drawable/editbox_background"
                 android:gravity="center"
-                android:text="수"
                 android:textColor="#373737"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
         </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_Date"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
             android:id="@+id/tvPlace"
             android:text="고척야구장"
             android:textSize="25dp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:layout_below="@+id/layout_Date"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
             android:layout_width="140dp"
@@ -134,8 +131,154 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7">
-
+        android:layout_weight="7"
+        android:padding="25dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="티켓 번호"
+                    android:id="@+id/tvTicketNoInfo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBaseline="@id/tvTicketNoInfo"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/tvTicketNo"
+                    android:textSize="18dp"/>
+                <View
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="#b8b8b8"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="예매자"
+                    android:id="@+id/tvOwnerInfo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBaseline="@id/tvOwnerInfo"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/tvOwner"
+                    android:textSize="18dp"/>
+                <View
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="#b8b8b8"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="구역"
+                    android:id="@+id/tvZoneInfo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBaseline="@id/tvZoneInfo"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/tvZone"
+                    android:textSize="18dp"/>
+                <View
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="#b8b8b8"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="열"
+                    android:id="@+id/tvRowInfo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBaseline="@id/tvRowInfo"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/tvRow"
+                    android:textSize="18dp"/>
+                <View
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="#b8b8b8"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="좌석 번호"
+                    android:id="@+id/tvSeatNoInfo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignBaseline="@id/tvSeatNoInfo"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/tvSeatNo"
+                    android:textSize="18dp"/>
+                <View
+                    style="@style/Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="#b8b8b8"/>
+            </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
 
