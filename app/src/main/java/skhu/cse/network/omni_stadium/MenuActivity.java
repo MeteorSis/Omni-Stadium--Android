@@ -1,5 +1,6 @@
 package skhu.cse.network.omni_stadium;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -8,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -32,12 +35,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawer;
     private BackPressCloseHandler backPressCloseHandler;
+    private OmniApplication omniApplication;
 
     static final int REQ_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
+        omniApplication=(OmniApplication)getApplicationContext();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,13 +83,28 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+
+        if(omniApplication.getTicket_no()==null)
+        {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(MenuActivity.this);
+            dlg.setMessage("구매한 티켓이 없습니다. 예매 페이지로 이동합니다.");
+            dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent tintent = new Intent(omniApplication, ReservActivity.class);
+                    startActivity(tintent);
+                }
+            });
+            dlg.setCancelable(true);
+            dlg.show();
+        }
+
         TextView tvTicketNo=(TextView)findViewById(R.id.tvTicketNo);
         TextView tvOwner=(TextView)findViewById(R.id.tvOwner);
         TextView tvZone=(TextView)findViewById(R.id.tvZone);
         TextView tvRow=(TextView)findViewById(R.id.tvRow);
         TextView tvSeatNo=(TextView)findViewById(R.id.tvSeatNo);
 
-        OmniApplication omniApplication=(OmniApplication)getApplicationContext();
         Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
         Integer ticket_no=omniApplication.getTicket_no();
         if(ticket_no!=null)
@@ -161,28 +182,49 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.nav_streaming:
-                Intent intent = new Intent(getApplicationContext(), MultiVideoActivity.class);
-                startActivity(intent);
+                if(omniApplication.getTicket_no()!=null)
+                {
+                    Intent intent = new Intent(omniApplication, MultiVideoActivity.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(omniApplication, "티켓을 구매해야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_ticket:
-                Intent tintent = new Intent(getApplicationContext(), ReservActivity.class);
+                Intent tintent = new Intent(omniApplication, ReservActivity.class);
                 startActivity(tintent);
                 break;
             case R.id.nav_nfc:
-                Intent nintent = new Intent(getApplicationContext(), NFCActivity.class);
-                /********** dummy ***********/
-                nintent.putExtra("Sector","3루 외야그린석");
-                /********** dummy ***********/
-                startActivity(nintent);
+                if(omniApplication.getTicket_no()!=null)
+                {
+                    Intent nintent = new Intent(omniApplication, NFCActivity.class);
+                    /********** dummy ***********/
+                    nintent.putExtra("Sector","3루 외야그린석");
+                    /********** dummy ***********/
+                    startActivity(nintent);
+                }
+                else
+                {
+                    Toast.makeText(omniApplication, "티켓을 구매해야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.nav_order:
-                Intent ointent = new Intent(getApplicationContext(), OrderActivity.class);
-                startActivity(ointent);
+                if(omniApplication.getTicket_no()!=null)
+                {
+                    Intent ointent = new Intent(omniApplication, OrderActivity.class);
+                    startActivity(ointent);
+                }
+                else
+                {
+                    Toast.makeText(omniApplication, "티켓을 구매해야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.nav_mypage:
-                Intent mintent = new Intent(getApplicationContext(), MyPageActivity.class);
+                Intent mintent = new Intent(omniApplication, MyPageActivity.class);
                 startActivityForResult(mintent, REQ_CODE);
                 break;
         }

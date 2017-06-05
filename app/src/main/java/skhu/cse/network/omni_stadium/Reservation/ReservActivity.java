@@ -44,7 +44,6 @@ public class ReservActivity extends AppCompatActivity {
 
     private Bitmap bitmap_ZoomView;
     private CustomZoomView zoomView;
-    private Handler mHandler;
     private ProgressDialog mProgressDialog;
     static final int REQ_CODE = 1;
 
@@ -115,7 +114,6 @@ public class ReservActivity extends AppCompatActivity {
                         //왼쪽 위 그린 영역
                         Log.v("Event Test", "왼쪽 위 그린 영역");
                         /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
-                        mHandler = new Handler(); //프로그레스 다이얼로그를 위한 핸들러 생성
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
                         dlg.setTitle("");
                         dlg.setMessage("3루 외야그린석을 예매 하시겠습니까?");
@@ -151,7 +149,6 @@ public class ReservActivity extends AppCompatActivity {
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 1) {
                         //오른쪽 위 그린 영역
                         Log.v("Event Test", "오른쪽 위 그린 영역");
-                        mHandler = new Handler(); //프로그레스 다이얼로그를 위한 핸들러 생성
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
                         dlg.setTitle("");
                         dlg.setMessage("1루 외야그린석을 예매 하시겠습니까?");
