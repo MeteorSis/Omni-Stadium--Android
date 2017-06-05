@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -48,6 +49,14 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         ImageView imgView_Nav_header_menu=(ImageView)navHeaderView.findViewById(R.id.imgView_Nav_header_menu);
         Glide.with(this).load(R.drawable.omni_stadium_logo).into(imgView_Nav_header_menu);
+
+        TextView tvAppName=(TextView)findViewById(R.id.tvAppName);
+        tvAppName.setSelected(true);
+
+        ImageView ivLogo1=(ImageView)findViewById(R.id.ivLogo1);
+        ImageView ivLogo2=(ImageView)findViewById(R.id.ivLogo2);
+        Glide.with(this).load(R.drawable.heroes_emblem).into(ivLogo1);
+        Glide.with(this).load(R.drawable.doosan_emblem).into(ivLogo2);
 
         backPressCloseHandler = new BackPressCloseHandler(this);
     }

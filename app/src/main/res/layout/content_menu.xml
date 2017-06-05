@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
@@ -7,140 +7,137 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="skhu.cse.network.omni_stadium.MenuActivity"
-    tools:showIn="@layout/app_bar_menu">
-
-    <TextView
-        android:id="@+id/tvtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="[티켓정보]"
-        android:textStyle="bold" />
-
-    <TableLayout
-        android:id="@+id/tableLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tvtitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="200dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/table_border"
-        android:stretchColumns="2">
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/tvticket_idname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="티켓번호"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvticket_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="105dp"
-                android:text="30" />
-
-        </TableRow>
-
-        <TableRow android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/tvuser_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="예매자"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvbname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
-                android:text="신솔비" />
-        </TableRow>
-
-
-        <TableRow android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/tvsector_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="구역"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvsector_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
-                android:text="중앙 블루석A " />
-        </TableRow>
-
-        <TableRow android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/tvrow_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="열"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvrow_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
-                android:text="1열" />
-        </TableRow>
-
-        <TableRow android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/tvseat_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="좌석"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvseat_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
-                android:text="1석" />
-        </TableRow>
-
-
-    </TableLayout>
+    tools:showIn="@layout/app_bar_menu"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="#373737">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/layout_Date">
 
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017.06.02"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/tvDayOfTheWeek"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/tvDate"
+                android:layout_alignBaseline="@id/tvDate"
+                android:layout_marginStart="8dp"
+                android:background="@android:drawable/editbox_background"
+                android:gravity="center"
+                android:text="수"
+                android:textColor="#373737"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_Date"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tvPlace"
+            android:text="고척야구장"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_below="@id/layout_Date"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/ivLogo1" />
+
+        <ImageView
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/ivLogo2"
+            android:layout_alignTop="@id/ivLogo1"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tvPlace"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvVS"
+            android:text="VS"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="#e6e6e6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tvVS"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvTime"
+            android:text="18:30"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#e6e6e6"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F0F0F0">
         <View
-            android:id="@+id/view5"
-            android:layout_width="0.4dp"
-            android:layout_height="215dp"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentTop="false"
-            android:layout_centerInParent="false"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="102dp"
-            android:background="#131212"
-            android:visibility="visible" />
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="#808080"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="Omni-Stadium                      Omni-Stadium                      Omni-Stadium"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold|italic"
+            android:textSize="20dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/tvAppName"/>
+        <View
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#808080"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
 
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>
 
 
 
