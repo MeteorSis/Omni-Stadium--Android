@@ -122,7 +122,7 @@ public class ReservActivity extends AppCompatActivity {
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                mProgressDialog = ProgressDialog.show(ReservActivity.this, "",
+                             /*   mProgressDialog = ProgressDialog.show(ReservActivity.this, "",
                                         "결제중입니다.", true);
                                 mHandler.postDelayed(new Runnable() {
                                     @Override
@@ -136,7 +136,7 @@ public class ReservActivity extends AppCompatActivity {
                                             e.printStackTrace();
                                         }
                                     }
-                                }, 1000);
+                                }, 1000);*/
                                 new UnreservedSeatTask().execute("3루 외야그린석");
                             }
                         });
