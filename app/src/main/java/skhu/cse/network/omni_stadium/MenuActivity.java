@@ -28,7 +28,7 @@ import java.util.Locale;
 import skhu.cse.network.omni_stadium.MyPage.MyPageActivity;
 import skhu.cse.network.omni_stadium.Ordering.OrderActivity;
 import skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity;
-import skhu.cse.network.omni_stadium.Reservation.ReservActivity;
+import skhu.cse.network.omni_stadium.Reservation.ReserveActivity;
 import skhu.cse.network.omni_stadium.Streaming.MultiVideoActivity;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -91,7 +91,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent tintent = new Intent(omniApplication, ReservActivity.class);
+                    Intent tintent = new Intent(omniApplication, ReserveActivity.class);
                     startActivity(tintent);
                 }
             });
@@ -193,7 +193,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             case R.id.nav_ticket:
-                Intent tintent = new Intent(omniApplication, ReservActivity.class);
+                Intent tintent = new Intent(omniApplication, ReserveActivity.class);
                 startActivity(tintent);
                 break;
             case R.id.nav_nfc:
