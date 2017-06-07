@@ -336,7 +336,7 @@ public class NFCActivity extends AppCompatActivity {
                     ((OmniApplication) getApplicationContext()).setSeat_row(jsonBody.getInt("row"));
                     ((OmniApplication) getApplicationContext()).setSeat_zone(jsonBody.getString("zone"));
                     toast(msg);
-                    Log.d("body", body);
+                    finish();
                 } else {
                     toast(msg);
                     finish();

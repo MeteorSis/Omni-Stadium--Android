@@ -93,7 +93,11 @@ public class MyPageActivity extends AppCompatActivity {
                                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //AsyncTask
+                                        String seat_zone = ((OmniApplication) getApplicationContext()).getSeat_zone();
+                                        if (seat_zone.equals("1루 외야그린석") || seat_zone.equals("3루 외야그린석"))
+                                            new UnreservedSeat_ClearTask().execute(mem_id, Integer.toString(((OmniApplication) getApplicationContext()).getTicket_no()));
+                                        else
+                                            Toast.makeText(MyPageActivity.this, "자유석 티켓이 아닙니다.", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .setNegativeButton("취소", null)
@@ -104,7 +108,7 @@ public class MyPageActivity extends AppCompatActivity {
                                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //AsyncTask
+                                        new TicketRefundTask().execute(mem_id);
                                     }
                                 })
                                 .setNegativeButton("취소", null)
@@ -309,8 +313,7 @@ public class MyPageActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과");
                 if (result != 0) {
                     Toast.makeText(MyPageActivity.this, "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Toast.makeText(MyPageActivity.this, "회원탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
@@ -423,6 +426,7 @@ public class MyPageActivity extends AppCompatActivity {
 
                 JSONObject outJson = new JSONObject();
                 outJson.put("아이디", params[0]);
+                outJson.put("티켓번호", params[1]);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -452,7 +456,8 @@ public class MyPageActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 if (result == 0) {
                     Toast.makeText(MyPageActivity.this, "자유석 해제에 성공했습니다.", Toast.LENGTH_SHORT).show();
-                    ((OmniApplication) getApplicationContext()).setMem_id(null);
+                    ((OmniApplication) getApplicationContext()).setSeat_row(null);
+                    ((OmniApplication) getApplicationContext()).setSeat_no(null);
                 } else {
                     Toast.makeText(MyPageActivity.this, "자유석 해제에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                 }
@@ -470,7 +475,7 @@ public class MyPageActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/Buying");
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/Refund");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -515,15 +520,15 @@ public class MyPageActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
+                String msg = jsonObject.getString("메시지");
                 if (result == 0) {
-                    ((OmniApplication)getApplicationContext()).setSeat_zone(null);
-                    ((OmniApplication)getApplicationContext()).setSeat_no(null);
-                    // 예매가 완료된 좌석의 상태 변경
-                    /*btArr[seat_no].setEnabled(false);
-                    btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));*/
-                    Toast.makeText(MyPageActivity.this, "티켓환불에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                    ((OmniApplication) getApplicationContext()).setTicket_no(null);
+                    ((OmniApplication) getApplicationContext()).setSeat_zone(null);
+                    ((OmniApplication) getApplicationContext()).setSeat_row(null);
+                    ((OmniApplication) getApplicationContext()).setSeat_no(null);
+                    Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MyPageActivity.this, "티켓환불에 실패했습니다. 다시 시도해주세요." , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
             }
