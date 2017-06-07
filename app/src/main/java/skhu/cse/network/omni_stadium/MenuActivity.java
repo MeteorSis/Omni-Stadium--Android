@@ -1,10 +1,13 @@
 package skhu.cse.network.omni_stadium;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,7 +32,7 @@ import java.util.Locale;
 import skhu.cse.network.omni_stadium.MyPage.MyPageActivity;
 import skhu.cse.network.omni_stadium.Ordering.OrderActivity;
 import skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity;
-import skhu.cse.network.omni_stadium.Reservation.ReservActivity;
+import skhu.cse.network.omni_stadium.Reservation.ReserveActivity;
 import skhu.cse.network.omni_stadium.Streaming.MultiVideoActivity;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +40,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private BackPressCloseHandler backPressCloseHandler;
     private OmniApplication omniApplication;
+    private CustomActionBarDrawerToggle toggle;
+    private NavigationView navView;
 
     static final int REQ_CODE = 1;
     @Override
@@ -48,12 +54,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new CustomActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        navView = (NavigationView) findViewById(R.id.nav_view);
 
         navView.setNavigationItemSelectedListener(this);
         navView.setItemIconTintList(null);
@@ -81,6 +86,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        toggle.syncState();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -91,10 +102,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent tintent = new Intent(omniApplication, ReservActivity.class);
+                    Intent tintent = new Intent(omniApplication, ReserveActivity.class);
                     startActivity(tintent);
                 }
             });
+            dlg.setNegativeButton("취소", null);
             dlg.setCancelable(true);
             dlg.show();
         }
@@ -177,7 +189,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
         switch (id) {
@@ -193,16 +204,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             case R.id.nav_ticket:
-                Intent tintent = new Intent(omniApplication, ReservActivity.class);
+                Intent tintent = new Intent(omniApplication, ReserveActivity.class);
                 startActivity(tintent);
                 break;
             case R.id.nav_nfc:
                 if(omniApplication.getTicket_no()!=null)
                 {
                     Intent nintent = new Intent(omniApplication, NFCActivity.class);
-                    /********** dummy ***********/
-                    nintent.putExtra("Sector","3루 외야그린석");
-                    /********** dummy ***********/
                     startActivity(nintent);
                 }
                 else
@@ -228,11 +236,27 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 startActivityForResult(mintent, REQ_CODE);
                 break;
         }
-
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle
+    {
+        public CustomActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout, Toolbar toolbar, @StringRes int openDrawerContentDescRes, @StringRes int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, toolbar, openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
+
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            Menu menu=navView.getMenu();
+            for(int i=0; i<menu.size(); ++i)
+            {
+                MenuItem menuItem=menu.getItem(i);
+                if(menuItem.isChecked())
+                    menuItem.setChecked(false);
+            }
+            super.onDrawerClosed(drawerView);
+        }
     }
 
     @Override

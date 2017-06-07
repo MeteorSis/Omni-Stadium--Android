@@ -87,7 +87,7 @@
         <activity
             android:name=".Reservation.ReservActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="좌석예매 기능"
+            android:label="티켓 예매 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -11,7 +11,7 @@
 
         <item
             android:id="@+id/nav_ticket"
-            android:title="예매 기능"
+            android:title="티켓 예매 기능"
             android:icon="@drawable/ic_ticket_image"
             android:checkable="true"/>
 
