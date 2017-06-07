@@ -85,15 +85,15 @@
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Reservation.ReservActivity"
+            android:name=".Reservation.ReserveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="티켓 예매 기능"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Reservation.DetailReservActivity"
+            android:name=".Reservation.DetailReserveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:parentActivityName=".Reservation.ReservActivity"
+            android:parentActivityName=".Reservation.ReserveActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MyPage.MyPageActivity"

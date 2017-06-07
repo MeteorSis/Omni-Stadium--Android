@@ -16,7 +16,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
@@ -27,13 +26,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import skhu.cse.network.omni_stadium.MainActivity;
-import skhu.cse.network.omni_stadium.MenuActivity;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
 
-public class DetailReservActivity extends AppCompatActivity {
+public class DetailReserveActivity extends AppCompatActivity {
     private String value;
     private boolean isCheckedInArr = false;
     private ToggleButton tempTB;
@@ -84,7 +81,7 @@ public class DetailReservActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isCheckedInArr) {
-                    AlertDialog.Builder dlg = new AlertDialog.Builder(DetailReservActivity.this);
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(DetailReserveActivity.this);
                     dlg.setTitle("예매 정보");
                     dlg.setMessage("해당 좌석을 결제 하시겠습니까?");
 
@@ -284,12 +281,12 @@ public class DetailReservActivity extends AppCompatActivity {
                     // 예매가 완료된 좌석의 상태 변경
                     btArr[seat_no].setEnabled(false);
                     btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
-                    Toast.makeText(DetailReservActivity.this,msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailReserveActivity.this,msg, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 } else {
-                    Toast.makeText(DetailReservActivity.this, msg , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailReserveActivity.this, msg , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     setResult(Activity.RESULT_OK, intent);
                     finish();

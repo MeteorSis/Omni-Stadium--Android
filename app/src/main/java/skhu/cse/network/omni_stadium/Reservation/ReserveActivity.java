@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +19,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -40,7 +38,7 @@ import pl.polidea.view.ZoomView;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
-public class ReservActivity extends AppCompatActivity {
+public class ReserveActivity extends AppCompatActivity {
 
     private Bitmap bitmap_ZoomView;
     private CustomZoomView zoomView;
@@ -61,8 +59,8 @@ public class ReservActivity extends AppCompatActivity {
         zoomView.setMaxZoom(4f); // 줌 Max 배율 설정  1f 로 설정하면 줌 안됩니다.
         ConstraintLayout container = (ConstraintLayout) findViewById(R.id.container);
         container.addView(zoomView);
-        Glide.with(ReservActivity.this).load(R.drawable.noun_1018844_cc).into((ImageView) findViewById(R.id.ivzoom_info));
-        Glide.with(ReservActivity.this).load(R.drawable.seatimageview).into((ImageView) findViewById(R.id.ivseat));
+        Glide.with(ReserveActivity.this).load(R.drawable.noun_1018844_cc).into((ImageView) findViewById(R.id.ivzoom_info));
+        Glide.with(ReserveActivity.this).load(R.drawable.seatimageview).into((ImageView) findViewById(R.id.ivseat));
 
         zoomView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -76,37 +74,37 @@ public class ReservActivity extends AppCompatActivity {
                     Log.v("Pixel", redPixel + ", " + greenPixel + ", " + bluePixel);
                     if (redPixel == 0 && greenPixel == 94 && bluePixel == 221) {
                         //가운데 연파랑 영역
-                        Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "중앙 블루석A");
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "가운데 연파랑 영역");
                     } else if (redPixel == 221 && greenPixel == 0 && bluePixel == 42) {
                         //아래 왼쪽 빨강 영역
-                        Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "3루 레드석");
                         startActivity(intent);
                         Log.v("Event Test", "아래 왼쪽 빨강 영역");
                     } else if (redPixel == 221 && greenPixel == 1 && bluePixel == 42) {
                         //아래 오른쪽 빨강 영역
-                        Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "1루 레드석");
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 오른쪽 빨강 영역");
                     } else if (redPixel == 36 && greenPixel == 41 && bluePixel == 172) {
                         //가운데 진파랑 영역
-                        Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "중앙 블루석B");
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "가운데 진파랑 영역");
                     } else if (redPixel == 36 && greenPixel == 40 && bluePixel == 83) {
                         //아래 왼쪽 남색 영역
-                        Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "3루 네이비석");
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 왼쪽 남색 영역");
                     } else if (redPixel == 36 && greenPixel == 41 && bluePixel == 83) {
                         //아래 오른쪽 남색 영역
-                        Intent intent = new Intent(getApplicationContext(), DetailReservActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "1루 네이비석");
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 오른쪽 남색 영역");
@@ -114,13 +112,13 @@ public class ReservActivity extends AppCompatActivity {
                         //왼쪽 위 그린 영역
                         Log.v("Event Test", "왼쪽 위 그린 영역");
                         /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
-                        AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
                         dlg.setTitle("");
                         dlg.setMessage("3루 외야그린석을 예매 하시겠습니까?");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                             /*   mProgressDialog = ProgressDialog.show(ReservActivity.this, "",
+                             /*   mProgressDialog = ProgressDialog.show(ReserveActivity.this, "",
                                         "결제중입니다.", true);
                                 mHandler.postDelayed(new Runnable() {
                                     @Override
@@ -128,7 +126,7 @@ public class ReservActivity extends AppCompatActivity {
                                         try {
                                             if (mProgressDialog != null && mProgressDialog.isShowing()) {
                                                 mProgressDialog.dismiss();
-                                                Toast.makeText(ReservActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ReserveActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
                                             }
                                         } catch (Exception e) {
                                             e.printStackTrace();
@@ -149,13 +147,13 @@ public class ReservActivity extends AppCompatActivity {
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 1) {
                         //오른쪽 위 그린 영역
                         Log.v("Event Test", "오른쪽 위 그린 영역");
-                        AlertDialog.Builder dlg = new AlertDialog.Builder(ReservActivity.this);
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
                         dlg.setTitle("");
                         dlg.setMessage("1루 외야그린석을 예매 하시겠습니까?");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                              /*  mProgressDialog = ProgressDialog.show(ReservActivity.this, "",
+                              /*  mProgressDialog = ProgressDialog.show(ReserveActivity.this, "",
                                         "결제중입니다.", true);
                                 mHandler.postDelayed(new Runnable() {
                                     @Override
@@ -163,7 +161,7 @@ public class ReservActivity extends AppCompatActivity {
                                         try {
                                             if (mProgressDialog != null && mProgressDialog.isShowing()) {
                                                 mProgressDialog.dismiss();
-                                                Toast.makeText(ReservActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ReserveActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
                                                 new UnreservedSeatTask().execute(Sector);
                                             }
                                         } catch (Exception e) {
@@ -272,14 +270,14 @@ public class ReservActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
-                    Toast.makeText(ReservActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReserveActivity.this, msg, Toast.LENGTH_SHORT).show();
                     OmniApplication omniApplication=(OmniApplication)getApplicationContext();
                     omniApplication.setTicket_no(jsonObject.getInt("티켓"));
                     omniApplication.setSeat_zone(zone);
                     Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
                     finish();
                 } else {
-                    Toast.makeText(ReservActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReserveActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
             }

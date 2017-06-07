@@ -20,6 +20,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -53,7 +54,7 @@ public class NFCActivity extends AppCompatActivity {
     private boolean isNewMode = false;//자유석 좌석 신규등록 모드
 
     //좌석 현황 갱신에 필요한 변수
-    private String zone = "1루 외야그린석";
+    private String zone;
     private ToggleButton btArr[];
 
     @Override
@@ -61,9 +62,14 @@ public class NFCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_main);
 
+        zone = ((OmniApplication)getApplicationContext()).getSeat_zone();
+
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
+
+        TextView tvZone = (TextView)findViewById(R.id.tvNFCMain);
+        tvZone.setText(zone);
 
         //이 액티비티에서 수신된 모든 NFC 인텐트를 처리
         mNfcPendingIntent = PendingIntent.getActivity(this, 0,
