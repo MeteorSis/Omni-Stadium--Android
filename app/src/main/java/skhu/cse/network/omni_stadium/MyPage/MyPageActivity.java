@@ -95,7 +95,7 @@ public class MyPageActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         String seat_zone = ((OmniApplication) getApplicationContext()).getSeat_zone();
                                         if (seat_zone.equals("1루 외야그린석") || seat_zone.equals("3루 외야그린석"))
-                                            new UnreservedSeat_ClearTask().execute(mem_id, Integer.toString(((OmniApplication) getApplicationContext()).getTicket_no()));
+                                            new UnreservedSeat_ClearTask().execute(mem_id);
                                         else
                                             Toast.makeText(MyPageActivity.this, "자유석 티켓이 아닙니다.", Toast.LENGTH_SHORT).show();
                                     }
@@ -408,7 +408,7 @@ public class MyPageActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/FreeSeat");
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/FreeSeatClear");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -426,7 +426,6 @@ public class MyPageActivity extends AppCompatActivity {
 
                 JSONObject outJson = new JSONObject();
                 outJson.put("아이디", params[0]);
-                outJson.put("티켓번호", params[1]);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -454,12 +453,13 @@ public class MyPageActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
+                String msg = jsonObject.getString("메시지");
                 if (result == 0) {
-                    Toast.makeText(MyPageActivity.this, "자유석 해제에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
                     ((OmniApplication) getApplicationContext()).setSeat_row(null);
                     ((OmniApplication) getApplicationContext()).setSeat_no(null);
                 } else {
-                    Toast.makeText(MyPageActivity.this, "자유석 해제에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
             }

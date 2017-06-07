@@ -62,8 +62,6 @@ public class NFCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_main);
 
-        zone = ((OmniApplication)getApplicationContext()).getSeat_zone();
-
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
@@ -90,7 +88,7 @@ public class NFCActivity extends AppCompatActivity {
             int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");
             btArr[i] = (ToggleButton) findViewById(resource);
         }
-        new UpdateSeatsTask().execute(zone);
+        //new UpdateSeatsTask().execute(zone);
     }
 
     @Override
@@ -134,6 +132,9 @@ public class NFCActivity extends AppCompatActivity {
             setIntent(new Intent());//이 인텐트를 삭제한다.
         }
         enableNdefExchangeMode();
+
+        zone = ((OmniApplication)getApplicationContext()).getSeat_zone();
+        new UpdateSeatsTask().execute(zone);
     }
 
     @Override
