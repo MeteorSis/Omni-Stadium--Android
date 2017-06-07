@@ -210,8 +210,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_nfc:
                 if(omniApplication.getTicket_no()!=null)
                 {
-                    Intent nintent = new Intent(omniApplication, NFCActivity.class);
-                    startActivity(nintent);
+                    if(omniApplication.getSeat_zone().equals("1루 외야그린석") || omniApplication.getSeat_zone().equals("3루 외야그린석"))
+                    {
+                        Intent nintent = new Intent(omniApplication, NFCActivity.class);
+                        startActivity(nintent);
+                    }
+                    else
+                    {
+                        Toast.makeText(omniApplication, "구매한 티켓은 자유석 티켓이 아닙니다.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
