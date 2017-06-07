@@ -229,8 +229,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_order:
                 if(omniApplication.getTicket_no()!=null)
                 {
-                    Intent ointent = new Intent(omniApplication, OrderActivity.class);
-                    startActivity(ointent);
+                    if(omniApplication.getSeat_no()!=null)
+                    {
+                        Intent ointent = new Intent(omniApplication, OrderActivity.class);
+                        startActivity(ointent);
+                    }
+                    else
+                        Toast.makeText(omniApplication, "자유석을 등록하셔야 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
