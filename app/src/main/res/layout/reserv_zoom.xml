@@ -5,54 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ivseat"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:id="@+id/tvsector_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="149dp"
         android:layout_marginTop="42dp"
         android:text="구역을 선택하세요"
+        android:textSize="20dp"
         android:textStyle="bold"/>
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/ivseat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true" />
 
-        <TextView
-            android:id="@+id/tvzoom_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="false"
-            android:layout_centerVertical="false"
-            android:layout_marginTop="450dp"
-            android:text="확대보기가 가능합니다"
-            android:textColorLink="@android:color/holo_blue_light"
-            android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvsector_msg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp">
 
         <ImageView
             android:id="@+id/ivzoom_info"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignBottom="@+id/tvzoom_info"
-            android:layout_centerInParent="false"
-            android:layout_marginBottom="-15dp"
-            android:layout_marginLeft="75dp"
-            android:layout_toStartOf="@+id/tvzoom_info"
-            android:elevation="1dp" />
-    </RelativeLayout>
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
 
+        <TextView
+            android:id="@+id/tvzoom_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/ivzoom_info"
+            android:text="확대보기가 가능합니다"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
 </RelativeLayout>
