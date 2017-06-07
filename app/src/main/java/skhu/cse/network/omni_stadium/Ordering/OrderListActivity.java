@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import skhu.cse.network.omni_stadium.MainActivity;
+import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 import skhu.cse.network.omni_stadium.ViewHolderHelper;
 
@@ -113,7 +115,7 @@ public class OrderListActivity extends AppCompatActivity {
             JSONObject getJSON = null;
 
             try {
-                url = new URL("http://192.168.63.25:51223/AndroidClientFoodOrderRequestPost");
+                url = new URL("http://192.168.63.25:51223/AndroidClientFoodOrderRequestPost/Order");
                 httpCon = (HttpURLConnection) url.openConnection();
 
                 httpCon.setRequestMethod("POST");
@@ -129,7 +131,9 @@ public class OrderListActivity extends AppCompatActivity {
                 //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 httpCon.setRequestProperty("Content-Type", "application/json");
 
-                JSONArray outJsonArr = new JSONArray();
+                JSONObject outJson = new JSONObject();
+                outJson.put("아이디", ((OmniApplication)getApplicationContext()).getMem_id());
+                JSONArray orderListJSONArr=new JSONArray();
                 for(int i=0; i<params[0].size(); ++i)
                 {
                     OrderItem item=params[0].get(i);
@@ -139,11 +143,12 @@ public class OrderListActivity extends AppCompatActivity {
                     childJSONObject.put("menu_id", item.getMenu_id()+1);
                     childJSONObject.put("menu_count", item.getMenu_count());
 
-                    outJsonArr.put(childJSONObject);
+                    orderListJSONArr.put(childJSONObject);
                 }
+                outJson.put("리스트", orderListJSONArr);
 
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
-                out.write(outJsonArr.toString().getBytes("UTF-8"));
+                out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
 
                 int responseCode = httpCon.getResponseCode();
@@ -158,6 +163,7 @@ public class OrderListActivity extends AppCompatActivity {
                     getJSON = new JSONObject(result.toString());
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 httpCon.disconnect();
             }
@@ -170,18 +176,18 @@ public class OrderListActivity extends AppCompatActivity {
             try
             {
                 int result=jsonObject.getInt("결과");
-                if(result==1)
+                if(result==0)
                 {
                     Toast.makeText(OrderListActivity.this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else
                 {
-                    Toast.makeText(OrderListActivity.this, "재고가 없는 상품이 있습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderListActivity.this, "주문이 실패하였습니다.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }
