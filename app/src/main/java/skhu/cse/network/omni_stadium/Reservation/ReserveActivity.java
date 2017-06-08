@@ -82,7 +82,7 @@ public class ReserveActivity extends AppCompatActivity {
                         //아래 왼쪽 빨강 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "3루 레드석");
-                        startActivity(intent);
+                        startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 왼쪽 빨강 영역");
                     } else if (redPixel == 221 && greenPixel == 1 && bluePixel == 42) {
                         //아래 오른쪽 빨강 영역
