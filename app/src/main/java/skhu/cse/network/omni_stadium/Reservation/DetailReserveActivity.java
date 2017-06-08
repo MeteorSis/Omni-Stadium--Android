@@ -89,10 +89,8 @@ public class DetailReserveActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             row = Character.getNumericValue(charRow);
-                            seat_no = Integer.parseInt(chSq_seat_no.toString());
-
+                            seat_no= Integer.parseInt(chSq_seat_no.toString())-1;
                             new TicketBuyingTask().execute(mem_id, value, String.valueOf(row), String.valueOf(seat_no));
-                          /*  Toast.makeText(getApplicationContext(), "결제가 완료 되었습니다.\n" + row + "열 " + seat_no + "석", Toast.LENGTH_SHORT).show();*/
                         }
                     });
                     dlg.setCancelable(false);
