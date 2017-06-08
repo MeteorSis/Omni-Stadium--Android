@@ -246,14 +246,15 @@ public class SignUpActivity extends AppCompatActivity{
             super.onPostExecute(jsonObject);
             try {
                 int result = jsonObject.getInt("결과");
+                String msg = jsonObject.getString("메시지");
                 if (result == 0 ) {
-                    Toast.makeText(SignUpActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                else if(result ==1){
-                    Toast.makeText(SignUpActivity.this, "아이디 혹은 비밀번호가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
+                else if(result == 1){
+                    Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }else
-                    Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
             }
         }
