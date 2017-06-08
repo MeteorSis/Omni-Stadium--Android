@@ -71,8 +71,8 @@ public class CartActivity extends AppCompatActivity {
             if(convertView==null)
             {
                 convertView=getLayoutInflater().inflate(R.layout.cart_list_child, null);
-                Button btRemoveItem=(Button)convertView.findViewById(R.id.btRemoveItem);
-                btRemoveItem.setBackgroundResource(R.drawable.button_x);
+                //Button btRemoveItem=(Button)convertView.findViewById(R.id.btRemoveItem);
+                //btRemoveItem.setBackgroundResource(R.drawable.button_x);
             }
 
             final OrderItem item=getItem(position);

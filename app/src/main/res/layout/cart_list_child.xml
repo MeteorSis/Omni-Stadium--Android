@@ -15,14 +15,15 @@
         android:textStyle="bold"/>
 
     <Button
+        android:id="@+id/btRemoveItem"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_margin="8dp"
-        android:id="@+id/btRemoveItem"
+        android:layout_alignBaseline="@id/tvItemName"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_alignBaseline="@id/tvItemName"
-        android:background="@android:color/transparent"/>
+        android:layout_margin="8dp"
+        android:background="@drawable/button_x" />
 
     <TextView
         android:layout_width="wrap_content"
