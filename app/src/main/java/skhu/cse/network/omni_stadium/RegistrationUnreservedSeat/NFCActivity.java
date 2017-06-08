@@ -66,7 +66,9 @@ public class NFCActivity extends AppCompatActivity {
         mNote = ((EditText) findViewById(R.id.note));
         mNote.addTextChangedListener(mTextWatcher);
 
-        TextView tvZone = (TextView)findViewById(R.id.tvNFCMain);
+        zone = ((OmniApplication) getApplicationContext()).getSeat_zone();
+
+        TextView tvZone = (TextView) findViewById(R.id.tvNFCMain);
         tvZone.setText(zone);
 
         //이 액티비티에서 수신된 모든 NFC 인텐트를 처리
@@ -88,7 +90,7 @@ public class NFCActivity extends AppCompatActivity {
             int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");
             btArr[i] = (ToggleButton) findViewById(resource);
         }
-        //new UpdateSeatsTask().execute(zone);
+        new UpdateSeatsTask().execute(zone);
     }
 
     @Override
@@ -103,10 +105,7 @@ public class NFCActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     //API 17 부터 NFC 설정 환경이 변경됨
-                                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN)
-                                        startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
-                                    else
-                                        startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                                    startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
                                 }
                             })
                     .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -132,9 +131,6 @@ public class NFCActivity extends AppCompatActivity {
             setIntent(new Intent());//이 인텐트를 삭제한다.
         }
         enableNdefExchangeMode();
-
-        zone = ((OmniApplication)getApplicationContext()).getSeat_zone();
-        new UpdateSeatsTask().execute(zone);
     }
 
     @Override
@@ -332,7 +328,7 @@ public class NFCActivity extends AppCompatActivity {
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {//좌석이 비어있어서 좌석이 등록됨
                     //setNoteBody(msg);
-                    setNoteBody("고객님의 좌석\n구역: " + jsonBody.getString("zone") + "\n열: " + jsonBody.getInt("row") + "\n좌석 번호: " + jsonBody.getInt("seat_no"));
+                    //setNoteBody("고객님의 좌석\n구역: " + jsonBody.getString("zone") + "\n열: " + jsonBody.getInt("row") + "\n좌석 번호: " + jsonBody.getInt("seat_no"));
                     ((OmniApplication) getApplicationContext()).setSeat_no(jsonBody.getInt("seat_no"));
                     ((OmniApplication) getApplicationContext()).setSeat_row(jsonBody.getInt("row"));
                     ((OmniApplication) getApplicationContext()).setSeat_zone(jsonBody.getString("zone"));
