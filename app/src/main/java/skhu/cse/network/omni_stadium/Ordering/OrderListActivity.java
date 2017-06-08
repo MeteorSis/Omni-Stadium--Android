@@ -1,5 +1,6 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import skhu.cse.network.omni_stadium.LoadingDialog;
 import skhu.cse.network.omni_stadium.MainActivity;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
@@ -39,6 +41,7 @@ import skhu.cse.network.omni_stadium.ViewHolderHelper;
 public class OrderListActivity extends AppCompatActivity {
 
     private CartManager cartManager;
+    private LoadingDialog lDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +59,13 @@ public class OrderListActivity extends AppCompatActivity {
         tvAllPrice.setText(strAllPrice);
 
         Button btOrder=(Button)findViewById(R.id.btOrder);
+
+        lDialog = new LoadingDialog(OrderListActivity.this, "결제중...");
+
         btOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                lDialog.show();
                 new OrderTask().execute(orderList);
             }
         });
@@ -134,6 +141,7 @@ public class OrderListActivity extends AppCompatActivity {
 
                 JSONObject outJson = new JSONObject();
                 outJson.put("아이디", ((OmniApplication)getApplicationContext()).getMem_id());
+                outJson.put("총액", cartManager.getAllPrice());
                 JSONArray orderListJSONArr=new JSONArray();
                 for(int i=0; i<params[0].size(); ++i)
                 {
@@ -149,6 +157,7 @@ public class OrderListActivity extends AppCompatActivity {
                 outJson.put("리스트", orderListJSONArr);
 
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                Log.v("outJson", outJson.toString());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
 
@@ -167,6 +176,11 @@ public class OrderListActivity extends AppCompatActivity {
                 e.printStackTrace();
             } finally {
                 httpCon.disconnect();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             return getJSON;
         }
@@ -176,18 +190,26 @@ public class OrderListActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             try
             {
-                int result=jsonObject.getInt("결과");
-                if(result==0)
+                lDialog.dismiss();
+                if(jsonObject!=null)
                 {
-                    Toast.makeText(OrderListActivity.this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    int result = jsonObject.getInt("결과");
+                    if (result == 0) {
+                        Toast.makeText(OrderListActivity.this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    } else {
+                        Toast.makeText(OrderListActivity.this, "주문이 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        setResult(RESULT_CANCELED, intent);
+                        finish();
+                    }
                 }
                 else
                 {
                     Toast.makeText(OrderListActivity.this, "주문이 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
+                    Intent intent = new Intent();
                     setResult(RESULT_CANCELED, intent);
                     finish();
                 }

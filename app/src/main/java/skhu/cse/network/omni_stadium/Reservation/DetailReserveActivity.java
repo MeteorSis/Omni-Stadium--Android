@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import skhu.cse.network.omni_stadium.LoadingDialog;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
@@ -41,6 +42,8 @@ public class DetailReserveActivity extends AppCompatActivity {
     private int seat_no;
     private ToggleButton btArr[];
     private String mem_id;
+    private LoadingDialog lDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,8 @@ public class DetailReserveActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             row = Character.getNumericValue(charRow);
                             seat_no= Integer.parseInt((chSq_seat_no).toString());
+                            lDialog = new LoadingDialog(DetailReserveActivity.this, "결제중...");
+                            lDialog.show();
                             new TicketBuyingTask().execute(mem_id, value, String.valueOf(row), String.valueOf(seat_no));
                         }
                     });
@@ -259,6 +264,11 @@ public class DetailReserveActivity extends AppCompatActivity {
             } catch (Exception e) {
             } finally {
                 httpCon.disconnect();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             return getJSON;
         }
@@ -267,6 +277,8 @@ public class DetailReserveActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
             try {
+                lDialog.dismiss();
+
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {

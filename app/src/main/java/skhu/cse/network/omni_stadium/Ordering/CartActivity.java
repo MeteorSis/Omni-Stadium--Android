@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import skhu.cse.network.omni_stadium.LoadingDialog;
 import skhu.cse.network.omni_stadium.R;
 import skhu.cse.network.omni_stadium.ViewHolderHelper;
 

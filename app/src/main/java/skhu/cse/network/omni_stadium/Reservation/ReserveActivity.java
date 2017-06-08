@@ -35,14 +35,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import pl.polidea.view.ZoomView;
+import skhu.cse.network.omni_stadium.LoadingDialog;
 import skhu.cse.network.omni_stadium.OmniApplication;
+import skhu.cse.network.omni_stadium.Ordering.OrderListActivity;
 import skhu.cse.network.omni_stadium.R;
 
 public class ReserveActivity extends AppCompatActivity {
 
     private Bitmap bitmap_ZoomView;
     private CustomZoomView zoomView;
-    private ProgressDialog mProgressDialog;
+    private LoadingDialog lDialog;
     static final int REQ_CODE = 1;
 
     @Override
@@ -114,25 +116,12 @@ public class ReserveActivity extends AppCompatActivity {
                         /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
                         dlg.setTitle("");
-                        dlg.setMessage("3루 외야그린석을 예매 하시겠습니까?");
+                        dlg.setMessage("3루 외야그린석을 결제하시겠습니까?");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                             /*   mProgressDialog = ProgressDialog.show(ReserveActivity.this, "",
-                                        "결제중입니다.", true);
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                                                mProgressDialog.dismiss();
-                                                Toast.makeText(ReserveActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }, 1000);*/
+                                lDialog = new LoadingDialog(ReserveActivity.this, "결제중...");
+                                lDialog.show();
                                 new UnreservedSeatTask().execute("3루 외야그린석");
                             }
                         });
@@ -149,26 +138,12 @@ public class ReserveActivity extends AppCompatActivity {
                         Log.v("Event Test", "오른쪽 위 그린 영역");
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
                         dlg.setTitle("");
-                        dlg.setMessage("1루 외야그린석을 예매 하시겠습니까?");
+                        dlg.setMessage("1루 외야그린석을 결제 하시겠습니까?");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                              /*  mProgressDialog = ProgressDialog.show(ReserveActivity.this, "",
-                                        "결제중입니다.", true);
-                                mHandler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                                                mProgressDialog.dismiss();
-                                                Toast.makeText(ReserveActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
-                                                new UnreservedSeatTask().execute(Sector);
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }, 1000); */
+                                lDialog = new LoadingDialog(ReserveActivity.this, "결제중...");
+                                lDialog.show();
                                 new UnreservedSeatTask().execute("1루 외야그린석");
                             }
                         });
@@ -259,6 +234,11 @@ public class ReserveActivity extends AppCompatActivity {
             } catch (Exception e) {
             } finally {
                 httpCon.disconnect();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             return getJSON;
         }
@@ -267,6 +247,8 @@ public class ReserveActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
             try {
+                lDialog.dismiss();
+
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
@@ -278,6 +260,7 @@ public class ReserveActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Toast.makeText(ReserveActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             } catch (Exception e) {
             }
