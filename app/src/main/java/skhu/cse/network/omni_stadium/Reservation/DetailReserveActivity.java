@@ -89,7 +89,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             row = Character.getNumericValue(charRow);
-                            seat_no= Integer.parseInt(chSq_seat_no.toString())-1;
+                            seat_no= Integer.parseInt((chSq_seat_no).toString())-1;
                             new TicketBuyingTask().execute(mem_id, value, String.valueOf(row), String.valueOf(seat_no));
                         }
                     });
@@ -137,7 +137,7 @@ public class DetailReserveActivity extends AppCompatActivity {
         }
     }
 
-    private class ReservTask extends AsyncTask<String, Void, JSONArray> {
+    private class ReservTask extends AsyncTask<String, Void, JSONArray> {                           //지정석 좌석 현황 DB연동
 
         @Override
         protected JSONArray doInBackground(String... params) {
@@ -194,7 +194,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                 if (jsonArray != null) {
                     for (int i = 0; i < jsonArray.length(); ++i) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        int seat_no = jsonObject.getInt("seat_no") - 1;
+                        int seat_no = jsonObject.getInt("seat_no")-1;
                         // 이미 점유된 좌석의 상태 변경
                         btArr[seat_no].setEnabled(false);
                         btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
@@ -206,7 +206,7 @@ public class DetailReserveActivity extends AppCompatActivity {
         }
     }
 
-    private class TicketBuyingTask extends AsyncTask<String, Void, JSONObject> {
+    private class TicketBuyingTask extends AsyncTask<String, Void, JSONObject> {        //앱에서 지정석 구매 DB연동
 
         private String zone;
         private int seat_row, seat_no;
@@ -240,7 +240,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                 outJson.put("구역정보", params[1]);
                 seat_row=Integer.valueOf(params[2]);
                 seat_no=Integer.valueOf(params[3]);
-                outJson.put("좌석정보", seat_no);
+                outJson.put("좌석정보", seat_no+1);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -274,7 +274,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                     omniApplication.setTicket_no(jsonObject.getInt("티켓"));
                     omniApplication.setSeat_zone(zone);
                     omniApplication.setSeat_row(seat_row);
-                    omniApplication.setSeat_no(seat_no);
+                    omniApplication.setSeat_no(seat_no+1);
                     Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
                     // 예매가 완료된 좌석의 상태 변경
                     btArr[seat_no].setEnabled(false);
