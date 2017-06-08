@@ -74,6 +74,18 @@ public class CartManager implements Serializable{
         cart[row][col]=null;
     }
 
+    public void removeAllOrderItem()
+    {
+        for(int row=0; row<cart.length; ++row)
+        {
+            for(int col=0; col<cart[row].length; ++col)
+            {
+                if(cart[row][col]!=null)
+                    cart[row][col]=null;
+            }
+        }
+    }
+
     public void plusOrderItem(OrderItem orderItem)
     {
         int row=orderItem.getFood_id();

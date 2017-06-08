@@ -29,12 +29,10 @@ import skhu.cse.network.omni_stadium.R;
 
 public class OrderActivity extends AppCompatActivity{
 
-    private ArrayList<String> group_list = new ArrayList<String>();
-    private HashMap<String, ArrayList<OrderItem>> item_list = new HashMap<String, ArrayList<OrderItem>>();
-    private ExpandableListAdapter listAdapter;
     private ExpandableListView lvOrder;
     static final int REQ_CODE_ORDERMENU =0;
     static final int REQ_CODE_CARTACTIVITY =1;
+    static final int REQ_CODE_ORDERLISTACTIVITY =2;
     private CartManager cartManager;
     private Button btCart, btOrder;
 
@@ -64,6 +62,12 @@ public class OrderActivity extends AppCompatActivity{
             case REQ_CODE_CARTACTIVITY:
                 if(resultCode==RESULT_OK)
                     cartManager=(CartManager)data.getSerializableExtra("CartManager");
+                break;
+            case REQ_CODE_ORDERLISTACTIVITY:
+                if(resultCode==RESULT_OK)
+                    cartManager.removeAllOrderItem();
+                else if(resultCode==RESULT_CANCELED)
+                    new GetFoodListTask().execute("메뉴요청");
                 break;
         }
     }
@@ -121,6 +125,11 @@ public class OrderActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(JSONArray jsonArray) {
             super.onPostExecute(jsonArray);
+
+            ArrayList<String> group_list = new ArrayList<>();
+            HashMap<String, ArrayList<OrderItem>> item_list = new HashMap<>();
+            ExpandableListAdapter listAdapter;
+
             try {
                 int rowSizeJSONArray=jsonArray.length();
                 final ArrayList<ArrayList<OrderItem>> foodList=new ArrayList<>();
@@ -191,7 +200,7 @@ public class OrderActivity extends AppCompatActivity{
                         {
                             Intent intent = new Intent(OrderActivity.this, OrderListActivity.class);
                             intent.putExtra("CartManager", cartManager);
-                            startActivity(intent);
+                            startActivityForResult(intent, REQ_CODE_ORDERLISTACTIVITY);
                         }
                         else
                             Toast.makeText(OrderActivity.this, "만 원 이상부터 주문 가능합니다.", Toast.LENGTH_SHORT).show();

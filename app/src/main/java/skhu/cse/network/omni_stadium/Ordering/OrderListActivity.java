@@ -1,6 +1,7 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -179,11 +180,15 @@ public class OrderListActivity extends AppCompatActivity {
                 if(result==0)
                 {
                     Toast.makeText(OrderListActivity.this, "주문이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent();
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
                 else
                 {
                     Toast.makeText(OrderListActivity.this, "주문이 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent();
+                    setResult(RESULT_CANCELED, intent);
                     finish();
                 }
             } catch (Exception e) {
