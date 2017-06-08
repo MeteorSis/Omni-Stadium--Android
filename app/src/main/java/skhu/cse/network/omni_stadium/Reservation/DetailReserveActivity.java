@@ -89,7 +89,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             row = Character.getNumericValue(charRow);
-                            seat_no= Integer.parseInt((chSq_seat_no).toString())-1;
+                            seat_no= Integer.parseInt((chSq_seat_no).toString());
                             new TicketBuyingTask().execute(mem_id, value, String.valueOf(row), String.valueOf(seat_no));
                         }
                     });
@@ -240,7 +240,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                 outJson.put("구역정보", params[1]);
                 seat_row=Integer.valueOf(params[2]);
                 seat_no=Integer.valueOf(params[3]);
-                outJson.put("좌석정보", seat_no+1);
+                outJson.put("좌석정보", seat_no);
                 OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
                 out.write(outJson.toString().getBytes("UTF-8"));
                 out.flush();
@@ -274,11 +274,11 @@ public class DetailReserveActivity extends AppCompatActivity {
                     omniApplication.setTicket_no(jsonObject.getInt("티켓"));
                     omniApplication.setSeat_zone(zone);
                     omniApplication.setSeat_row(seat_row);
-                    omniApplication.setSeat_no(seat_no+1);
+                    omniApplication.setSeat_no(seat_no);
                     Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
                     // 예매가 완료된 좌석의 상태 변경
-                    btArr[seat_no].setEnabled(false);
-                    btArr[seat_no].setTextColor(Color.parseColor("#afaeae"));
+                    btArr[seat_no-1].setEnabled(false);
+                    btArr[seat_no-1].setTextColor(Color.parseColor("#afaeae"));
                     Toast.makeText(DetailReserveActivity.this,msg, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     setResult(Activity.RESULT_OK, intent);
