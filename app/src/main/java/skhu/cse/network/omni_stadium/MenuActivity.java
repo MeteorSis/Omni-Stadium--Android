@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -170,6 +171,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             tvTicketNo.setText("(없음)");
             tvOwner.setText("(없음)");
             tvZone.setText("(없음)");
+            tvZone.setTextColor(tvTicketNo.getTextColors());
             tvRow.setText("(없음)");
             tvSeatNo.setText("(없음)");
         }
