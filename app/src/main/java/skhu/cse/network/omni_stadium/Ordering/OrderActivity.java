@@ -33,6 +33,7 @@ public class OrderActivity extends AppCompatActivity{
     static final int REQ_CODE_ORDERMENU =0;
     static final int REQ_CODE_CARTACTIVITY =1;
     static final int REQ_CODE_ORDERLISTACTIVITY =2;
+    static final int RESULT_ORDERLISTACITIVITY_BACK =3;
     private CartManager cartManager;
     private Button btCart, btOrder;
 
@@ -64,11 +65,17 @@ public class OrderActivity extends AppCompatActivity{
                     cartManager=(CartManager)data.getSerializableExtra("CartManager");
                 break;
             case REQ_CODE_ORDERLISTACTIVITY:
-                if(resultCode==RESULT_OK)
-                    cartManager.removeAllOrderItem();
-                else if(resultCode==RESULT_CANCELED)
-                    new GetFoodListTask().execute("메뉴요청");
-                break;
+                switch (resultCode)
+                {
+                    case RESULT_OK:
+                        cartManager.removeAllOrderItem();
+                        break;
+                    case RESULT_CANCELED:
+                        new GetFoodListTask().execute("메뉴요청");
+                        break;
+                    case RESULT_ORDERLISTACITIVITY_BACK:
+                        break;
+                }
         }
     }
 

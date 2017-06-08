@@ -75,10 +75,19 @@ public class OrderListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent intent = new Intent();
+                setResult(OrderActivity.RESULT_ORDERLISTACITIVITY_BACK, intent);
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(OrderActivity.RESULT_ORDERLISTACITIVITY_BACK, intent);
+        finish();
     }
 
     private class OrderListAdapter extends ArrayAdapter<OrderItem>
