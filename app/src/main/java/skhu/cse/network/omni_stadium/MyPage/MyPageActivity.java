@@ -94,10 +94,19 @@ public class MyPageActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         String seat_zone = ((OmniApplication) getApplicationContext()).getSeat_zone();
-                                        if (seat_zone.equals("1루 외야그린석") || seat_zone.equals("3루 외야그린석"))
-                                            new UnreservedSeat_ClearTask().execute(mem_id);
-                                        else
-                                            Toast.makeText(MyPageActivity.this, "자유석 티켓이 아닙니다.", Toast.LENGTH_SHORT).show();
+                                        if(seat_zone == null)
+                                            Toast.makeText(MyPageActivity.this, "티켓을 구매하지 않았습니다.", Toast.LENGTH_SHORT).show();
+                                        else if(((OmniApplication)getApplicationContext()).getSeat_no() == null
+                                                || ((OmniApplication)getApplicationContext()).getSeat_row() == null){
+                                            Toast.makeText(MyPageActivity.this, "자유석을 등록하지 않았습니다.", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            if (seat_zone.equals("1루 외야그린석") || seat_zone.equals("3루 외야그린석"))
+                                                new UnreservedSeat_ClearTask().execute(mem_id);
+                                            else
+                                                Toast.makeText(MyPageActivity.this, "자유석 티켓이 아닙니다.", Toast.LENGTH_SHORT).show();
+                                        }
+
                                     }
                                 })
                                 .setNegativeButton("취소", null)
@@ -455,9 +464,10 @@ public class MyPageActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과"); // 예매 성공: 0 예매 실패: else
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {
-                    Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
                     ((OmniApplication) getApplicationContext()).setSeat_row(null);
                     ((OmniApplication) getApplicationContext()).setSeat_no(null);
+                    Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
@@ -527,6 +537,7 @@ public class MyPageActivity extends AppCompatActivity {
                     ((OmniApplication) getApplicationContext()).setSeat_row(null);
                     ((OmniApplication) getApplicationContext()).setSeat_no(null);
                     Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Toast.makeText(MyPageActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
