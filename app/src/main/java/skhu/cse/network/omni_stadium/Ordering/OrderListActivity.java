@@ -150,7 +150,7 @@ public class OrderListActivity extends AppCompatActivity {
                     JSONObject childJSONObject=new JSONObject();
                     childJSONObject.put("food_id", item.getFood_id()+1);
                     childJSONObject.put("menu_id", item.getMenu_id()+1);
-                    childJSONObject.put("menu_count", item.getMenu_count());
+                    childJSONObject.put("quantity", item.getMenu_count());
 
                     orderListJSONArr.put(childJSONObject);
                 }
