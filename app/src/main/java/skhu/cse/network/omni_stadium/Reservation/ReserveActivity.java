@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 import pl.polidea.view.ZoomView;
 import skhu.cse.network.omni_stadium.LoadingDialog;
@@ -46,12 +47,15 @@ public class ReserveActivity extends AppCompatActivity {
     private CustomZoomView zoomView;
     private LoadingDialog lDialog;
     static final int REQ_CODE = 1;
+    private HashMap<String, Integer> zonePrices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reserv_main);
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.reserv_zoom, null, false);
+
+        new GetPriceTask().execute("가격정보");
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         zoomView = new CustomZoomView(this);
@@ -78,36 +82,42 @@ public class ReserveActivity extends AppCompatActivity {
                         //가운데 연파랑 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "중앙 블루석A");
+                        intent.putExtra("Price", zonePrices.get("중앙 블루석A"));
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "가운데 연파랑 영역");
                     } else if (redPixel == 221 && greenPixel == 0 && bluePixel == 42) {
                         //아래 왼쪽 빨강 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "3루 레드석");
+                        intent.putExtra("Price", zonePrices.get("3루 레드석"));
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 왼쪽 빨강 영역");
                     } else if (redPixel == 221 && greenPixel == 1 && bluePixel == 42) {
                         //아래 오른쪽 빨강 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "1루 레드석");
+                        intent.putExtra("Price", zonePrices.get("1루 레드석"));
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 오른쪽 빨강 영역");
                     } else if (redPixel == 36 && greenPixel == 41 && bluePixel == 172) {
                         //가운데 진파랑 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "중앙 블루석B");
+                        intent.putExtra("Price", zonePrices.get("중앙 블루석B"));
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "가운데 진파랑 영역");
                     } else if (redPixel == 36 && greenPixel == 40 && bluePixel == 83) {
                         //아래 왼쪽 남색 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "3루 네이비석");
+                        intent.putExtra("Price", zonePrices.get("3루 네이비석"));
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 왼쪽 남색 영역");
                     } else if (redPixel == 36 && greenPixel == 41 && bluePixel == 83) {
                         //아래 오른쪽 남색 영역
                         Intent intent = new Intent(getApplicationContext(), DetailReserveActivity.class);
                         intent.putExtra("Sector", "1루 네이비석");
+                        intent.putExtra("Price", zonePrices.get("1루 네이비석"));
                         startActivityForResult(intent, REQ_CODE);
                         Log.v("Event Test", "아래 오른쪽 남색 영역");
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 0) {
@@ -116,7 +126,7 @@ public class ReserveActivity extends AppCompatActivity {
                         /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
                         dlg.setTitle("");
-                        dlg.setMessage("3루 외야그린석을 결제하시겠습니까?");
+                        dlg.setMessage("3루 외야그린석을 결제하시겠습니까?\n   가격 : "+zonePrices.get("3루 외야그린석")+"원");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -138,7 +148,7 @@ public class ReserveActivity extends AppCompatActivity {
                         Log.v("Event Test", "오른쪽 위 그린 영역");
                         AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
                         dlg.setTitle("");
-                        dlg.setMessage("1루 외야그린석을 결제 하시겠습니까?");
+                        dlg.setMessage("1루 외야그린석을 결제 하시겠습니까?\n  가격 : "+zonePrices.get("1루 외야그린석")+"원");
                         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -183,6 +193,79 @@ public class ReserveActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         NavUtils.navigateUpFromSameTask(this);
+    }
+
+    private class GetPriceTask extends AsyncTask<String, Void, JSONObject>
+    {
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            URL url = null;
+            HttpURLConnection httpCon = null;
+            JSONObject getJSON = null;
+
+            try {
+                url = new URL("http://192.168.63.25:51223/AndroidClientTicketingRequestPost/GetPrice");
+                httpCon = (HttpURLConnection) url.openConnection();
+
+                httpCon.setRequestMethod("POST");
+                httpCon.setDoInput(true);
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(2000);
+                httpCon.setReadTimeout(2000);
+
+                httpCon.setRequestProperty("Cache-Control", "no-cache");
+                //서버에 요청할 Response Data Type
+                httpCon.setRequestProperty("Accept", "application/json");
+                //서버에 전송할 Data Type
+                //httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpCon.setRequestProperty("Content-Type", "application/json");
+
+                JSONObject outJson = new JSONObject();
+                outJson.put(params[0], params[0]);
+                OutputStream out = new BufferedOutputStream(httpCon.getOutputStream());
+                out.write(outJson.toString().getBytes("UTF-8"));
+                out.flush();
+
+                int responseCode = httpCon.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = httpCon.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    StringBuilder result = new StringBuilder();
+                    while ((line = bufferedReader.readLine()) != null)
+                        result.append(line);
+                    inputStream.close();
+                    getJSON = new JSONObject(result.toString());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                httpCon.disconnect();
+            }
+            return getJSON;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            try {
+                if(jsonObject!=null)
+                {
+                    Log.v("price test", jsonObject.toString());
+                    zonePrices = new HashMap<>();
+                    zonePrices.put("1루 네이비석", jsonObject.getInt("1루 네이비석"));
+                    zonePrices.put("1루 레드석", jsonObject.getInt("1루 레드석"));
+                    zonePrices.put("1루 외야그린석", jsonObject.getInt("1루 외야그린석"));
+                    zonePrices.put("3루 네이비석", jsonObject.getInt("3루 네이비석"));
+                    zonePrices.put("3루 레드석", jsonObject.getInt("3루 레드석"));
+                    zonePrices.put("3루 외야그린석", jsonObject.getInt("3루 외야그린석"));
+                    zonePrices.put("중앙 블루석A", jsonObject.getInt("중앙 블루석A"));
+                    zonePrices.put("중앙 블루석B", jsonObject.getInt("중앙 블루석B"));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private class UnreservedSeatTask extends AsyncTask<String, Void, JSONObject> {

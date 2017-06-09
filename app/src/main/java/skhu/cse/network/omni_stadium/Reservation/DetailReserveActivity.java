@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ import skhu.cse.network.omni_stadium.R;
 
 public class DetailReserveActivity extends AppCompatActivity {
     private String value;
+    private int price;
     private boolean isCheckedInArr = false;
     private ToggleButton tempTB;
     private EditText seatInfo;
@@ -54,6 +56,8 @@ public class DetailReserveActivity extends AppCompatActivity {
         seatInfo.setFocusableInTouchMode(false); // EditText를 읽기전용으로 만듦
         Intent intent = getIntent();
         value = intent.getStringExtra("Sector");
+        price=intent.getIntExtra("Price", 0);
+
         setTitle("지정석 : " + value);
         mem_id= ((OmniApplication)getApplicationContext()).getMem_id();
         btArr = new ToggleButton[50];
@@ -86,7 +90,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                 if (isCheckedInArr) {
                     AlertDialog.Builder dlg = new AlertDialog.Builder(DetailReserveActivity.this);
                     dlg.setTitle("예매 정보");
-                    dlg.setMessage("해당 좌석을 결제 하시겠습니까?");
+                    dlg.setMessage("해당 좌석을 결제 하시겠습니까?\n   가격 : " + price + "원");
 
                     dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -112,7 +116,7 @@ public class DetailReserveActivity extends AppCompatActivity {
                 }
             }
         });
-        new ReservTask().execute(value);
+        new ReserveTask().execute(value);
     }
 
     public void onToggleClicked(View v) {
@@ -133,7 +137,7 @@ public class DetailReserveActivity extends AppCompatActivity {
             charRow = chSq_seat_no.charAt(0);
             if (chSq_seat_no.charAt(1) != '0')
                 charRow++;
-            seatInfo.setText(charRow + "열 " + chSq_seat_no + "석");
+            seatInfo.setText(charRow + "열 " + chSq_seat_no + "석\n   가격 : " + price + "원");
         } else {
             tB.setTextColor(Color.parseColor("#5FBEAA"));
             isCheckedInArr = false;
@@ -142,7 +146,7 @@ public class DetailReserveActivity extends AppCompatActivity {
         }
     }
 
-    private class ReservTask extends AsyncTask<String, Void, JSONArray> {                           //지정석 좌석 현황 DB연동
+    private class ReserveTask extends AsyncTask<String, Void, JSONArray> {                           //지정석 좌석 현황 DB연동
 
         @Override
         protected JSONArray doInBackground(String... params) {
