@@ -249,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        etID.setText("");
         etPW.setText("");
         cbAutoLogin.setChecked(false);
         etID.requestFocus();
