@@ -1,11 +1,14 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
@@ -25,7 +28,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import skhu.cse.network.omni_stadium.LoadingDialog;
 import skhu.cse.network.omni_stadium.R;
+import skhu.cse.network.omni_stadium.Reservation.ReserveActivity;
 
 public class OrderActivity extends AppCompatActivity{
 
@@ -48,9 +53,34 @@ public class OrderActivity extends AppCompatActivity{
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                cartWarningDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        NavUtils.navigateUpFromSameTask(this);
+        cartWarningDialog();
+    }
+
+    private void cartWarningDialog()
+    {
+        AlertDialog.Builder dlg = new AlertDialog.Builder(OrderActivity.this);
+        //dlg.setTitle("");
+        dlg.setMessage("장바구니가 초기화됩니다.\n계속하시겠습니까?");
+        dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NavUtils.navigateUpFromSameTask(OrderActivity.this);
+            }
+        });
+        dlg.setCancelable(false);
+        dlg.setNegativeButton("취소", null);
+        dlg.show();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)

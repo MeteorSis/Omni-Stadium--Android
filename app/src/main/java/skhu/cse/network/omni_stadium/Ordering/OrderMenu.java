@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import skhu.cse.network.omni_stadium.R;
 
@@ -69,6 +70,7 @@ public class OrderMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sIntent=new Intent();
                 orderItem.setMenu_count(mCount);
+                Toast.makeText(OrderMenu.this, orderItem.getMenu_name()+" 상품이 장바구니에 담겼습니다.", Toast.LENGTH_SHORT).show();
                 sIntent.putExtra("OrderItem", orderItem);
                 setResult(RESULT_OK, sIntent);
                 finish();
