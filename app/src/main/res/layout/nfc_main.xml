@@ -924,8 +924,10 @@
             android:background="@null"
             android:clickable="false"
             android:focusableInTouchMode="false"
-            android:text="NFC 태그를 기기에 접근 시켜 주세요."
-            android:textAlignment="textStart"
+            android:text="기기를 좌석의 NFC 태그에\n접근시켜 주세요."
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#808080"
             android:textSize="20dp" />
 
     </RelativeLayout>
