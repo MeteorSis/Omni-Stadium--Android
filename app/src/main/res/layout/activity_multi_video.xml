@@ -8,75 +8,114 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
     </android.support.design.widget.AppBarLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Camera 1"
-            android:textSize="20sp"/>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/imgView_warning1"
-                android:layout_gravity="center"
-                android:visibility="invisible"/>
-            <VideoView
-                android:id="@+id/VideoView1st"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:background="@android:color/transparent"/>
-            <ProgressBar
-                android:id="@+id/spinnerView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:layout_gravity="center" />
-        </FrameLayout>
-    </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Camera 2"
-            android:textSize="20sp"/>
-        <FrameLayout
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/imgView_warning2"
-                android:layout_gravity="center"
-                android:visibility="invisible"/>
-            <VideoView
-                android:id="@+id/VideoView2nd"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0"
-                android:background="@android:color/transparent"/>
-            <ProgressBar
-                android:id="@+id/spinnerView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:layout_gravity="center" />
-        </FrameLayout>
-    </LinearLayout>
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/imgView_warning1"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"/>
+                    <VideoView
+                        android:id="@+id/VideoView1st"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:alpha="0"
+                        android:background="@android:color/transparent"/>
+                    <ProgressBar
+                        android:id="@+id/spinnerView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:layout_gravity="center" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="2dp"
+                        android:text=" Camera 1 "
+                        android:textStyle="bold"
+                        android:textColor="#CCCCCC"
+                        android:background="#50000000"
+                        android:textSize="20sp"
+                        android:visibility="invisible"
+                        android:id="@+id/tvCam1"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="14dp"
+                    android:paddingTop="7dp">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/imgView_warning2"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"/>
+                    <VideoView
+                        android:id="@+id/VideoView2nd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:alpha="0"
+                        android:background="@android:color/transparent"/>
+                    <ProgressBar
+                        android:id="@+id/spinnerView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:layout_gravity="center" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="2dp"
+                        android:text=" Camera 2 "
+                        android:textStyle="bold"
+                        android:textColor="#CCCCCC"
+                        android:background="#50000000"
+                        android:textSize="20sp"
+                        android:visibility="invisible"
+                        android:id="@+id/tvCam2"/>
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/videoFrame"/>
+    </FrameLayout>
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -30,6 +31,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import skhu.cse.network.omni_stadium.MenuActivity;
 import skhu.cse.network.omni_stadium.R;
 
 public class MultiVideoActivity extends AppCompatActivity {
@@ -64,6 +66,8 @@ public class MultiVideoActivity extends AppCompatActivity {
 
     private String VideoURL1st;
     private String VideoURL2nd;
+
+    private TextView tvCam1, tvCam2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +110,15 @@ public class MultiVideoActivity extends AppCompatActivity {
         spinnerView1 = (ProgressBar) findViewById(R.id.spinnerView1);
         spinnerView2 = (ProgressBar) findViewById(R.id.spinnerView2);
 
+        tvCam1=(TextView)findViewById(R.id.tvCam1);
+        tvCam2=(TextView)findViewById(R.id.tvCam2);
+
         spinnerView1.setVisibility(View.VISIBLE);
         spinnerView2.setVisibility(View.VISIBLE);
 
         //AsyncTask Start
         new GetStreamingStatusTask().execute("영상요청");
+        Glide.with(MultiVideoActivity.this).load(R.drawable.videoframe).into((ImageView)findViewById(R.id.videoFrame));
     }
 
     @Override
@@ -118,6 +126,10 @@ public class MultiVideoActivity extends AppCompatActivity {
         super.onResume();
         spinnerView1.setVisibility(View.VISIBLE);
         spinnerView2.setVisibility(View.VISIBLE);
+
+        tvCam1.setVisibility(View.INVISIBLE);
+        tvCam2.setVisibility(View.INVISIBLE);
+
         videoview1st.setAlpha(0);
         videoview2nd.setAlpha(0);
     }
@@ -279,6 +291,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                     spinnerView1.setVisibility(View.GONE);
                     videoview1st.setAlpha(1.0f);
                     videoview1st.start();
+                    tvCam1.setVisibility(View.VISIBLE);
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 }
             });
@@ -289,6 +302,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                     spinnerView2.setVisibility(View.GONE);
                     videoview2nd.setAlpha(1.0f);
                     videoview2nd.start();
+                    tvCam2.setVisibility(View.VISIBLE);
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 }
             });
