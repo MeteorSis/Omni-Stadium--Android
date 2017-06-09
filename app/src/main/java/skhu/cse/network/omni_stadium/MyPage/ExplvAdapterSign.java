@@ -77,11 +77,11 @@ public class ExplvAdapterSign extends BaseExpandableListAdapter {
 
         ImageView ivGroup = (ImageView)convertView.findViewById(R.id.ivGroup);
         if(group_id == 0)
-            ivGroup.setImageResource(R.drawable.ic_power_settings_new_black);
+            ivGroup.setImageResource(R.drawable.ic_power_settings_new_black_48dp);
         else if(group_id == 1)
             ivGroup.setImageResource(R.drawable.ic_ticket_image);
         else
-            ivGroup.setImageResource(R.drawable.ic_people_black);
+            ivGroup.setImageResource(R.drawable.ic_group_black_48dp);
 
         TextView expListHeader = (TextView) convertView.findViewById(R.id.textGroup);
         expListHeader.setTypeface(null, Typeface.BOLD);
