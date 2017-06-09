@@ -131,7 +131,7 @@ public class MyPageActivity extends AppCompatActivity {
                         etpw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
                         new AlertDialog.Builder(MyPageActivity.this)
-                                .setTitle("비밀번호 확인")
+                                .setTitle("회원정보 변경 비밀번호 확인")
                                 .setMessage("비밀번호를 입력하세요.")
                                 .setView(etpw)
                                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -156,7 +156,7 @@ public class MyPageActivity extends AppCompatActivity {
                         etpw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
                         new AlertDialog.Builder(MyPageActivity.this)
-                                .setTitle("비밀번호 확인")
+                                .setTitle("회원탈퇴 비밀번호 확인")
                                 .setMessage("비밀번호를 입력하세요.")
                                 .setView(etpw)
                                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
