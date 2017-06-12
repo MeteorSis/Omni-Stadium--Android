@@ -75,7 +75,8 @@ public class OrderActivity extends AppCompatActivity{
         dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                NavUtils.navigateUpFromSameTask(OrderActivity.this);
+                //NavUtils.navigateUpFromSameTask(OrderActivity.this);
+                finish();
             }
         });
         dlg.setCancelable(false);
