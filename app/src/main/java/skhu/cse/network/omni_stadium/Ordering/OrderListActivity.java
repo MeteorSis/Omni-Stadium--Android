@@ -2,11 +2,13 @@ package skhu.cse.network.omni_stadium.Ordering;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +38,7 @@ import skhu.cse.network.omni_stadium.LoadingDialog;
 import skhu.cse.network.omni_stadium.MainActivity;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
+import skhu.cse.network.omni_stadium.Reservation.ReserveActivity;
 import skhu.cse.network.omni_stadium.ViewHolderHelper;
 
 public class OrderListActivity extends AppCompatActivity {
@@ -55,7 +58,7 @@ public class OrderListActivity extends AppCompatActivity {
         lvCart.setAdapter(adapter);
 
         TextView tvAllPrice=(TextView)findViewById(R.id.tvAllPrice);
-        String strAllPrice=String.valueOf(cartManager.getAllPrice())+"원";
+        final String strAllPrice=String.valueOf(cartManager.getAllPrice())+"원";
         tvAllPrice.setText(strAllPrice);
 
         Button btOrder=(Button)findViewById(R.id.btOrder);
@@ -65,8 +68,19 @@ public class OrderListActivity extends AppCompatActivity {
         btOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lDialog.show();
-                new OrderTask().execute(orderList);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(OrderListActivity.this);
+                //dlg.setTitle("");
+                dlg.setMessage("결제하시겠습니까?\n 결제 금액 : "+strAllPrice);
+                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        lDialog.show();
+                        new OrderTask().execute(orderList);
+                    }
+                });
+                dlg.setCancelable(false);
+                dlg.setNegativeButton("취소", null);
+                dlg.show();
             }
         });
     }
