@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +26,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import skhu.cse.network.omni_stadium.LoadingDialog;
+import skhu.cse.network.omni_stadium.Etc.LoadingDialog;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
 
@@ -88,29 +87,36 @@ public class DetailReserveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isCheckedInArr) {
-                    AlertDialog.Builder dlg = new AlertDialog.Builder(DetailReserveActivity.this);
-                    dlg.setTitle("예매 정보");
-                    dlg.setMessage("해당 좌석을 결제 하시겠습니까?\n   가격 : " + price + "원");
+                    if(((OmniApplication)getApplicationContext()).getTicket_no()==null)
+                    {
+                        AlertDialog.Builder dlg = new AlertDialog.Builder(DetailReserveActivity.this);
+                        dlg.setTitle("예매 정보");
+                        dlg.setMessage("해당 좌석을 결제 하시겠습니까?\n   가격 : " + price + "원");
 
-                    dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            row = Character.getNumericValue(charRow);
-                            seat_no= Integer.parseInt((chSq_seat_no).toString());
-                            lDialog = new LoadingDialog(DetailReserveActivity.this, "결제중...");
-                            lDialog.show();
-                            new TicketBuyingTask().execute(mem_id, value, String.valueOf(row), String.valueOf(seat_no));
-                        }
-                    });
-                    dlg.setCancelable(false);
-                    dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getApplicationContext(), "결제가 취소 되었습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    dlg.show();
-                    dlg.setCancelable(false); // 백버튼 비활성화
+                        dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                row = Character.getNumericValue(charRow);
+                                seat_no= Integer.parseInt((chSq_seat_no).toString());
+                                lDialog = new LoadingDialog(DetailReserveActivity.this, "결제중...");
+                                lDialog.show();
+                                new TicketBuyingTask().execute(mem_id, value, String.valueOf(row), String.valueOf(seat_no));
+                            }
+                        });
+                        dlg.setCancelable(false);
+                        dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "결제가 취소 되었습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dlg.show();
+                        dlg.setCancelable(false); // 백버튼 비활성화
+                    }
+                    else
+                    {
+                        Toast.makeText(DetailReserveActivity.this, "구입한 티켓이 이미 있습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "선택한 좌석이 없습니다.", Toast.LENGTH_SHORT).show();
                 }

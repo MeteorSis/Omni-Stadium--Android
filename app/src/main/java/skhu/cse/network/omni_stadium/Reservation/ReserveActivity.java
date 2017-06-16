@@ -1,6 +1,5 @@
 package skhu.cse.network.omni_stadium.Reservation;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,9 +35,8 @@ import java.net.URL;
 import java.util.HashMap;
 
 import pl.polidea.view.ZoomView;
-import skhu.cse.network.omni_stadium.LoadingDialog;
+import skhu.cse.network.omni_stadium.Etc.LoadingDialog;
 import skhu.cse.network.omni_stadium.OmniApplication;
-import skhu.cse.network.omni_stadium.Ordering.OrderListActivity;
 import skhu.cse.network.omni_stadium.R;
 
 public class ReserveActivity extends AppCompatActivity {
@@ -124,48 +121,61 @@ public class ReserveActivity extends AppCompatActivity {
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 0) {
                         //왼쪽 위 그린 영역
                         Log.v("Event Test", "왼쪽 위 그린 영역");
-                        /*((OmniApplication)getApplicationContext()).setSeat_zone("3루 외야그린석");*/
-                        AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
-                        dlg.setTitle("");
-                        dlg.setMessage("3루 외야그린석을 결제하시겠습니까?\n   가격 : "+zonePrices.get("3루 외야그린석")+"원");
-                        dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                lDialog = new LoadingDialog(ReserveActivity.this, "결제중...");
-                                lDialog.show();
-                                new UnreservedSeatTask().execute("3루 외야그린석");
-                            }
-                        });
-                        dlg.setCancelable(false);
-                        dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "결제가 취소 되었습니다.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        dlg.show();
+                        if(((OmniApplication)getApplicationContext()).getTicket_no()==null)
+                        {
+                            AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
+                            dlg.setTitle("");
+                            dlg.setMessage("3루 외야그린석을 결제하시겠습니까?\n   가격 : " + zonePrices.get("3루 외야그린석") + "원");
+                            dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    lDialog = new LoadingDialog(ReserveActivity.this, "결제중...");
+                                    lDialog.show();
+                                    new UnreservedSeatTask().execute("3루 외야그린석");
+                                }
+                            });
+                            dlg.setCancelable(false);
+                            dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(getApplicationContext(), "결제가 취소 되었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            dlg.show();
+                        }
+                        else
+                        {
+                            Toast.makeText(ReserveActivity.this, "구입한 티켓이 이미 있습니다.", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (redPixel == 52 && greenPixel == 150 && bluePixel == 1) {
                         //오른쪽 위 그린 영역
                         Log.v("Event Test", "오른쪽 위 그린 영역");
-                        AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
-                        dlg.setTitle("");
-                        dlg.setMessage("1루 외야그린석을 결제 하시겠습니까?\n  가격 : "+zonePrices.get("1루 외야그린석")+"원");
-                        dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                lDialog = new LoadingDialog(ReserveActivity.this, "결제중...");
-                                lDialog.show();
-                                new UnreservedSeatTask().execute("1루 외야그린석");
-                            }
-                        });
-                        dlg.setCancelable(false);
-                        dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "결제가 취소 되었습니다.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        dlg.show();
+                        if(((OmniApplication)getApplicationContext()).getTicket_no()==null)
+                        {
+                            AlertDialog.Builder dlg = new AlertDialog.Builder(ReserveActivity.this);
+                            dlg.setTitle("");
+                            dlg.setMessage("1루 외야그린석을 결제 하시겠습니까?\n  가격 : "+zonePrices.get("1루 외야그린석")+"원");
+                            dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    lDialog = new LoadingDialog(ReserveActivity.this, "결제중...");
+                                    lDialog.show();
+                                    new UnreservedSeatTask().execute("1루 외야그린석");
+                                }
+                            });
+                            dlg.setCancelable(false);
+                            dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(getApplicationContext(), "결제가 취소 되었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            dlg.show();
+                        }
+                        else
+                        {
+                            Toast.makeText(ReserveActivity.this, "구입한 티켓이 이미 있습니다.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
                 return false;
