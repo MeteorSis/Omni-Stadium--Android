@@ -170,47 +170,43 @@ public class NFCActivity extends AppCompatActivity {
     };
 
     private void promptForContent(final NdefMessage msg) {//nfc4
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (((OmniApplication) getApplicationContext()).getSeat_no() == null) {//자유석 티켓은 있으나 좌석 등록이 되어 있지 않으면(신규 등록이면)
-            isNewMode = true;//모드 변경
-            builder.setTitle("이 좌석으로 등록 하시겠습니까?");
-        } else {
-            isNewMode = false;//모드 변경
-            builder.setTitle("현재 좌석을 이 좌석으로 바꾸시겠습니까?");
-        }
-
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                body = new String(msg.getRecords()[0].getPayload());
-                try {
-                    jsonBody = new JSONObject(body);
-
-                    //티켓 정보와 NFC 태그에서 읽은 정보 비교
-                    if (!(isNewMode) && ((OmniApplication) getApplicationContext()).getSeat_zone().equals(jsonBody.getString("zone")) && ((OmniApplication) getApplicationContext()).getSeat_no() == jsonBody.getInt("seat_no")) {
-                        toast("동일한 좌석입니다.");
-                        finish();
-                    }
-                    //웹과 연결
-                    else {
+        body = new String(msg.getRecords()[0].getPayload());
+        try {
+            jsonBody = new JSONObject(body);
+            if (!(jsonBody.getString("zone").equals(((OmniApplication) getApplicationContext()).getSeat_zone())))
+                toast("구매한 티켓의 구역에서 등록을 진행해주세요");
+            else if (!(btArr[jsonBody.getInt("seat_no") - 1].isEnabled()))
+                toast("이미 등록된 좌석입니다.");
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                if (((OmniApplication) getApplicationContext()).getSeat_no() == null) {//자유석 티켓은 있으나 좌석 등록이 되어 있지 않으면(신규 등록이면)
+                    isNewMode = true;//모드 변경
+                    builder.setTitle("이 좌석으로 등록 하시겠습니까?");
+                } else {
+                    isNewMode = false;//모드 변경
+                    builder.setTitle("현재 좌석을 이 좌석으로 바꾸시겠습니까?");
+                }
+                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
                         try {
                             new NFCTask(NFCActivity.this).execute(jsonBody.getString("zone"), String.valueOf(jsonBody.getInt("seat_id")), ((OmniApplication) getApplicationContext()).getMem_id());//좌석 등록 요청
                         } catch (JSONException e) {
 
                         }
                     }
-                } catch (JSONException e) {
-
-                }
-            }
-        })
-                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-
-                    }
                 })
-                .show();
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        })
+                        .show();
+            }
+        } catch (JSONException e) {
+
+        }
     }
 
     private void setNoteBody(String body) {//필요 없어질 예정
