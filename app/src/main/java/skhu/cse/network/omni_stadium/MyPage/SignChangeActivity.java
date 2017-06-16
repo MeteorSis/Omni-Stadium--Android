@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -83,7 +85,7 @@ public class SignChangeActivity extends AppCompatActivity {
                             .show();
                 } else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignChangeActivity.this);
-                    builder.setMessage("비밀번호 변경")
+                    final AlertDialog alertDialog=builder.setMessage("비밀번호 변경")
                             .setView(tableLayout)
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
@@ -108,7 +110,22 @@ public class SignChangeActivity extends AppCompatActivity {
                             })
                             .setCancelable(false)
                             .create();
-                    builder.show();
+                    alertDialog.show();
+                    confirm_PW.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                            if (!(confirm_PW.getText().toString().equals(etPW.getText().toString()))
+                                    || confirm_PW.getText().toString().length() < 6) {
+                                Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                                ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                            } else {
+                                new ChangePW().execute(mem_id, PwData);
+                                alertDialog.dismiss();
+                                ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                            }
+                            return true;
+                        }
+                    });
                 }
             }
         });
