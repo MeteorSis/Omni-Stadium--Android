@@ -250,9 +250,10 @@ public class SpwActivity extends AppCompatActivity {
                             .create();
                     builder.show();
                 }
-                else if(result ==1){
+                else if(result == 1)
+                    Toast.makeText(getApplicationContext(), "회원정보를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                else
                     Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-                }
             } catch (Exception e) {
             }
         }
@@ -324,11 +325,11 @@ public class SpwActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
-
                 }
-                else if(result == 2){
+                else if(result == 1)
+                    Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                else
                     Toast.makeText(getApplicationContext(), "서버 에러입니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-                }
             } catch (Exception e) {
             }
         }
