@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,9 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import skhu.cse.network.omni_stadium.LoadingDialog;
 import skhu.cse.network.omni_stadium.R;
-import skhu.cse.network.omni_stadium.Reservation.ReserveActivity;
 
 public class OrderActivity extends AppCompatActivity{
 

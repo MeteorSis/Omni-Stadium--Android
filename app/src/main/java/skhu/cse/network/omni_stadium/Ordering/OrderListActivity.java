@@ -1,6 +1,5 @@
 package skhu.cse.network.omni_stadium.Ordering;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,12 +33,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import skhu.cse.network.omni_stadium.LoadingDialog;
-import skhu.cse.network.omni_stadium.MainActivity;
+import skhu.cse.network.omni_stadium.Etc.LoadingDialog;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
-import skhu.cse.network.omni_stadium.Reservation.ReserveActivity;
-import skhu.cse.network.omni_stadium.ViewHolderHelper;
+import skhu.cse.network.omni_stadium.Etc.ViewHolderHelper;
 
 public class OrderListActivity extends AppCompatActivity {
 

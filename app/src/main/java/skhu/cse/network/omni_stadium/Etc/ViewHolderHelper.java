@@ -1,4 +1,4 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Etc;
 
 import android.util.SparseArray;
 import android.view.View;

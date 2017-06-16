@@ -1,9 +1,10 @@
-package skhu.cse.network.omni_stadium;
+package skhu.cse.network.omni_stadium.Etc;
 
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import skhu.cse.network.omni_stadium.AsyncTask.LogoutTask;
+import skhu.cse.network.omni_stadium.OmniApplication;
 
 public class BackPressCloseHandler
 {
