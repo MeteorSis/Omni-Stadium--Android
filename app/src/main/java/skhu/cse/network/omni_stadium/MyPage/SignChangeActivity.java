@@ -35,7 +35,6 @@ public class SignChangeActivity extends AppCompatActivity {
 
     private String mem_id;
 
-    private EditText change_PW;
     private EditText confirm_PW;
 
     private EditText etID, etPW, etMail, etMailDomain, etPhoneFront, etPhoneMiddle, etPhoneBack, etName, etBirthYYYY, etBirthMM, etBirthDD;
@@ -49,8 +48,7 @@ public class SignChangeActivity extends AppCompatActivity {
         mem_id = ((OmniApplication) getApplicationContext()).getMem_id();
 
         LayoutInflater inflater = getLayoutInflater();
-        final TableLayout tableLayout = (TableLayout) inflater.inflate(R.layout.change_pw, null);
-        change_PW = (EditText) tableLayout.findViewById(R.id.etNewPW);
+        final TableLayout tableLayout = (TableLayout) inflater.inflate(R.layout.change_pw_mypage, null);
         confirm_PW = (EditText) tableLayout.findViewById(R.id.etConfirm);
 
         etID = (EditText) findViewById(R.id.etID);
@@ -90,9 +88,8 @@ public class SignChangeActivity extends AppCompatActivity {
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if (!(change_PW.getText().toString().equals(confirm_PW.getText().toString()))
-                                            || !(change_PW.getText().toString().equals(etPW.getText().toString()))
-                                            || change_PW.getText().toString().length() < 6) {
+                                    if (!(confirm_PW.getText().toString().equals(etPW.getText().toString()))
+                                            || confirm_PW.getText().toString().length() < 6) {
                                         Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력해주세요", Toast.LENGTH_SHORT).show();
                                         ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
                                     } else {
