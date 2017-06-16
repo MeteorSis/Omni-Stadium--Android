@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etID, etPW;
     private CheckBox cbAutoLogin;
     private String strID, strPW;
+    private SharedPreferences.Editor editor;
     static final int REQ_CODE = 1;
 
     @Override
@@ -64,34 +65,21 @@ public class MainActivity extends AppCompatActivity {
         Button Login = (Button)findViewById(R.id.btlogin);
         cbAutoLogin = (CheckBox)findViewById(R.id.check_autologin);
 
-        SharedPreferences autoSetting;
-        final SharedPreferences.Editor editor;
-
         Glide.with(this).load(R.drawable.omni_stadium_logo).into((ImageView)findViewById(R.id.imgView_Main_Logo));
 
-        autoSetting = getSharedPreferences("Auto_Login", MODE_PRIVATE);
+        SharedPreferences autoSetting=getSharedPreferences("Auto_Login", MODE_PRIVATE);
         editor = autoSetting.edit();
 
         cbAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
+                if(!isChecked)
                 {
-                    strID = etID.getText().toString();
-                    strPW = etPW.getText().toString();
-
-                    editor.putString("ID", strID);
-                    editor.putString("PW", strPW);
-                    editor.putBoolean("Auto_Login_enabled",true);
-                    editor.commit();
-                }
-                else
-                    {
                     editor.remove("ID");
                     editor.remove("PW");
                     editor.remove("Auto_Login_enabled");
                     editor.clear();
-                    editor.commit();
+                    editor.apply();
                 }
             }
         });
@@ -234,6 +222,18 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
+
+                    if(cbAutoLogin.isChecked())
+                    {
+                        strID = etID.getText().toString();
+                        strPW = etPW.getText().toString();
+
+                        editor.putString("ID", strID);
+                        editor.putString("PW", strPW);
+                        editor.putBoolean("Auto_Login_enabled", true);
+                        editor.commit();
+                    }
+
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivityForResult(intent, REQ_CODE);
                 }
