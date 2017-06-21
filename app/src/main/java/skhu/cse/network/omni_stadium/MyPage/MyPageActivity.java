@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -130,6 +132,13 @@ public class MyPageActivity extends AppCompatActivity {
                         etpw.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
                         etpw.setSingleLine();
                         etpw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        etpw.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                            @Override
+                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                                new GetPasswordTask_ToSignChange().execute(mem_id, etpw.getText().toString());
+                                return true;
+                            }
+                        });
 
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setTitle("회원정보 수정")
@@ -155,6 +164,13 @@ public class MyPageActivity extends AppCompatActivity {
                         etpw.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
                         etpw.setSingleLine();
                         etpw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        etpw.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                            @Override
+                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                                new GetPasswordTask_ToLeave().execute(mem_id, etpw.getText().toString());
+                                return true;
+                            }
+                        });
 
                         new AlertDialog.Builder(MyPageActivity.this)
                                 .setTitle("회원탈퇴")

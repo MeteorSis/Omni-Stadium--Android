@@ -1,6 +1,7 @@
 package skhu.cse.network.omni_stadium.MemberManagement;
 
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -197,8 +198,13 @@ public class SidActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과");
                 if (result == 0) {
                     new AlertDialog.Builder(SidActivity.this)
-                            .setMessage("회원님의 아이디는"+jsonObject.getString("아이디")+" 입니다")
-                            .setPositiveButton("확인",null)
+                            .setMessage("회원님의 아이디는 "+jsonObject.getString("아이디")+" 입니다")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
                             .show();
                 }
                 else if(result ==1){

@@ -223,7 +223,7 @@ public class SpwActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과");
                 if (result == 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(SpwActivity.this);
-                    builder.setMessage("비밀번호 변경")
+                    final AlertDialog alertDialog=builder.setMessage("비밀번호 변경")
                             .setView(tableLayout)
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
@@ -248,7 +248,23 @@ public class SpwActivity extends AppCompatActivity {
                             })
                             .setCancelable(false)
                             .create();
-                    builder.show();
+                    alertDialog.show();
+                    confirm_PW.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                            if (!(change_PW.getText().toString().equals(confirm_PW.getText().toString()))
+                                    || change_PW.getText().toString().length() < 6) {
+                                Toast.makeText(getApplicationContext(), "비밀번호를 다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                                ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                            } else {
+                                new ChangePW().execute(setID, change_PW.getText().toString());
+                                alertDialog.dismiss();
+                                ((ViewGroup) tableLayout.getParent()).removeView(tableLayout);
+                            }
+                            return true;
+                        }
+                    });
+
                 }
                 else if(result == 1)
                     Toast.makeText(getApplicationContext(), "회원정보를 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
