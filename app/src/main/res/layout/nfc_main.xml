@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll"
@@ -903,17 +902,13 @@
 
     <RelativeLayout
         android:id="@+id/page_two"
-        tools:context="skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        tools:context="skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity">
 
         <EditText
             android:id="@+id/note"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -925,10 +920,14 @@
             android:clickable="false"
             android:focusableInTouchMode="false"
             android:text="기기를 좌석의 NFC 태그에\n접근시켜 주세요."
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="#808080"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </RelativeLayout>
     <!-- </android.support.v4.view.ViewPager> -->

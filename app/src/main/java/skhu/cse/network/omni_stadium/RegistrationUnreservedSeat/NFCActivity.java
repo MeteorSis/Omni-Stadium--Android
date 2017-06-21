@@ -61,7 +61,7 @@ public class NFCActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nfc_main);
+        setContentView(R.layout.nfc_main1);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNote = ((EditText) findViewById(R.id.note));

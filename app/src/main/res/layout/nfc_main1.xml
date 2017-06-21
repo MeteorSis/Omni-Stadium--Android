@@ -1,874 +1,1076 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/ll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <!--<LinearLayout
-        android:id="@+id/ll"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/page_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/tab_first"
-            android:layout_width="0dip"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@drawable/tab_color_selector"
-            android:background="@drawable/tab_bg_selector"
-            android:text="자유석 현황" />
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tab_second"
-            android:layout_width="0dip"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@drawable/tab_color_selector"
-            android:background="@drawable/tab_bg_selector"
-            android:text="자유석 등록" />
-    </LinearLayout>-->
-    <!--<android.support.v4.view.ViewPager
-        android:id="@+id/vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/ll">-->
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/page_one"
-            android:orientation="vertical" android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
-
-            </android.support.design.widget.AppBarLayout>
-
-            <TextView
-                android:id="@+id/tvNFCMain"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="좌석 현황"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:gravity="center"/>
-
-            <TableLayout
-                android:id="@+id/tableLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:shrinkColumns="*"
-                android:layout_below="@+id/tvNFCMain">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp">
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="01"
-                        android:textOn="01"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="02"
-                        android:textOn="02"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="03"
-                        android:textOn="03"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="04"
-                        android:textOn="04"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="05"
-                        android:textOn="05"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="06"
-                        android:textOn="06"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="07"
-                        android:textOn="07"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp">
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="11"
-                        android:textOn="11"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="12"
-                        android:textOn="12"
-                        android:textStyle="bold" />
-
-
-                    <ToggleButton
-                        android:id="@+id/tbG13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="13"
-                        android:textOn="13"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="14"
-                        android:textOn="14"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="15"
-                        android:textOn="15"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="16"
-                        android:textOn="16"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp">
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG21"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="21"
-                        android:textOn="21"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="22"
-                        android:textOn="22"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="23"
-                        android:textOn="23"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="24"
-                        android:textOn="24"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="25"
-                        android:textOn="25"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG26"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="26"
-                        android:textOn="26"
-                        android:textStyle="bold" />
-
-
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp">
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG31"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="31"
-                        android:textOn="31"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="32"
-                        android:textOn="32"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG33"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="33"
-                        android:textOn="33"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG34"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="34"
-                        android:textOn="34"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="35"
-                        android:textOn="35"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG36"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="36"
-                        android:textOn="36"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG37"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="37"
-                        android:textOn="37"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp">
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG41"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="41"
-                        android:textOn="41"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG42"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="42"
-                        android:textOn="42"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG43"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="43"
-                        android:textOn="43"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG44"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="44"
-                        android:textOn="44"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG45"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="45"
-                        android:textOn="45"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG46"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="46"
-                        android:textOn="46"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG47"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="47"
-                        android:textOn="47"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp">
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG51"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="51"
-                        android:textOn="51"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG52"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="52"
-                        android:textOn="52"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG53"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="53"
-                        android:textOn="53"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG54"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="54"
-                        android:textOn="54"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="55"
-                        android:textOn="55"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG56"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="56"
-                        android:textOn="56"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:id="@+id/tbG57"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/togglebutton_selector"
-
-                        android:clickable="false"
-                        android:textColor="#5FBEAA"
-                        android:textOff="57"
-                        android:textOn="57"
-                        android:textStyle="bold" />
-
-                    <ToggleButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:textOff=""
-                        android:textOn=""
-                        android:textColor="#FFFFFF" />
-
-                </TableRow>
-
-            </TableLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/page_two"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context="skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity">
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <EditText
-                android:id="@+id/note"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@null"
-                android:clickable="false"
-                android:focusableInTouchMode="false"
-                android:text="NFC 태그를 기기에 접근 시켜 주세요."
-                android:textAlignment="textStart"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+        </android.support.design.widget.AppBarLayout>
 
-                <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/note"
-                android:id="@+id/ivNFC"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"/>
+        <TextView
+            android:id="@+id/tvNFCMain"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="좌석 현황"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
-        </RelativeLayout>
-    <!-- </android.support.v4.view.ViewPager> -->
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tvNFCMain"
+            android:shrinkColumns="*">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="01"
+                    android:textOn="01"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="02"
+                    android:textOn="02"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="03"
+                    android:textOn="03"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="04"
+                    android:textOn="04"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="05"
+                    android:textOn="05"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="06"
+                    android:textOn="06"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="07"
+                    android:textOn="07"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="08"
+                    android:textOn="08"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="09"
+                    android:textOn="09"
+                    android:textStyle="bold" />
+
+
+                <ToggleButton
+                    android:id="@+id/tbG10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="10"
+                    android:textOn="10"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="11"
+                    android:textOn="11"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="12"
+                    android:textOn="12"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="13"
+                    android:textOn="13"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="14"
+                    android:textOn="14"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="15"
+                    android:textOn="15"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="16"
+                    android:textOn="16"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="17"
+                    android:textOn="17"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="18"
+                    android:textOn="18"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="19"
+                    android:textOn="19"
+                    android:textStyle="bold" />
+
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="20"
+                    android:textOn="20"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="21"
+                    android:textOn="21"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="22"
+                    android:textOn="22"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="23"
+                    android:textOn="23"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="24"
+                    android:textOn="24"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="25"
+                    android:textOn="25"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="26"
+                    android:textOn="26"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="27"
+                    android:textOn="27"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="28"
+                    android:textOn="28"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="29"
+                    android:textOn="29"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="30"
+                    android:textOn="30"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="31"
+                    android:textOn="31"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="32"
+                    android:textOn="32"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="33"
+                    android:textOn="33"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="34"
+                    android:textOn="34"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="35"
+                    android:textOn="35"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="36"
+                    android:textOn="36"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG37"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="37"
+                    android:textOn="37"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="38"
+                    android:textOn="38"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG39"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="39"
+                    android:textOn="39"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="40"
+                    android:textOn="40"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="41"
+                    android:textOn="41"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="42"
+                    android:textOn="42"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="43"
+                    android:textOn="43"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="44"
+                    android:textOn="44"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG45"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="45"
+                    android:textOn="45"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="46"
+                    android:textOn="46"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG47"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="47"
+                    android:textOn="47"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="3dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbG48"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="48"
+                    android:textOn="48"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG49"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="49"
+                    android:textOn="49"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/tbG50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/togglebutton_selector"
+
+                    android:clickable="false"
+                    android:textColor="#5FBEAA"
+                    android:textOff="50"
+                    android:textOn="50"
+                    android:textStyle="bold" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/page_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        tools:context="skhu.cse.network.omni_stadium.RegistrationUnreservedSeat.NFCActivity">
+
+        <EditText
+            android:id="@+id/note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:text="기기를 좌석의 NFC 태그에\n접근시켜 주세요."
+            android:textAlignment="center"
+            android:textColor="#808080"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </RelativeLayout>
 
 </LinearLayout>
