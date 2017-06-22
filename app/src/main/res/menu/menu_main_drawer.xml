@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_streaming"
-            android:title="스트리밍"
+            android:title="실시간 영상중계"
             android:icon="@drawable/ic_videocam_black_48dp"
             android:checkable="true" />
 

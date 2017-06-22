@@ -65,6 +65,7 @@
         <activity
             android:name=".Streaming.MultiVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="실시간 영상중계"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity

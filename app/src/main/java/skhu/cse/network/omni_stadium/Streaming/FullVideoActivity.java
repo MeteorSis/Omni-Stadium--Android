@@ -36,7 +36,7 @@ public class FullVideoActivity extends AppCompatActivity {
                     Log.v("videoview Test", "Media Error, Server Died " + extra);
                 else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
                     Log.v("videoview Test", "Media Error, Error Unknown " + extra);
-                Toast.makeText(FullVideoActivity.this, "서버가 불안정합니다. 스트리밍 기능을 종료합니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FullVideoActivity.this, "서버가 불안정합니다. 실시간 영상중계를 종료합니다.", Toast.LENGTH_SHORT).show();
                 FullVideoActivity.this.finish();
                 return false;
             }
