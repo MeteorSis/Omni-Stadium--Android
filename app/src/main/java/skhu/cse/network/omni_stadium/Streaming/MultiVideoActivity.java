@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -32,7 +31,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import skhu.cse.network.omni_stadium.MenuActivity;
 import skhu.cse.network.omni_stadium.R;
 
 public class MultiVideoActivity extends AppCompatActivity {

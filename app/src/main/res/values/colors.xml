@@ -3,7 +3,6 @@
     <color name="colorPrimary">@android:color/holo_green_dark</color>
     <color name="colorPrimaryDark">@android:color/holo_green_dark</color>
     <color name="colorAccent">#82b94b</color>
-    <color name="colorgreen">#91d409</color>
     <color name="colorPriceGreen">#20d56F</color>
 
     <color name="colorGreenZone">#349600</color>

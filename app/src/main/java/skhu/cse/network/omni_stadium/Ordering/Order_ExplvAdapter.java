@@ -2,7 +2,6 @@ package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -2,11 +2,11 @@ package skhu.cse.network.omni_stadium.Ordering;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +19,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import skhu.cse.network.omni_stadium.R;
 import skhu.cse.network.omni_stadium.Etc.ViewHolderHelper;
+import skhu.cse.network.omni_stadium.R;
 
 public class CartActivity extends AppCompatActivity {
 

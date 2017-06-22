@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,9 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import skhu.cse.network.omni_stadium.Etc.LoadingDialog;
+import skhu.cse.network.omni_stadium.Etc.ViewHolderHelper;
 import skhu.cse.network.omni_stadium.OmniApplication;
 import skhu.cse.network.omni_stadium.R;
-import skhu.cse.network.omni_stadium.Etc.ViewHolderHelper;
 
 public class OrderListActivity extends AppCompatActivity {
 
