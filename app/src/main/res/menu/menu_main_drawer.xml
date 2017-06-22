@@ -4,25 +4,25 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_streaming"
-            android:title="스트리밍 기능"
+            android:title="스트리밍"
             android:icon="@drawable/ic_videocam_black_48dp"
             android:checkable="true" />
 
         <item
             android:id="@+id/nav_ticket"
-            android:title="티켓 예매 기능"
+            android:title="티켓 예매"
             android:icon="@drawable/ic_ticket_image"
             android:checkable="true"/>
 
         <item
             android:id="@+id/nav_nfc"
-            android:title="자유석 등록 기능"
+            android:title="자유석 등록"
             android:icon="@drawable/ic_tap_and_play_black_48dp"
             android:checkable="true"/>
 
         <item
             android:id="@+id/nav_order"
-            android:title="식음료 주문 기능"
+            android:title="식음료 주문"
             android:icon="@drawable/ic_free_breakfast_black_48dp"
             android:checkable="true"/>
 

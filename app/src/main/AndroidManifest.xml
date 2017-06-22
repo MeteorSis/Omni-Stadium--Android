@@ -74,19 +74,19 @@
         <activity
             android:name=".RegistrationUnreservedSeat.NFCActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="자유석 등록 기능"
+            android:label="자유석 등록"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Ordering.OrderActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="식음료 주문 기능"
+            android:label="식음료 주문"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Reservation.ReserveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="티켓 예매 기능"
+            android:label="티켓 예매"
             android:parentActivityName=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -108,7 +108,7 @@
         <activity
             android:name=".Ordering.OrderMenu"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="식음료 주문 기능"
+            android:label="식음료 주문"
             android:parentActivityName=".Ordering.OrderActivity"
             android:screenOrientation="portrait" />
         <activity

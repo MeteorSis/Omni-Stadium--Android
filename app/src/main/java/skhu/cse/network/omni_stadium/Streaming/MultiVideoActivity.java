@@ -87,7 +87,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                     Log.v("videoview1st Test", "Media Error, Server Died " + extra);
                 else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
                     Log.v("videoview1st Test", "Media Error, Error Unknown " + extra);
-                Toast.makeText(MultiVideoActivity.this, "서버가 불안정합니다. 스트리밍 기능을 종료합니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MultiVideoActivity.this, "서버가 불안정합니다. 스트리밍을 종료합니다.", Toast.LENGTH_SHORT).show();
                 MultiVideoActivity.this.finish();
                 return false;
             }
@@ -100,7 +100,7 @@ public class MultiVideoActivity extends AppCompatActivity {
                     Log.v("videoview2nd Test", "Media Error, Server Died " + extra);
                 else if(what==MediaPlayer.MEDIA_ERROR_UNKNOWN)
                     Log.v("videoview2nd Test", "Media Error, Error Unknown " + extra);
-                Toast.makeText(MultiVideoActivity.this, "서버가 불안정합니다. 스트리밍 기능을 종료합니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MultiVideoActivity.this, "서버가 불안정합니다. 스트리밍을 종료합니다.", Toast.LENGTH_SHORT).show();
                 MultiVideoActivity.this.finish();
                 return false;
             }
