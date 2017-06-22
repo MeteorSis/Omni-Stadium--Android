@@ -43,7 +43,6 @@ public class NFCActivity extends AppCompatActivity {
     private static final String TAG = "NFCActivity";
     private boolean mResumed = false;
     private NfcAdapter mNfcAdapter;//실제 NFC 하드웨어와의 다리 역할을 한다.
-    private EditText mNote;
 
     private PendingIntent mNfcPendingIntent;
     private IntentFilter[] mNdefExchangeFilters;
@@ -62,9 +61,6 @@ public class NFCActivity extends AppCompatActivity {
         setContentView(R.layout.nfc_main1);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        mNote = ((EditText) findViewById(R.id.note));
-        mNote.addTextChangedListener(mTextWatcher);
-
         zone = ((OmniApplication) getApplicationContext()).getSeat_zone();
 
         TextView tvZone = (TextView) findViewById(R.id.tvNFCMain);
@@ -125,7 +121,7 @@ public class NFCActivity extends AppCompatActivity {
 
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction()))
             setIntent(new Intent());//이 인텐트를 삭제한다.
-        enableNdefExchangeMode();
+        mNfcAdapter.enableForegroundDispatch(this, mNfcPendingIntent, mNdefExchangeFilters, null);
     }
 
     @Override
@@ -143,25 +139,6 @@ public class NFCActivity extends AppCompatActivity {
             promptForContent(msgs[0]);//nfc3
         }
     }
-
-    private TextWatcher mTextWatcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable arg0) {
-            if (mResumed)
-                mNfcAdapter.setNdefPushMessage(getNoteAsNdef(), NFCActivity.this);
-        }
-    };
 
     private void promptForContent(final NdefMessage msg) {//nfc4
         body = new String(msg.getRecords()[0].getPayload());
@@ -203,15 +180,6 @@ public class NFCActivity extends AppCompatActivity {
         }
     }
 
-    private NdefMessage getNoteAsNdef() {//NDEF 메시지로 변환한다.
-        byte[] textBytes = mNote.getText().toString().getBytes();
-        NdefRecord textRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, "text/plain".getBytes(),
-                new byte[]{}, textBytes);
-        return new NdefMessage(new NdefRecord[]{
-                textRecord
-        });
-    }
-
     NdefMessage[] getNdefMessages(Intent intent) {//인텐트에서 NDEF 메시지를 추출한다. nfc1
         //인텐트를 파싱한다.
         NdefMessage[] msgs = null;
@@ -241,10 +209,6 @@ public class NFCActivity extends AppCompatActivity {
         return msgs;
     }
 
-    private void enableNdefExchangeMode() {
-        mNfcAdapter.setNdefPushMessage(getNoteAsNdef(), NFCActivity.this);
-        mNfcAdapter.enableForegroundDispatch(this, mNfcPendingIntent, mNdefExchangeFilters, null);
-    }
 
     //자유석 등록
     private class NFCTask extends AsyncTask<String, Void, JSONObject> {
