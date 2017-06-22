@@ -123,12 +123,8 @@ public class NFCActivity extends AppCompatActivity {
         super.onResume();
         mResumed = true;
 
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {//이 인텐트가 시작된 것이 NFC 인텐트 때문이라면
-            NdefMessage[] messages = getNdefMessages(getIntent());//인텐트에서 텍스트를 꺼내서
-            byte[] payload = messages[0].getRecords()[0].getPayload();//payload에 실제 데이터가 저장된다.
-            setNoteBody(new String(payload));//화면에 표시한다.
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction()))
             setIntent(new Intent());//이 인텐트를 삭제한다.
-        }
         enableNdefExchangeMode();
     }
 
@@ -205,12 +201,6 @@ public class NFCActivity extends AppCompatActivity {
         } catch (JSONException e) {
 
         }
-    }
-
-    private void setNoteBody(String body) {//필요 없어질 예정
-        Editable text = mNote.getText();
-        text.clear();
-        text.append(body);
     }
 
     private NdefMessage getNoteAsNdef() {//NDEF 메시지로 변환한다.
@@ -322,8 +312,6 @@ public class NFCActivity extends AppCompatActivity {
                 int result = jsonObject.getInt("결과");//0:좌석등록성공 else:등록된좌석
                 String msg = jsonObject.getString("메시지");
                 if (result == 0) {//좌석이 비어있어서 좌석이 등록됨
-                    //setNoteBody(msg);
-                    //setNoteBody("고객님의 좌석\n구역: " + jsonBody.getString("zone") + "\n열: " + jsonBody.getInt("row") + "\n좌석 번호: " + jsonBody.getInt("seat_no"));
                     ((OmniApplication) getApplicationContext()).setSeat_no(jsonBody.getInt("seat_no"));
                     ((OmniApplication) getApplicationContext()).setSeat_row(jsonBody.getInt("row"));
                     ((OmniApplication) getApplicationContext()).setSeat_zone(jsonBody.getString("zone"));
