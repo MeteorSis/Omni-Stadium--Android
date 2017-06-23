@@ -361,7 +361,8 @@ public class ReserveActivity extends AppCompatActivity {
                     OmniApplication omniApplication=(OmniApplication)getApplicationContext();
                     omniApplication.setTicket_no(jsonObject.getInt("티켓"));
                     omniApplication.setSeat_zone(zone);
-                    Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+", "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
+                    Log.d("app Test", omniApplication.getMem_id()+", "+omniApplication.getMem_name()+"," +
+                            " "+omniApplication.getTicket_no()+", "+omniApplication.getSeat_zone()+", "+omniApplication.getSeat_row()+", "+omniApplication.getSeat_no());
                     finish();
                 } else {
                     Toast.makeText(ReserveActivity.this, msg, Toast.LENGTH_SHORT).show();

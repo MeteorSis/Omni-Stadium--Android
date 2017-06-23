@@ -64,25 +64,7 @@ public class DetailReserveActivity extends AppCompatActivity {
             int resource = getResources().getIdentifier("tbG" + (i + 1), "id", "skhu.cse.network.omni_stadium");
             btArr[i] = (ToggleButton) findViewById(resource);
         }
-
-        //자유석일 때, 좌석 현황 x
-
-        /*ToggleButton[][] btArray =new ToggleButton[5][10];
-        int[] tbGIDArr={ R.id.tbG1, R.id.tbG2, R.id.tbG3, R.id.tbG4, R.id.tbG5, R.id.tbG6,  R.id.tbG7, R.id.tbG8, R.id.tbG9, R.id.tbG10,
-                R.id.tbG11, R.id.tbG12, R.id.tbG13, R.id.tbG14, R.id.tbG15, R.id.tbG16,  R.id.tbG17, R.id.tbG18, R.id.tbG19, R.id.tbG20,
-                R.id.tbG21, R.id.tbG22, R.id.tbG23, R.id.tbG24, R.id.tbG25, R.id.tbG26,  R.id.tbG27, R.id.tbG28, R.id.tbG29, R.id.tbG30,
-                R.id.tbG31, R.id.tbG32, R.id.tbG33, R.id.tbG34, R.id.tbG35, R.id.tbG36,  R.id.tbG37, R.id.tbG38, R.id.tbG39, R.id.tbG40,
-                R.id.tbG41, R.id.tbG42, R.id.tbG43, R.id.tbG44, R.id.tbG45, R.id.tbG46,  R.id.tbG47, R.id.tbG48, R.id.tbG49, R.id.tbG50 };
-        int tbGIDArrCnt=0;
-        for(int row= 0; row <btArray.length; row++)
-        {
-            for(int column= 0; column<btArray[row].length; column++)
-            {
-                btArray[row][column] = (ToggleButton)findViewById(tbGIDArr[tbGIDArrCnt++]);
-                btArray[row][column].setOnClickListener(new ToggleButtonClickedListener());
-            }
-        }*/
-
+        
         SeatOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
