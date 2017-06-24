@@ -66,7 +66,6 @@ public class OrderListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(OrderListActivity.this);
-                //dlg.setTitle("");
                 dlg.setMessage("결제하시겠습니까?\n 결제 금액 : "+strAllPrice);
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override

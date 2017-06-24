@@ -17,13 +17,9 @@ public class CartManager implements Serializable{
         int count=0;
 
         for(int row=0; row<cart.length; ++row)
-        {
             for(int col=0; col<cart[row].length; ++col)
-            {
                 if(cart[row][col]!=null)
                     ++count;
-            }
-        }
 
         return count;
     }
@@ -33,14 +29,12 @@ public class CartManager implements Serializable{
         int allPrice=0;
 
         for(int row=0; row<cart.length; ++row)
-        {
             for(int col=0; col<cart[row].length; ++col)
             {
                 OrderItem item=cart[row][col];
                 if(item!=null)
                     allPrice+=item.getMenu_price()*item.getMenu_count();
             }
-        }
         return allPrice;
     }
 
@@ -48,13 +42,9 @@ public class CartManager implements Serializable{
     {
         ArrayList<OrderItem> retArr=new ArrayList<>();
         for(int row=0; row<cart.length; ++row)
-        {
             for(int col=0; col<cart[row].length; ++col)
-            {
                 if(cart[row][col]!=null)
                     retArr.add(cart[row][col]);
-            }
-        }
         return retArr;
     }
 
@@ -77,27 +67,8 @@ public class CartManager implements Serializable{
     public void removeAllOrderItem()
     {
         for(int row=0; row<cart.length; ++row)
-        {
             for(int col=0; col<cart[row].length; ++col)
-            {
                 if(cart[row][col]!=null)
                     cart[row][col]=null;
-            }
-        }
-    }
-
-    public void plusOrderItem(OrderItem orderItem)
-    {
-        int row=orderItem.getFood_id();
-        int col=orderItem.getMenu_id();
-        cart[row][col].setMenu_count(cart[row][col].getMenu_count()+1);
-    }
-
-    public void minusOrderItem(OrderItem orderItem)
-    {
-        int row=orderItem.getFood_id();
-        int col=orderItem.getMenu_id();
-        if(cart[row][col].getMenu_count()>1)
-            cart[row][col].setMenu_count(cart[row][col].getMenu_count()-1);
     }
 }
